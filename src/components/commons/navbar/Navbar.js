@@ -13,16 +13,16 @@ function Navbar() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <a className="" href="">
-                <p className={styles.p}>About</p>
+                <p className={styles.paragraph}>About</p>
               </a>
             </li>
             <li className="nav-item">
               <a href="">
-                <p className={styles.p}>Item</p>
+                <p className={styles.paragraph}>Item</p>
               </a>
             </li>
             <li className="nav-item">
-              <input />
+              <input className={styles.input} />
             </li>
             <li className="nav-item">
               <button className={styles.button}>
