@@ -1,0 +1,16 @@
+.button{
+    border: none;
+    background-color:rgb(248,249,250);
+    color:rgb(248,249,250);
+    border-color: rgb(248,249,250);
+}
+.img{
+    background-color:rgb(248,249,250);
+    color:rgb(248,249,250);
+    border-color: rgb(248,249,250);
+}
+.p{
+    font-size: 10px;
+    margin: 5px;
+    padding: 10px;
+}
