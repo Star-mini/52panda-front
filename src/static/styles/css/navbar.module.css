@@ -1,0 +1,32 @@
+.button{
+    border: none;
+    padding: 10px;
+    background-color: transparent;
+    color: inherit;
+    border-color: inherit;
+
+}
+.img{
+    
+    background-color :white;
+    color:white;
+    border-color: white;
+}
+.paragraph{
+    font-weight: bold;
+    font-size: 14px;
+    padding: 15px;
+    margin-bottom: 0px;
+
+}
+.input{
+    margin-right:300px;
+    margin-top: 10px;
+    background-color:rgb(248,249,250);
+    color:rgb(248,249,250);
+    border-color: rgb(248,249,250);
+}
+.a{
+    text-decoration: none;
+    color: inherit;
+}
