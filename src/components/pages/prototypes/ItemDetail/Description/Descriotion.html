@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Additional styles if needed */
+    .carousel-control-prev, .carousel-control-next {
+      cursor: pointer;
+    }
+    /* 중앙 정렬을 위한 추가 스타일 */
+    .button-container {
+      display: flex;
+      justify-content: center; /* 수평 중앙 정렬 */
+      align-items: center; /* 수직 중앙 정렬 */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container mx-auto px-4 flex"> <!-- Flex container 추가 -->
+    <!-- Product Image Carousel -->
+    <div class="flex-none"> <!-- 캐러셀을 위한 div -->
+      <div class="flex justify-center items-center space-x-4 my-6">
+        <div class="carousel-control-prev" onclick="changeImage(-1)">
+          <img src="placeholder.png" alt="Previous">
+        </div>
+        <div id="productImage">
+          <img class="rounded shadow-lg" src="a.png" alt="Product Image" width="600">
+        </div>
+
+        <div class="carousel-control-next" onclick="changeImage(1)">
+          <img src="placeholder.png" alt="Next">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Details -->
+    <div class="flex-grow"> <!-- 제품 세부 정보를 위한 div -->
+      <div class="mx-10"> <!-- 여기에 해당 요소의 내용 -->
+        <h1 class="text-3xl font-semibold mb-2">아이폰 13프로</h1>
+        <p class="text-gray-700 mb-4">전자제품/휴대폰/아이폰</p>
+        <p class="text-lg text-gray-600" style="background-color: #D1E4B8;">낙찰까지 <span id="bidTime">13:03:93</span></p>
+
+        <!-- Bidding Details -->
+
+        <div class="p-6 mt-6" style="background-color: #F1F5EC;">
+          <div class="grid grid-cols-1 gap-4">
+            <!-- 시작 금액 -->
+            <h3 class="text-gray-800 text-lg mb-1">시작 금액 500,000</h3>
+            <!-- 현재 금액 -->
+            <h1 class="text-gray-800 text-lg mb-1">현재 금액 800,000</h1>
+            <!-- 즉시 낙찰 금액 -->
+            <h1 class="text-gray-800 text-lg mb-1">즉시낙찰 금액 1,000,000</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bid Button -->
+  <div class="button-container">
+    <button class="mt-8 bg-green-500 text-black py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:bg-green-600" style="background-color: #829D60;">입찰하기</button>
+  </div>
+
+  <script>
+    // Script to handle image carousel functionality
+    let currentImageIndex = 0;
+    const images = [
+      'https://via.placeholder.com/300', // Placeholder images
+      'https://via.placeholder.com/300/0000FF', // You can replace these with actual image URLs
+      'https://via.placeholder.com/300/FF0000'
+    ];
+
+    function changeImage(direction) {
+      currentImageIndex += direction;
+      if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+      if (currentImageIndex >= images.length) currentImageIndex = 0;
+      document.getElementById('productImage').innerHTML = `<img class="rounded shadow-lg" src="${images[currentImageIndex]}" alt="Product Image">`;
+    }
+  </script>
+
+</body>
+
+</html>
