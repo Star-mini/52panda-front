@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Web Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <style>
+        .tab {
+            background-color: #D1E4B8;
+        }
+
+        .active-tab {
+            border-bottom: 4px solid #4A7C59;
+        }
+
+        .content-box {
+            background-color: #FFFFFF;
+        }
+
+        .image-description {
+            font-size: 0.875rem; /* 14px */
+            color: #4A7C59;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.875rem; /* 14px */
+            color: #4A7C59;
+            margin-bottom: 12px; /* space between user info and image */
+        }
+
+        .user-info img {
+            width: 50px; /* Profile image size */
+            height: 50px;
+            border-radius: 50%; /* Makes the image round */
+        }
+
+        .user-info div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-info .username {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body class="bg-green-100 font-sans" style="background-color: #D1E4B8;">
+    <div class="max-w-xl mx-auto mt-10 p-5">
+        <!-- Tabs -->
+        <div class="flex justify-between mb-2">
+            <div class="tab active-tab p-2 w-1/2 text-center">
+                About More
+            </div>
+            <div class="tab p-2 w-1/2 text-center">
+                Q&A
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="content-box p-6 shadow-lg">
+            <h1 class="text-xl font-semibold mb-4 text-center">About More</h1>
+            
+            <!-- User Info -->
+            <div class="user-info">
+                <img src="프로필사진.png" alt="Profile Picture">
+                <div>
+                    <span class="username">제주아빠2</span>
+                    <span class="location">제주시 애월읍</span>
+                    <span>등록일자: 2024/04/03 19:21:30</span>
+                </div>
+            </div>
+            <div class="border-b border-gray-300 mb-4"></div>
+
+
+            <p class="image-description mb-4">농사를 시작한 지 얼마 안됐어요. 어렵지만 흙, 씨앗, 물주기, 햇빛을 조금씩 알아가고 있어요.</p>
+            <img src="밭사진.png" alt="A field of freshly tilled soil with a sunset in the background, indicating the beginning of agricultural work, with details of the earth, seeds, watering, and sunlight being learned gradually." class="w-full mb-4">
+        </div>
+    </div>
+</body>
+
+</html>
