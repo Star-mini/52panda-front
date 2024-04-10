@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Web Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .tab {
+            background-color: #D1E4B8;
+        }
+
+        .active-tab {
+            border-bottom: 4px solid #4A7C59;
+        }
+
+        .content-box {
+            background-color: #FFFFFF;
+        }
+
+        .question, .answer {
+            margin-bottom: 0.75rem;
+        }
+
+        .question h3, .answer h3 {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="bg-green-100 font-sans" style="background-color: #D1E4B8; font-family: 'Noto Sans KR', sans-serif;">
+    <div class="max-w-2xl mx-auto mt-10 p-5">
+
+        <!-- Content -->
+        <div class="content-box p-6 shadow-lg rounded-md">
+            <h1 class="text-2xl font-bold mb-4 text-center">Q&A</h1>
+            <!-- Write Button -->
+            <button class="flex items-center justify-center w-full py-2 px-4  text-green-800 rounded-md mb-4 font-medium ">
+                <img src="글쓰기그림.png" alt="글쓰기" class="w-5 h-5 mr-2">
+                문의글 작성
+            </button>
+            <!-- Q&A Content -->
+            <div class="question">
+                <h3 class="text-lg">Q. 타이틀은 언제부터 생성하나요?</h3>
+                <p class="text-gray-600">작성일 2024/04/03 19:31:30</p>
+            </div>
+            <div class="answer">
+                <h3 class="text-lg">A. 오후 2시부터, 주말, 공휴일 제외하고 생성합니다.</h3>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+            <div class="question">
+                <h3 class="text-lg">Q. 타이틀 변경은 어떤 절차를 통해서 하나요?</h3>
+                <p class="text-gray-600">작성일 2024/04/03 19:31:30</p>
+            </div>
+            <div class="answer">
+                <h3 class="text-lg">A. 요청서, 사유, 본인의 신분증을 첨부하여 보내주세요.</h3>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
