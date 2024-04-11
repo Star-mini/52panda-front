@@ -1,0 +1,20 @@
+.img{
+    width: 100px!important;
+}
+.my_border{
+    border:none;
+    display:inline-block
+}
+
+.cards{
+    display:flex;
+    align-items: center;
+    margin-top: 5%;
+    justify-content:space-between;
+    text-align: center;
+
+}
+.decokill{
+    text-decoration: none;
+    color: black;
+}
