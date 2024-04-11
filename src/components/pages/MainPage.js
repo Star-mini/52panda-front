@@ -1,6 +1,7 @@
 import React from "react";
+import Navbar from "../commons/navbar/Navbar";
 function MainPage() {
-  return <h1>샘플</h1>;
+  return <Navbar />;
 }
 
 export default MainPage;
