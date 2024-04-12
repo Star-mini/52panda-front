@@ -1,0 +1,11 @@
+.division{
+    width:auto;
+    height:1000px;
+    background-color: rgb(157, 178, 131);
+}
+.font{
+    display: inline-block;
+    font-size: 18px;
+    font-weight:900;
+    margin:2%;
+}

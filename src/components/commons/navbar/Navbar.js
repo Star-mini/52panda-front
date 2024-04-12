@@ -25,14 +25,14 @@ function Navbar() {
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
               <a className={styles.a} href="">
-                <p className={styles.paragraph}>Item</p>
+                <p className={styles.paragraph}>물품목록</p>
               </a>
             </li>
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
               <a className={styles.a} href="">
-                <p className={styles.paragraph}>Post</p>
+                <p className={styles.paragraph}>판매하기</p>
               </a>
             </li>
           </ul>
