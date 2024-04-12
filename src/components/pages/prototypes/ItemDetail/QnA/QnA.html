@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A Web Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .tab {
+            background-color: #D1E4B8;
+        }
+
+        .active-tab {
+            border-bottom: 4px solid #4A7C59;
+        }
+
+        .content-box {
+            background-color: #FFFFFF;
+        }
+
+        .question h3,
+        .answer h3 {
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 10px;
+        }
+
+        .question {
+            margin-bottom:50px !important;
+            /* 질문과 답변 사이의 간격을 20px로 설정 */
+        }
+    </style>
+</head>
+
+<body class="bg-green-100 font-sans" style="background-color: #D1E4B8; font-family: 'Noto Sans KR', sans-serif;">
+    <div class="max-w-2xl mx-auto mt-10 p-5">
+
+        <!-- Content -->
+        <div class="content-box p-6 shadow-lg rounded-md">
+            <h1 class="text-2xl font-bold mb-4 text-center">Q&A</h1>
+            <!-- Write Button -->
+            <div class="flex justify-end">
+                <button class="flex items-center justify-center py-2 px-4 text-green-800 rounded-md mb-4 font-medium">
+                    <img src="글쓰기그림.png" alt="글쓰기" class="w-5 h-5 mr-2">
+                    문의글 작성
+                </button>
+            </div>
+            <div class="border-b border-gray-300 mb-4"></div>
+
+            <!-- Q&A Content -->
+            <div class="question flex flex-col items-start justify-start mb-4">
+                <div class="flex items-center">
+                    <h5 class="text-lg mr-2">Q. 타이틀 변경은 어떤 절차를 통해서 하나요?</h5>
+                    <div class="px-3 py-1 text-black rounded-md" style="background-color: #D5E0C6;">답변완료</div>
+                </div>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+
+            <div class="answer">
+                <h5 class="text-lg">A. 오후 2시부터, 주말, 공휴일 제외하고 생성합니다.</h5>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+            <div class="border-b border-gray-300 mb-4"></div>
+
+            <div class="question flex flex-col items-start justify-start mb-4">
+                <div class="flex items-center">
+                    <h5 class="text-lg mr-2">Q. 타이틀 변경은 어떤 절차를 통해서 하나요?</h5>
+                    <div class="px-3 py-1 text-black rounded-md" style="background-color: #D5E0C6;">답변완료</div>
+                </div>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+
+            
+            <div class="answer">
+                <h5 class="text-lg">A. 요청서, 사유, 본인의 신분증을 첨부하여 보내주세요.</h5>
+                <p class="text-gray-600">답변일 2024/04/03 19:31:30</p>
+            </div>
+            <div class="border-b border-gray-300 mb-4"></div>
+            <div class="question">
+                <h5 class="text-lg">Q. 작성자님 농부세요?</h5>
+                <p class="text-gray-600">작성일 2024/04/03 19:31:30</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
