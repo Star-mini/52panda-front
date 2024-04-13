@@ -1,0 +1,27 @@
+.badge-space {
+    margin-right: 0.5rem
+  }
+
+.card-text {
+    margin-bottom: 1rem;
+  }
+
+.card {
+    border: none;
+    max-width: 540px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+.card:hover {
+    background-color: lightgray; 
+  }
+
+.card-link {
+    text-decoration: none;
+  }
+
+@media (max-width: 576px) {
+    .card {
+      max-width: 300px;
+    }
+  }
