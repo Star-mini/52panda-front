@@ -2,17 +2,22 @@ import React, { useState, useEffect } from 'react';
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import noImage from "../../static/styles/images/noimage.png";
 import InfiniteScroll from 'react-infinite-scroll-component';
+import FilterButton from '../commons/button/FilterButton';
 
 function Auction() {
   const [items,setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    region: "지역",
+    tradingMethod: "거래 방법"
+  });
 
   useEffect(() => {
     console.log(currentPage);
     fetchData();
-  }, []); 
+  }, [filters]); 
 
   const fetchData = () => {
     setLoading(true);
@@ -34,9 +39,17 @@ function Auction() {
   };
 
 
+  const handleFilterChange = (type, value) => {
+    setFilters({ ...filters, [type]: value });
+    console.log(type + value);
+  };
   
   return (
+    
     <div className="container">
+      <FilterButton handleFilterChange={handleFilterChange} selectedRegion={filters.region} selectedTradingMethod={filters.tradingMethod}/>
+
+      <div style={{marginTop: '5rem'}}>
       <InfiniteScroll
         dataLength={items.length}
         next={fetchData}
@@ -61,6 +74,7 @@ function Auction() {
           ))}
         </div>
       </InfiniteScroll>
+      </div>
     </div>
   );
 }
