@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import '../static/styles/css/ProductDetail.css';
 import placeholder from '../static/styles/images/placeholder.png';
 import iphone from '../static/styles/images/iphone.png';
+import PriceList from '../components/PriceList'; 
 
 function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
   const images = [
-iphone,
+    iphone,
     'https://via.placeholder.com/300/0000FF',
     'https://via.placeholder.com/300/FF0000'
   ];
@@ -16,6 +19,10 @@ iphone,
     if (newIndex < 0) newIndex = images.length - 1;
     if (newIndex >= images.length) newIndex = 0;
     setCurrentImageIndex(newIndex);
+  };
+
+  const togglePopup = () => {
+    setIsPopupVisible(!isPopupVisible);
   };
 
   return (
@@ -44,8 +51,17 @@ iphone,
       </div>
 
       <div className="button-container">
-        <button className="bid-button">입찰하기</button>
+        <button className="bid-button" onClick={togglePopup}>입찰하기</button>
       </div>
+
+      {isPopupVisible && (
+        <div className="overlay">
+          <div className="popup">
+            <PriceList /> 
+            <button onClick={togglePopup}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

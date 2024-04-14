@@ -76,3 +76,28 @@
 .bid-button:hover, .bid-button:focus {
   background-color: #6B8E23;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 다른 요소들보다 상위에 위치 */
+  }
+  
+  .popup {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* 오버레이보다 상위에 위치 */
+    position: relative;
+    width: 300px; /* 팝업 창의 너비 */
+    text-align: center;
+  }
+  
