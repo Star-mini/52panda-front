@@ -1,5 +1,5 @@
 import React from 'react';
-import '../static/styles/css/PriceList.css'; // CSS 파일 임포트
+import styles from '../static/styles/css/PriceList.module.css'; // CSS 모듈 임포트
 
 function PriceList() {
   const items = [
@@ -12,16 +12,16 @@ function PriceList() {
   ];
 
   return (
-    <div className="container">
-      <div className="header">
-        <span className="current-price-title">현재가격</span>
-        <span className="current-price">8000원</span>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <span className={styles.currentPriceTitle}>현재가격</span>
+        <span className={styles.currentPrice}>8000원</span>
       </div>
-      <div className="item-list">
+      <div className={styles.itemList}>
         {items.map((item, index) => (
-          <div key={index} className="item">
-            <span className="item-name">{item.name}</span>
-            <span className="item-price">{item.price}</span>
+          <div key={index} className={styles.item}>
+            <span className={styles.itemName}>{item.name}</span>
+            <span className={styles.itemPrice}>{item.price}</span>
           </div>
         ))}
       </div>
