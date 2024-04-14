@@ -1,7 +1,7 @@
 /* Styles specific to the AboutMore component */
 .about-more {
     background-color: #D1E4B8;
-    max-width: 36rem;
+    max-width: 50rem;
     margin: 2.5rem auto;
     padding: 1.25rem;
 }
@@ -70,3 +70,4 @@
     font-size: 0.875rem;
     margin-bottom: 1rem;
 }
+
