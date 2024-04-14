@@ -3,6 +3,7 @@ import '../static/styles/css/ProductDetail.css';
 import placeholder from '../static/styles/images/placeholder.png';
 import iphone from '../static/styles/images/iphone.png';
 import PriceList from '../components/PriceList'; 
+import AmountSelection from '../components/AmountSelection';
 
 function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -55,13 +56,17 @@ function ProductDetail() {
       </div>
 
       {isPopupVisible && (
-        <div className="overlay">
-          <div className="popup">
-            <PriceList /> 
-            <button onClick={togglePopup}>닫기</button>
-          </div>
-        </div>
-      )}
+  <div className="overlay">
+    <div className="popup">
+    <button onClick={togglePopup}>닫기</button>
+
+      <div className="popup-content">
+        <PriceList />
+        <AmountSelection />
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
