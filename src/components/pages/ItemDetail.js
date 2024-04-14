@@ -1,6 +1,8 @@
 import React from "react";
+import AboutMore from "../AboutMore";
+
 function ItemDetail() {
-  return <h1>샘플</h1>;
+  return <AboutMore />;
 }
 
 export default ItemDetail;
