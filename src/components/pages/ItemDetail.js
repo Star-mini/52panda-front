@@ -1,10 +1,11 @@
 import React from "react";
 import AboutMore from "../AboutMore";
-import QnA from "../QnA";
+import ProductDetail from "../ProductDetail";
 
 function ItemDetail() {
   return (
     <div>
+      <ProductDetail />
       <AboutMore />
     </div>
   );
