@@ -1,6 +1,14 @@
 import React from "react";
+import AboutMore from "../AboutMore";
+import ProductDetail from "../ProductDetail";
+
 function ItemDetail() {
-  return <h1>샘플</h1>;
+  return (
+    <div>
+      <ProductDetail />
+      <AboutMore />
+    </div>
+  );
 }
 
 export default ItemDetail;

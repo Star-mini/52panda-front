@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  flex-wrap: wrap; /* 자식 요소들이 넘치면 다음 줄로 넘어가도록 합니다 */
+  max-width: 1024px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.carousel {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.carouselControlPrev, .carouselControlNext {
+  position: absolute;
+  top: 50%; /* 수직 중앙 정렬 */
+  transform: translateY(-50%); /* Y축 기준 중앙 정렬 */
+  cursor: pointer;
+  z-index: 10; /* 이미지 위에 나타나도록 z-index 설정 */
+}
+
+
+.productDetails {
+  flex-grow: 1;
+  margin-left: 2.5rem;
+
+}
+
+.productTitle {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: semibold;
+  margin-bottom: 0.5rem;
+}
+
+.productImg {
+    width: 450px; /* 이미지의 너비를 750px로 설정 */
+    /* 필요한 경우 높이를 자동으로 설정해서 비율을 유지할 수 있습니다. */
+    height: auto; /* 이미지의 높이를 자동으로 조정 */
+  }
+  
+
+.category, .timeRemaining {
+  color: #4A5568; /* text-gray-700 */
+  margin-bottom: 1rem;
+}
+
+.biddingDetails {
+  padding: 1.5rem;
+  background-color: #F1F5EC;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.start-price, .current-price, .instant-price {
+  color: #2D3748; /* text-gray-800 */
+  font-size: 1.125rem; /* text-lg */
+}
+
+.buttonContainer {
+    width: 100%; /* 부모 컨테이너의 전체 너비를 차지하게 합니다 */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bidButton {
+  background-color: #829D60;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem; /* rounded */
+  margin-top: 2rem;
+  transition: background-color 0.3s;
+}
+
+.bidButton:hover, .bidButton:focus {
+  background-color: #6B8E23;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 다른 요소들보다 상위에 위치 */
+  }
+  
+  .popup {
+    background-color: white;
+    padding: 20px; /* 내부 여유 공간 */
+    width: 55%; /* 너비 설정 */
+    height: 83%; /* 높이 설정 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자 효과 */
+    overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
+  }
+  .popupContent {
+    display: flex;
+    justify-content: space-between; /* 컴포넌트 간 간격을 균등하게 조정 */
+    align-items: center; /* 수직 중앙 정렬 */
+  }
+  .carouselControlPrev {
+    left: 0; /* 왼쪽 끝에 배치 */
+  }
+  .carouselControlNext {
+    right: 0; /* 오른쪽 끝에 배치 */
+  }
+  
