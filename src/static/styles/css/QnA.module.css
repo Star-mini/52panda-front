@@ -1,15 +1,9 @@
-.bg-container {
-    background-color: #D1E4B8;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-
 .container {
     max-width: 640px; /* 2xl size */
-    margin: 2.5rem auto;
-    padding: 1.25rem;
+    margin: 2.5rem;
 }
 
-.content-box {
+.contentBox {
     padding: 1.5rem;
     background-color: #FFFFFF;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -17,18 +11,18 @@
 }
 
 .title {
-    font-size: 1.5rem; /* 2xl font size */
+    font-size: 1.5rem; /* 2xl font size */ 
     font-weight: bold;
     margin-bottom: 1rem;
     text-align: center;
 }
 
-.button-container {
+.buttonContainer {
     display: flex;
     justify-content: flex-end;
 }
 
-.write-button {
+.writeButton {
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
@@ -51,7 +45,7 @@
     margin-bottom: 1rem;
 }
 
-.question-section {
+.questionSection {
     margin-bottom: 1rem;
 }
 
