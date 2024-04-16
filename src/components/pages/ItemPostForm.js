@@ -41,13 +41,13 @@ function ItemPostForm() {
                     <Form.Group as={Row} className="mb-3" controlid="first-price" required>
                         <Form.Label column xs={3} sm={2}>입찰 시작가:</Form.Label>
                         <Col xs={5} sm={3}>
-                            <Form.Control type="text" name="first-price" />
+                            <Form.Control type="number" name="first-price" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3" controlid="buynow-price">
                         <Form.Label column xs={3} sm={2}>즉시 입찰가:</Form.Label>
                         <Col xs={5} sm={3}>
-                            <Form.Control type="text" name="buynow-price" />
+                            <Form.Control type="number" name="buynow-price" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
