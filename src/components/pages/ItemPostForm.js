@@ -20,7 +20,7 @@ function ItemPostForm() {
         <div>
             <Navbar />
 
-            <Container fluid="md" id={styles.inputPagesBody}>
+            <Container fluid="md" id={styles['input-page-body']}>
                 <Form>
                     <Row>
                         <ImgInputForm />
@@ -52,7 +52,7 @@ function ItemPostForm() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
                         <Form.Label column sm={2}>거래 방법:</Form.Label>
-                        <Col sm={5} className={styles.btnInlineGroup}>
+                        <Col sm={5} className={styles['btn-inline-group']}>
                             <ToggleButton
                                 type="checkbox" variant="outline-success" id="direct-check"
                                 value="1"
@@ -79,7 +79,7 @@ function ItemPostForm() {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                        <Col className={`${styles.btnInlineGroup} ${styles.justifyContentEnd} me-3`}>
+                        <Col className={`${styles['btn-inline-group']} ${styles['justif-content-end']} me-3`}>
                             <Button variant="outline-success">취소하기</Button>{' '}
                             <Button variant="success">등록하기</Button>{' '}
                         </Col>

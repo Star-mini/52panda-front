@@ -1,14 +1,14 @@
-#inputPagesBody {
+#input-page-body {
   max-width: 940px;
   padding: 2.5em 1em;
 }
 
-.btnInlineGroup {
+.btn-inline-group {
   display: flex;
   gap: 1em;
 }
 
-.justifyContentEnd {
+.justif-content-end {
   justify-content: end;
 }
 
