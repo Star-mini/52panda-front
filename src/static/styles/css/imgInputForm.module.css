@@ -1,3 +1,15 @@
-.uploadedImg {
-  width: 120px;
+.uploaded-img-container {
+  display: inline-block;
+  position: relative;
+
+  .uploaded-img {
+    width: 120px;
+  }
+
+  .delete-img-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
 }
