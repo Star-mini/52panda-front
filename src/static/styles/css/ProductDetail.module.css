@@ -26,9 +26,16 @@
 .productDetails {
   flex-grow: 1;
   margin-left: 2.5rem;
+  position: relative; /* 포지셔닝 컨텍스트 설정 */
 
 }
-
+.heart {
+  position: absolute; /* 절대 위치 */
+  top: 0; /* 위쪽부터의 거리 */
+  left: 50%; /* 왼쪽부터의 거리 */
+  transform: translate(-50%, 0); /* X축 중앙 정렬 */
+  margin-top: -10px; /* 위치 조정 */
+}
 .productTitle {
   font-size: 1.875rem; /* text-3xl */
   font-weight: semibold;
