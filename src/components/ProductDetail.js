@@ -47,9 +47,9 @@ function ProductDetail() {
         <p className={styles.category}>전자제품/휴대폰/아이폰</p>
         <p className={styles['timeRemaining']}>낙찰까지 <span id={styles.bidTime}>13:03:93</span></p>
         <div className={styles['biddingDetails']}>
-          <h3 className={styles['startPrice']}>시작 금액 500,000</h3>
-          <h4 className={styles['currentPrice']}>현재 금액 800,000</h4>
-          <h4 className={styles['instantPrice']}>즉시낙찰 금액 1,000,000</h4>
+          <p className={styles['startPrice']}>시작 금액 500,000</p>
+          <p className={styles['currentPrice']}>현재 금액 800,000</p>
+          <p className={styles['instantPrice']}>즉시낙찰 금액 1,000,000</p>
         </div>
       </div>
 

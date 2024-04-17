@@ -43,28 +43,59 @@
 }
 
 .productImg {
-    width: 450px; /* 이미지의 너비를 750px로 설정 */
+    width: 30rem; /* 이미지의 너비를 750px로 설정 */
     /* 필요한 경우 높이를 자동으로 설정해서 비율을 유지할 수 있습니다. */
     height: auto; /* 이미지의 높이를 자동으로 조정 */
   }
   
 
-.category, .timeRemaining {
+.category {
   color: #4A5568; /* text-gray-700 */
   margin-bottom: 1rem;
 }
 
+.timeRemaining {
+  background-color: hsla(86, 45%, 81%, 100);
+  display: flex;
+  border-radius: 10px;
+  color: #000000; /* text-gray-700 */
+  justify-content: center;
+  align-items: center;
+  font-family: 'font2';
+  font-size: 2rem;
+  height: 2.3em;
+}
+
 .biddingDetails {
-  padding: 1.5rem;
+  padding: 1.8rem;
+  width: 20rem;
+  height: 10rem;
+
+  border-radius: 10px;
   background-color: #F1F5EC;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-.start-price, .current-price, .instant-price {
-  color: #2D3748; /* text-gray-800 */
-  font-size: 1.125rem; /* text-lg */
+.start-price {
+  color: hsl(0,0%,44%,100); /* text-gray-800 */
+  font-size: 0.5rem; /* text-lg */
+  align-items: left;
+  vertical-align: top;
+}
+.current-price {
+  color: #000000; /* text-gray-800 */
+  justify-content: center;
+  font-size: 1.8rem; /* text-lg */
+  align-self: center;
+}
+.instant-price {
+  color: #000000; /* text-gray-800 */
+  justify-content : center;
+  text-align: center;
+  vertical-align: bottom;
+  font-size: 1.23rem; /* text-lg */
 }
 
 .buttonContainer {
