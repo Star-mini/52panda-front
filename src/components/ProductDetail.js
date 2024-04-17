@@ -3,6 +3,8 @@ import styles from '../static/styles/css/ProductDetail.module.css';
 import placeholder from '../static/styles/images/placeholder.png';
 import PriceList from '../components/PriceList'; 
 import AmountSelection from '../components/AmountSelection';
+import heartIcon from '../static/styles/images/heart.png'; // 하트 이미지를 import 합니다.
+
 
 function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -41,6 +43,7 @@ function ProductDetail() {
 
       <div className={styles['productDetails']}>
         <h4 className={styles['productTitle']}>아이폰 13프로</h4>
+        <img src={heartIcon} className={styles.heart} alt="Heart" /> {/* 하트 이미지를 삽입합니다. */}
         <p className={styles.category}>전자제품/휴대폰/아이폰</p>
         <p className={styles['timeRemaining']}>낙찰까지 <span id={styles.bidTime}>13:03:93</span></p>
         <div className={styles['biddingDetails']}>
