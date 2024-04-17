@@ -10,8 +10,7 @@ import Login from "../src/components/pages/Login";
 
 function App() {
   return (
-    <div style={{ margin: 0, padding: 0 }}>
-      <Routes>
+    <Routes>
       <Route path="/" element={<MainPage />} />
       <Route path="/auction" element={<Auction />} />
       <Route path="/detail" element={<ItemDetail />} />
@@ -19,9 +18,6 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
     </Routes>
-
-    </div>
-    
   );
 }
 
