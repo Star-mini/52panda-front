@@ -1,13 +1,12 @@
 import React from 'react';
 import { Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../../../static/styles/css/ItemListInfoCard.css'
+import '../../../static/styles/css/item-list-info-card.css'
 
 const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,currentPrice,itemId }) => {
 
   let tradingMethodBadges;
 
-  // tradingMethod에 따라 뱃지를 설정합니다.
   switch (tradingMethod) {
     case 0:
       tradingMethodBadges = <Badge bg="success" className='badge-space'>택배</Badge>;
@@ -29,8 +28,8 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
 
     return (
       <Link to="/detail" className="card-link">
-        <Card className="card">
-          <div className="row g-0">
+        <Card className="container d-flex justify-content-center">
+          <div className="row g-0 ">
             <div className="col-md-4">
               <Card.Img src={image} style={{ width: '100%', height: 'auto', maxHeight: '215px' }} />
             </div>

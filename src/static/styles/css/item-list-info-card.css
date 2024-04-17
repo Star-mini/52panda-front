@@ -10,6 +10,7 @@
     border: none;
     max-width: 540px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
   }
 
 .card:hover {
@@ -20,7 +21,7 @@
     text-decoration: none;
   }
 
-@media (max-width: 576px) {
+@media (max-width: 650px) {
     .card {
       max-width: 300px;
     }
