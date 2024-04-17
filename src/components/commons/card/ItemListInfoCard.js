@@ -31,7 +31,7 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
         <Card className="container d-flex justify-content-center">
           <div className="row g-0 ">
             <div className="col-md-4">
-              <Card.Img src={image} style={{ width: '100%', height: 'auto', maxHeight: '215px' }} />
+              <Card.Img src={image} className="card-image" />
             </div>
             <div className="col-md-8">
               <Card.Body>
@@ -42,10 +42,10 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
                 </Card.Subtitle>
                 <Card.Body className="bg-light rounded card-body">
                   <Card.Text>
-                    <small className="text-muted" style={{fontWeight: 'bold' }}>시작 금액 {startPrice}</small>
+                    <small className="text-muted start-price-font">시작 금액 {startPrice}</small>
                   </Card.Text>
                   <Card.Text className="text-center">
-                  <span style={{ color: 'green', fontWeight: 'bold',fontSize: '24px' }}>현재 입찰가 {currentPrice}</span>
+                  <span className="current-price-font">현재 입찰가 {currentPrice}</span>
                   </Card.Text>
                 </Card.Body>
               </Card.Body>

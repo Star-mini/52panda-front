@@ -21,7 +21,24 @@
     text-decoration: none;
   }
 
-@media (max-width: 650px) {
+
+.start-price-font{
+  font-weight: bold;
+}
+
+.current-price-font{
+  color:green;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.card-image{
+  width: 100%;
+  height: auto;
+  max-height: 215px;
+}
+
+@media (max-width: 750px) {
     .card {
       max-width: 300px;
     }
