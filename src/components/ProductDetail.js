@@ -4,6 +4,7 @@ import placeholder from '../static/styles/images/placeholder.png';
 import PriceList from '../components/PriceList'; 
 import AmountSelection from '../components/AmountSelection';
 import heartIcon from '../static/styles/images/heart.png'; // 하트 이미지를 import 합니다.
+import closeIcon from '../static/styles/images/close.png';
 
 
 function ProductDetail() {
@@ -60,7 +61,9 @@ function ProductDetail() {
       {isPopupVisible && (
         <div className={styles.overlay}>
           <div className={styles.popup}>
-            <button onClick={togglePopup}>닫기</button>
+            <button onClick={togglePopup}>
+              <img src={closeIcon} className={styles.closeicon} alt="close" />
+            </button>
             <div className={styles['popupContent']}>
               <PriceList />
               <AmountSelection />
