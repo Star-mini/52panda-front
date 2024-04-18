@@ -169,13 +169,15 @@
 
   .startPrice {
     color: grey; /* 글자 색상을 회색으로 설정 */
+    font-size: 17px;
 }
 .currentPrice {
-  font-size: 23px; /* 글자 크기를 15px로 설정 */
+  font-size: 25px; /* 글자 크기를 15px로 설정 */
   font-weight: bold; /* 글자를 굵게 표시 */
   text-align: center; /* 텍스트를 중앙 정렬 */
 }
 .instantPrice{
+  font-size: 20px;
   font-weight: bold;
   text-align: center; /* 텍스트를 중앙 정렬 */
 }
