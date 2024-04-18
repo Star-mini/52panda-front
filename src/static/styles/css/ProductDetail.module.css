@@ -32,7 +32,7 @@
 .heart {
   position: absolute; /* 절대 위치 */
   top: 0; /* 위쪽부터의 거리 */
-  left: 50%; /* 왼쪽부터의 거리 */
+  left: 80%; /* 왼쪽부터의 거리 */
   transform: translate(-50%, 0); /* X축 중앙 정렬 */
   margin-top: -10px; /* 위치 조정 */
 }
@@ -62,8 +62,9 @@
   justify-content: center;
   align-items: center;
   font-family: 'font2';
-  font-size: 2rem;
+  font-size: 1.8rem;
   height: 2.3em;
+  font-weight: bold; /* 굵은 글씨체 설정 */
 }
 
 .biddingDetails {
