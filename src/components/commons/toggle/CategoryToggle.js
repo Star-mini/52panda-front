@@ -29,8 +29,10 @@ function CategoryToggle() {
         newCategoriesPerRow = 4;
       } else if ( windowWidth > 500){
         newCategoriesPerRow = 3;
-      } else{
+      } else if(windowWidth >380){
         newCategoriesPerRow = 2;
+      }else{
+        newCategoriesPerRow = 1;
       }
       setCategoriesPerRow(newCategoriesPerRow);
     }
@@ -69,7 +71,7 @@ function CategoryToggle() {
   };
 
   return (
-    <div className='category-toggle'>
+    <div className='category-toggle container'>
       <div className='all-category-btn'>
         <div className='category-icon'>
         <CategoryButton category="전체" onClick={toggleAllCategories}/>

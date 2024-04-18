@@ -1,0 +1,8 @@
+.dropdown-button {
+    margin-right : 1rem;
+}
+
+.filter-btns{
+    display: flex;
+    flex-direction: row;
+}

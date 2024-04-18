@@ -1,5 +1,6 @@
 import React from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
+import '../../../static/styles/css/filter-button.css';
 
 function FilterButton({ handleFilterChange, selectedRegion, selectedTradingMethod }) {
   
@@ -7,8 +8,8 @@ function FilterButton({ handleFilterChange, selectedRegion, selectedTradingMetho
   const traidingMethods = ['전체', '택배', '직거래'];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <DropdownButton id="region-dropdown" title={selectedRegion} variant="success" style={{ marginRight: '1rem' }}>
+    <div className='filter-btns'>
+      <DropdownButton id="region-dropdown" variant="success" title={selectedRegion} className='dropdown-button'>
         {regions.map(region => (
           <Dropdown.Item key={region} onClick={() => handleFilterChange('region', region)}>
             {region}
