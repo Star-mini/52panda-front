@@ -9,16 +9,16 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
 
   switch (tradingMethod) {
     case 0:
-      tradingMethodBadges = <Badge bg="success" className='badge-space'>택배</Badge>;
+      tradingMethodBadges = <Badge bg="secondary" className='badge-space'>택배</Badge>;
       break;
     case 1:
-      tradingMethodBadges = <Badge bg="success" className='badge-space'>직거래</Badge>;
+      tradingMethodBadges = <Badge bg="secondary" className='badge-space'>직거래</Badge>;
       break;
     case 2:
       tradingMethodBadges = (
         <>
-          <Badge bg="success" className='badge-space'>택배</Badge>
-          <Badge bg="success" className='badge-space'>직거래</Badge>
+          <Badge bg="secondary" className='badge-space'>택배</Badge>
+          <Badge bg="secondary" className='badge-space'>직거래</Badge>
         </>
       );
       break;
@@ -37,7 +37,7 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
               <Card.Body>
                 <Card.Title className="card-text">{title}</Card.Title>
                 <Card.Subtitle className="card-text">
-                  <Badge bg="danger" className='badge-space'>{category}</Badge>
+                  <Badge bg="success" className='badge-space'>{category}</Badge>
                   {tradingMethodBadges}
                 </Card.Subtitle>
                 <Card.Body className="bg-light rounded card-body">

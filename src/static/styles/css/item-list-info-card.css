@@ -27,7 +27,7 @@
 }
 
 .current-price-font{
-  color:green;
+  color:hsl(137, 54%, 14%);
   font-weight: bold;
   font-size: 24px;
 }
