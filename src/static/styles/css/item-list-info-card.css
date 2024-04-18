@@ -1,0 +1,45 @@
+.badge-space {
+    margin-right: 0.5rem
+  }
+
+.card-text {
+    margin-bottom: 1rem;
+  }
+
+.card {
+    border: none;
+    max-width: 540px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+
+.card:hover {
+    background-color: lightgray; 
+  }
+
+.card-link {
+    text-decoration: none;
+  }
+
+
+.start-price-font{
+  font-weight: bold;
+}
+
+.current-price-font{
+  color:hsl(137, 54%, 14%);
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.card-image{
+  width: 100%;
+  height: auto;
+  max-height: 215px;
+}
+
+@media (max-width: 750px) {
+    .card {
+      max-width: 300px;
+    }
+  }
