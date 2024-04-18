@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../static/styles/css/ProductDetail.module.css';
-import placeholder from '../static/styles/images/placeholder.png';
+import carouselControlPrev from '../static/styles/images/carouselControlPrev.png';
+import carouselControlNext from '../static/styles/images/carouselControlNext.png';
 import PriceList from '../components/PriceList'; 
 import AmountSelection from '../components/AmountSelection';
 import heartIcon from '../static/styles/images/heart.png';
@@ -38,13 +39,13 @@ function ProductDetail() {
     <div className={styles.container}>
       <div className={styles.carousel}>
         <div className={styles['carouselControlPrev']} onClick={() => changeImage(-1)}>
-          <img src={placeholder} alt="Previous" />
+          <img src={carouselControlPrev} alt="Previous" />
         </div>
         <div id={styles.productImage}>
           <img className={styles['productImg']} src={images[currentImageIndex]} alt="Product Image" />
         </div>
         <div className={styles['carouselControlNext']} onClick={() => changeImage(1)}>
-          <img src={placeholder} alt="Next" />
+          <img src={carouselControlNext} alt="Next" />
         </div>
       </div>
 

@@ -14,12 +14,16 @@
   position: relative;
 }
 
-.carouselControlPrev, .carouselControlNext {
+.carouselControlPrev,
+.carouselControlNext {
   position: absolute;
-  top: 50%; /* 수직 중앙 정렬 */
-  transform: translateY(-50%); /* Y축 기준 중앙 정렬 */
+  top: 50%;
+  transform: translateY(-50%);
   cursor: pointer;
-  z-index: 10; /* 이미지 위에 나타나도록 z-index 설정 */
+  z-index: 10;
+  /* 크기를 지정해주어 화살표가 너무 크지 않게 함 */
+  width: 44px; /* 이 값은 화살표 이미지의 실제 크기에 맞게 조정해야 함 */
+  height: 44px; /* 이 값은 화살표 이미지의 실제 크기에 맞게 조정해야 함 */
 }
 
 
@@ -64,9 +68,8 @@
   justify-content: center;
   align-items: center;
   font-family: 'font2';
-  font-size: 1.8rem;
+  font-size: 2rem;
   height: 2.3em;
-  font-weight: bold; /* 굵은 글씨체 설정 */
 }
 
 .biddingDetails {
@@ -139,7 +142,7 @@
     align-items: center;
     z-index: 1000; /* 다른 요소들보다 상위에 위치 */
   }
-  .closeicon {
+  .closeicon{
     background-color: rgba(0, 0, 0, 0);
     width: 3rem;
     height: 3rem;
@@ -161,18 +164,26 @@
     align-items: center; /* 수직 중앙 정렬 */
 
   }
+  .carouselControlPrev img,
+  .carouselControlNext img {
+    width: 70%; 
+    height: auto;
+  }
+
   .carouselControlPrev {
-    left: 0; /* 왼쪽 끝에 배치 */
+    left: 10px; /* 컨테이너의 왼쪽 끝에서부터의 거리 */
   }
+  
   .carouselControlNext {
-    right: 0; /* 오른쪽 끝에 배치 */
+    right: 10px; /* 컨테이너의 오른쪽 끝에서부터의 거리 */
   }
+  
   .closeButtonContainer {
     display: flex;
     justify-content: flex-end; /* 버튼을 컨테이너의 오른쪽 끝으로 정렬합니다 */
     padding: 0; /* 컨테이너의 패딩을 제거합니다 */
   }
-  
+
   .closeButtonContainer button {
     border: none; /* 버튼의 테두리를 제거합니다 */
     background: transparent; /* 버튼의 배경색을 투명하게 설정합니다 */
