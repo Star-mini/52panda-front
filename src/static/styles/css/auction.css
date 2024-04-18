@@ -1,0 +1,10 @@
+.auction-filter{
+    margin-top: 2rem;
+    margin-right: 9%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-margin{
+    margin-top:5rem;
+}

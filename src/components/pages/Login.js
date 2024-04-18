@@ -1,6 +1,15 @@
 import React from "react";
+import '../../static/styles/css/login.css';
+import SocialLogin from "../commons/SocialLogin";
+
 function Login() {
-  return <h1>샘플</h1>;
+  return(
+  <div className="App">
+    <div className="box">
+      <SocialLogin/>
+    </div>
+</div>
+)
 }
 
 export default Login;
