@@ -1,0 +1,59 @@
+.container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .amount {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .withdraw {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .question {
+    margin-bottom: 20px;
+  }
+  
+  .buttons button {
+    width: 100px;
+    padding: 10px 0;
+    margin: 5px;
+    background-color: #f5f5f5; /* Light gray background */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buttons button:hover {
+    background-color: #e0e0e0; /* Color change on hover */
+  }
+  .bidButton {
+    padding: 10px 20px;
+    background-color: #DEE7D2; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* 왼쪽 버튼과의 여백 추가 */
+  }
+  
+  .maxAmount {
+    color: #9e9e9e; /* 연한 회색 */
+    margin-bottom: 20px;
+  }

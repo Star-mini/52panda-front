@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+/*폰트*/
+@font-face {
+  /*일반*/
+  font-family: 'font1';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  /*굵게*/
+  font-family: 'font2';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/KCC-Hanbit.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+body{
+  font-family: 'font1', sans-serif;
+}
