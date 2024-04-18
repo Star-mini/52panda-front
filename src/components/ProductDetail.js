@@ -59,18 +59,20 @@ function ProductDetail() {
       </div>
 
       {isPopupVisible && (
-        <div className={styles.overlay}>
-          <div className={styles.popup}>
-            <button onClick={togglePopup}>
-              <img src={closeIcon} className={styles.closeicon} alt="close" />
-            </button>
-            <div className={styles['popupContent']}>
-              <PriceList />
-              <AmountSelection />
-            </div>
-          </div>
-        </div>
-      )}
+  <div className={styles.overlay}>
+    <div className={styles.popup}>
+      <div className={styles.closeButtonContainer}> 
+        <button onClick={togglePopup}>
+          <img src={closeIcon} className={styles.closeicon} alt="close" />
+        </button>
+      </div>
+      <div className={styles['popupContent']}>
+        <PriceList />
+        <AmountSelection />
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 }
