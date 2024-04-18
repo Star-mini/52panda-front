@@ -1,10 +1,19 @@
 .auction-filter{
     margin-top: 2rem;
-    margin-right: 9%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+}
+
+.btn-image{
+    width: 20px;
+    height: 20px;
+    margin-left: 0.5rem;
 }
 
 .div-margin{
     margin-top:5rem;
 }
+
+.item-card {
+    margin-bottom: 4rem; 
+  }
