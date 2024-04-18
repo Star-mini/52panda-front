@@ -1,0 +1,31 @@
+/* App.css */
+
+/* 기존 스타일 유지 */
+.App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* 배경색 추가 */
+  }
+  
+  .box {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: hsl(86, 30%, 86%,100);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 45%; /* 높이 조정 */
+    width: 60%; /* 너비 조정 */
+    margin: 10% auto 0; /* 가운데 정렬 및 아래로 내리기 */
+  }
+  
+  .social-login-buttons {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 추가 */
+    gap: 20px; /* 이미지들 간의 간격을 늘립니다. */
+  }
+  
+  
+  
