@@ -1,0 +1,39 @@
+/* ChatRoom.module.css 파일 예시입니다. */
+
+.chatRoom {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .pandaIcon {
+    /* 판다 아이콘의 실제 크기에 맞게 설정하세요. */
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .chatInfo {
+    flex: 1;
+  }
+  
+  .nickname {
+    font-weight: bold;
+  }
+  
+  .date {
+    font-size: 0.8em;
+    color: gray;
+  }
+  
+  .content {
+    margin-top: 5px;
+  }
+  
+  .separator {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin-top: 10px;
+  }
+  
