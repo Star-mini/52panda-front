@@ -17,3 +17,7 @@
 .item-card {
     margin-bottom: 4rem; 
   }
+
+.container-zoom {
+    zoom: 90%;
+}
