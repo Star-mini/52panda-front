@@ -25,7 +25,6 @@ function MainPage() {
         <MainPageItem heading="Hot Item" />
         <MainPageItem heading="New Item" />
       </div>
-      <Footer />
     </div>
   );
 }

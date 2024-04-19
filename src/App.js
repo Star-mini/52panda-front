@@ -8,7 +8,8 @@ import SignUp from "../src/components/pages/SignUp";
 import MyPage from "../src/components/pages/MyPage";
 import MainPage from "../src/components/pages/MainPage";
 import Login from "../src/components/pages/Login";
-import { Navbar } from "react-bootstrap";
+import Navbar from "./components/commons/navbar/Navbar";
+import Footer from "./components/commons/footer/Footer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
