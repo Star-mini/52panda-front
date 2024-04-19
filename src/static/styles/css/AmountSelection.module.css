@@ -93,6 +93,12 @@
   }
   .bidButton {
     padding: 5px 10px;
-    margin-left: 3rem; /* "얼마에 살까요?" 텍스트 바로 오른쪽에 3rem 간격 */
+    margin-left: auto; /* "얼마에 살까요?" 텍스트 바로 오른쪽에 3rem 간격 */
+  }
+  .question{
+    margin-left: 0.6rem;
+  }
+  .maxAmount{
+    margin-left: 0.6rem;
   }
 }
