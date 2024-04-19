@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, Image, Button } from 'react-bootstrap';
+import { Form, Image } from 'react-bootstrap';
+import { CameraFillIcon, XCicleFillIcon } from '../../../static/styles/javascript/icons';
 import styles from '../../../static/styles/css/imgInputForm.module.css';
 
 const ImgInputForm = () => {
@@ -10,6 +11,13 @@ const ImgInputForm = () => {
     const files = e.target.files;
 
     if (files && files.length) {
+      const total = itemImgs.length + files.length;
+      if (total > 10) {
+        alert('최대 10개의 이미지만 업로드할 수 있습니다.');
+        e.target.value = '';
+        return;
+      }
+
       const newImgs = Array.from(files).map((file, idx) => {
         const img = window.URL.createObjectURL(file);
         return {
@@ -17,9 +25,8 @@ const ImgInputForm = () => {
           img
         };
       });
-
       setItemImgs((prev) => [...prev, ...newImgs]);
-      e.target.value = null;
+      e.target.value = '';
     }
   };
 
@@ -31,25 +38,25 @@ const ImgInputForm = () => {
   };
 
   return (
-    <>
-      <Form.Group controlId="img-upload-form" className="mb-3">
-        <Form.Control
-          type="file" accept="image/*" multiple
-          className='mb-3'
-          onChange={onImgChange} />
-        <div>{itemImgs.length} / 10</div>
-        {itemImgs.map((item) => (
-          <div key={item.id} className={styles['uploaded-img-container']}>
-            <Image src={item.img} className={styles['uploaded-img']} thumbnail />
-            <Button className={styles['delete-img-btn']} onClick={() => onImgDelete(item.id)}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-              </svg>
-            </Button>
+    <Form.Group controlId="img-upload-form" className={`mb-3 ${styles['img-upload-form']}`}>
+      <Form.Label id={styles['img-upload-btnbox']}>
+        <CameraFillIcon width="25" height="25" fill="#666" />
+        <span>{itemImgs.length} / 10</span>
+      </Form.Label>
+      <Form.Control
+        type="file" multiple
+        accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data"
+        className={styles['hidden']}
+        onChange={onImgChange} />
+      {itemImgs.map((item) => (
+        <div key={item.id} className={styles['upload-img-box']}>
+          <Image src={item.img} className={styles['upload-img']} rounded />
+          <div className={styles['delete-btn']} onClick={() => onImgDelete(item.id)}>
+            <XCicleFillIcon width="20" height="20" />
           </div>
-        ))}
-      </Form.Group>
-    </>
+        </div>
+      ))}
+    </Form.Group>
   );
 };
 
