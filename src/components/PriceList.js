@@ -15,7 +15,7 @@ function PriceList() {
     <div className={styles.container}>
       <div className={styles.header}>
         <span className={styles.currentPriceTitle}>현재가격</span>
-        <span className={styles.currentPrice}>8000원</span>
+        <span className={styles.currentPrice}>8000</span>
       </div>
       <div className={styles.itemList}>
         {items.map((item, index) => (

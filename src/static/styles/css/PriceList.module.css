@@ -1,46 +1,56 @@
 .container {
-    max-width: 13rem; /* xs size */
-    margin: auto;
-    background: white;
-  }
-  
-  .header {
-    padding: 1rem;
-    background-color: #D1E4B8;
-    display: 7rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.8rem; /* rounded-t-lg */
-    margin-bottom: 2.5rem;
-  }
-  
-  .currentPriceTitle {
-    margin-right: 2rem;
-    font-weight: bold;
-    font-size: 1.25rem; /* text-xl */
-    color: black;
-  }
-  
-  .current-price {
-    font-weight: bold;
-    font-size: 1.875rem; /* text-3xl */
-    color: #3E5E45;
-    margin-left: 0.5rem;
-  }
-  
-  .item-list {
-    background: none;
-    divide-y: 2px solid #E2E8F0; /* divide-gray-100 */
-  }
-  
-  .item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #E1E1E1;
-    border-radius: 0.625rem; /* 10px */
-    margin-bottom: 1.25rem; /* 20px */
-  }
-  
+  max-width: 13rem; /* xs size */
+  margin: auto;
+  background: white;
+}
 
+.header {
+  padding: 1rem;
+  background-color: #d1e4b8;
+  display: 7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.8rem; /* rounded-t-lg */
+  margin-bottom: 2.5rem;
+}
+
+.currentPriceTitle {
+  margin-right: 2rem;
+  font-weight: bold;
+  font-size: 1.25rem; /* text-xl */
+  color: black;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #e1e1e1;
+  border-radius: 0.625rem; /* 10px */
+  margin-bottom: 1.25rem; /* 20px */
+  flex-wrap: wrap; /* 줄바꿈 허용 */
+}
+@media (max-width: 570px) {
+
+  .currentPriceTitle {
+    margin-right: 0rem;
+    font-weight: bold;
+    font-size: 0.6rem; /* text-xl */
+    color: black;
+  }  
+  .currentPrice{
+    font-size: 0.7rem; /* text-xl */
+  }
+  .itemName{
+    font-size: 0.7rem; /* text-xl */
+  }
+  .itemPrice{
+    font-size: 0.7rem; /* text-xl */
+  }
+  .item{
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+}
