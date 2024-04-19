@@ -1,0 +1,29 @@
+/* 모듈 CSS 파일 */
+.centerBox {
+    text-align: center;
+  }
+  
+  .greenBox {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .welcomeMessage {
+    font-size: 1rem;
+    padding-top: 20px;
+  }
+  
+  .socialLoginButtons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  .socialButton {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    margin-top: calc(50% - 50px);
+    border-radius: 10px; /* 이미지 테두리 굴곡 추가 */
+  }
+  

@@ -12,7 +12,7 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
       tradingMethodBadges = <Badge bg="secondary" className='badge-space'>택배</Badge>;
       break;
     case 1:
-      tradingMethodBadges = <Badge bg="secondary" className='badge-space'>직거래</Badge>;
+      tradingMethodBadges = <Badge bg="secondary" className='badge-space' >직거래</Badge>;
       break;
     case 2:
       tradingMethodBadges = (
@@ -28,7 +28,7 @@ const ItemListInfoCard = ({ image, title, category,tradingMethod, startPrice,cur
 
     return (
       <Link to="/detail" className="card-link">
-        <Card className="container d-flex justify-content-center">
+        <Card className="container d-flex justify-content-center p-0">
           <div className="row g-0 ">
             <div className="col-md-4">
               <Card.Img src={image} className="card-image" />

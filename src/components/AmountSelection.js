@@ -15,9 +15,10 @@ function AmountSelection() {
   <button className={styles.withdraw}>출금 인출</button>
 </div>
 <div className={styles.question}>
-  <span>얼마에 출금요?</span>
+  <span>얼마에 살까요?</span>
   <button className={styles.bidButton}>입찰</button> {/* 입찰 버튼 추가 */}
 </div>
+<div className={styles.divider}></div>
 <div className={styles.maxAmount}> {/* 최대 가능 금액 표시를 위한 새로운 div */}
   <span>최대 5000만원 가능</span>
 </div>
