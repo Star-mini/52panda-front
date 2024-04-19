@@ -1,6 +1,6 @@
 import React from "react";
 import pandaLogo from "../../../static/styles/images/panda_logo.jpg";
-import heartButton from "../../../static/styles/images/heart_black.png";
+import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
 import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
@@ -54,12 +54,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <button className={styles.button}>
-                <img
-                  className={styles.img}
-                  width="40px"
-                  src={heartButton}
-                  alt=""
-                />
+                <img className={styles.img} width="40px" src={bell} alt="" />
               </button>
             </li>
             <li class="dropdown nav-item me-5">
