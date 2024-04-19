@@ -2,7 +2,10 @@
     background-color: #D1E4B8;
     max-width: 60rem;
     margin: 2.5rem auto;
-    padding: 1.25rem;
+    padding-top: 2rem;
+    padding-right: 4.3rem;
+    padding-bottom: 2rem;
+    padding-left: 4.3rem;
 }
 
 .tabs {
@@ -16,10 +19,18 @@
     padding: 0.5rem;
     width: 50%;
     text-align: center;
+    color: #3E5E45;
+    font-size: 22px;
+    font-weight: bold; /* 글자를 굵게 설정 */
+
 }
 
 .activeTab {
-    border-bottom: 4px solid #4A7C59;
+    border-bottom: 4px  ;
+    color: #3E5E45;
+    font-size: 22px; /* activeTab 클래스를 가진 요소의 글자 크기를 12px로 설정 */
+    font-weight: bold; /* 글자를 굵게 설정 */
+
 }
 
 .contentBox {
@@ -29,6 +40,7 @@
 }
 
 .title { 
+    color: #5A5A5A;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
