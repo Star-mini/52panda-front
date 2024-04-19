@@ -27,12 +27,13 @@ function Chatting() {
       {isOpen && (
         <div className={styles.backdrop} onClick={toggleModal}>
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
+
             <div className={styles.Chattingnav} >
-            <h2>채팅창 LIST</h2>
-            <div className={styles.closeButtonContainer}> 
-              <button className={styles.closebox} onClick={toggleModal}>
-                <img src={closeIcon} className={styles.closeicon} alt="close" />
-              </button>
+              <h2 className={styles.chattingH2}>채팅창 LIST</h2>
+              <div className={styles.closeButtonContainer}> 
+                <button className={styles.closebox} onClick={toggleModal}>
+                  <img src={closeIcon} className={styles.closeicon} alt="close" />
+                </button>
               </div>
             </div>
             

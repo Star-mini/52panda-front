@@ -27,6 +27,10 @@
     align-items: center; /* 자식 요소를 수직 중앙으로 정렬합니다. */
     margin: 4%;
   }
+  .chattingH2{
+    font-weight: bold;
+    color: #545454;
+  }
   .closeButtonContainer {
     width : 10%;
     justify-content: flex-end;
