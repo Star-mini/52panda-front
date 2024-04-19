@@ -1,5 +1,6 @@
 .badge-space {
-    margin-right: 0.5rem
+    margin-right: 0.5rem;
+    font-weight: normal;
   }
 
 .card-text {
@@ -8,6 +9,7 @@
 
 .card {
     border: none;
+    border-radius: 15px;
     max-width: 540px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     
@@ -36,6 +38,7 @@
   width: 100%;
   height: auto;
   max-height: 215px;
+  border-radius: 15px;
 }
 
 @media (max-width: 750px) {

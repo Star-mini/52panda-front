@@ -53,33 +53,23 @@
     position: relative;
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1455px) {
     .input{
-        margin-top: 10px;
-        background-color:rgb(248,249,250);
-        color:rgb(248,249,250);
-        border-color: rgb(248,249,250);
         margin-right: 0px;
         width: 300px!important;
     }
 }
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 1250px) {
     .input{
         margin-top: 10px;
-        background-color:rgb(248,249,250);
-        color:rgb(248,249,250);
-        border-color: rgb(248,249,250);
         margin-right: 0px;
         width: 150px!important;
     }
 }
-@media screen and (max-width: 820px)
+@media screen and (max-width: 1170px)
  {
     .input{
             margin-top: 10px;
-            background-color:rgb(248,249,250);
-            color:rgb(248,249,250);
-            border-color: rgb(248,249,250);
             margin-right: 0px;
             width: 100px!important;
         }
@@ -91,32 +81,27 @@
     }
 
 }
-@media screen and (max-width: 686px)
+@media screen and (max-width:950px)
  {
     .input{
             width: 50%;
             max-width: 70px; /* 최대 너비 설정 */
             margin-top: 10px;
-            background-color:rgb(248,249,250);
-            color:rgb(248,249,250);
-            border-color: rgb(248,249,250);
             margin-right: 0px;
             /* width: 70px!important; */
         }
     .paragraph{
         font-weight: bold;
+        min-width: 60px;
         font-size: 12px;
-        padding: 5px;
-        margin-bottom: 0px;
         width: 30px;
-        margin-left:0px;
-        margin-right:0px
     }
     .logoImg{
         width: 40px!important;
         height: 30px!important;
         margin-right: 0px;
     }
+
     .img{
         width: 20px;
         height: 30px;
@@ -134,16 +119,38 @@
     }
     
 }
-@media screen and (max-width: 430px)
+@media screen and (max-width: 780px)
  {
     
     .paragraph{
-        font-weight: bold;
+        width: 45px!important;
+        min-width: 20px;
         font-size: 8px;
-        padding: 5px;
-        margin-bottom: 0px;
-        width: 30px;
-        margin-left:0px;
-        margin-right:0px
     }
 }
+@media screen and (max-width: 625px)
+ {
+    
+    .paragraph{
+        width: 30px!important;
+        margin: 0px;
+        font-size: 5px;
+    }
+    
+}
+@media screen and (max-width: 720px)
+ {
+    .padding{
+        padding:15px!important;
+    }
+  
+}
+
+@media screen and (max-width: 475px)
+ {
+    .padding{
+        padding:0px!important;
+    }
+}
+
+

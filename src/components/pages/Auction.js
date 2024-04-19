@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import FilterButton from '../commons/button/FilterButton';
 import CategoryToggle from '../commons/toggle/CategoryToggle';
 import '../../static/styles/css/auction.css'
+import WriteImage from '../../static/styles/images/write.png'
 
 function Auction() {
   const [items,setItems] = useState([]);
@@ -46,15 +47,19 @@ function Auction() {
   };
   
   return (
-    <div>
+    <div className='container'>
       <CategoryToggle></CategoryToggle>
 
       <div className='auction-filter'>
         <FilterButton handleFilterChange={handleFilterChange} selectedRegion={filters.region} selectedTradingMethod={filters.tradingMethod}/>
+        <button className="btn btn-success">
+            글쓰기  
+            <img src={WriteImage} alt="Button Image" className='btn-image' />
+        </button>
       </div>
       
 
-      <div className='div-margin'>
+      <div className='div-margin container'>
       <InfiniteScroll
         dataLength={items.length}
         next={fetchData}
@@ -65,7 +70,7 @@ function Auction() {
       >
         <div className="row" >
           {items.map((item, index) => (
-            <div key={index} className="col-md-6 mb-4">
+            <div key={index} className="col-md-6 item-card">
               <ItemListInfoCard
                 image={item.image}
                 title={item.title}

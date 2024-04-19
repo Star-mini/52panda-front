@@ -12,6 +12,9 @@
     margin-bottom: 7rem;
     background-color: #E9E9E9;
     border-radius: 10px;
+    margin-bottom: 7rem;
+    background-color: #E9E9E9;
+    border-radius: 10px;
   }
   
   .amount {
@@ -23,9 +26,14 @@
     padding: 10px 20px;
     background-color: #C8D6B7; /* Green background */
     color: black;
+    background-color: #C8D6B7; /* Green background */
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    border-radius: 10px;
     font-weight: bold;
     margin-left: 10px;
     border-radius: 10px;
@@ -36,9 +44,11 @@
     padding: 10px 0;
     margin: 5px;
     background-color: #F1F5EC; /* Light gray background */
+    background-color: #F1F5EC; /* Light gray background */
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 2.7rem;
     margin-right: 2.7rem;
   }
   
@@ -49,9 +59,12 @@
     padding: 5px 20px;
     background-color: #DEE7D2; /* Blue background */
     color: black;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5rem; /* 왼쪽 버튼과의 여백 추가 */
+    font-weight: bold;
     margin-left: 5rem; /* 왼쪽 버튼과의 여백 추가 */
     font-weight: bold;
   }

@@ -1,0 +1,27 @@
+.headPicture{
+    
+    width: 95%;
+    height: auto;
+}
+.teduri{
+    padding: 5%;
+    height:700px;
+    margin-top:10px;
+}
+.teduri2{
+    padding: 5%;
+    height:300px;
+    margin-top:10px;
+}
+@keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .fadeIn {
+    animation: fade 0.5s ease;
+  }

@@ -1,0 +1,67 @@
+.img{
+    width: 100%;
+}
+
+
+.my_border{
+    border:none;
+    display:inline-block;
+    margin:1%;
+}
+
+
+.priceCSS1{
+    position:absolute;
+    left:15%;
+    top:1%;
+    font-size: 35px;
+    color:white;
+   
+}
+.priceCSS2{
+    position: absolute;
+    left: 15%;
+    top: 42%;
+    font-size:35px;
+    color:white;
+}
+
+
+.blackimg{
+    width: 100%;
+}
+
+@media screen and (max-width: 850px)
+ {
+    .mycard{
+        flex:45%;
+        flex-shrink:0.5;
+    }
+}
+@media screen and (max-width: 450px)
+ {
+    .mycard{
+       min-width: 300px;
+    }
+}
+
+.cards{
+    display:flex;
+    align-items: center;
+    margin-top: 0%;
+    justify-content:space-between;
+
+    /* text-align: center; */
+
+}
+
+.decokill{
+    text-decoration: none;
+    color: black;
+}
+
+.menu{
+    border: none;
+    padding: 0%;
+
+}

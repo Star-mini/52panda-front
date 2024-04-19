@@ -1,0 +1,19 @@
+.division{
+    text-align:center;
+    min-width: 90%;
+    height:1100px;
+    background-color: rgb(157, 178, 131);
+    justify-self: center;
+    margin-left:auto;
+    margin-right:auto;
+    padding:0px
+}
+.font{
+    display: inline-block;
+    font-size: 18px;
+    font-weight:900;
+    margin:2%;
+}
+.img{
+    width:90%
+}
