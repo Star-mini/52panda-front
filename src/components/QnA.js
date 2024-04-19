@@ -27,6 +27,10 @@ function QnA() {
               <p className={styles.date}>답변일 2024/04/03 19:31:30</p>
             </div>
             <div className={styles.divider}></div>
+            <div className={styles.question}>
+              <h4 className={styles.questionText}>Q. 타이틀 변경은 어떤 절차를 통해서 하나요?</h4>
+              <div className={styles.noStatus}>답변 미완료</div>
+            </div>
           </div>
         </div>
   );

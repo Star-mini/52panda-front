@@ -4,6 +4,7 @@
   max-width: 1024px;
   margin: auto;
   padding: 1rem;
+  height: 640px; /* 기존 높이에서 5px 늘림 */
 }
 
 .carousel {
@@ -82,29 +83,6 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-}
-
-.start-price {
-  color: hsla(0,0%,44%,1); /* text-gray-800 */
-  font-size: 0.7rem; /* text-lg */
-  height:1.0rem;
-  align-items: left;
-  vertical-align: top;
-}
-.current-price {
-  color: #000000; /* text-gray-800 */
-
-  font-size: 1rem; /* text-lg */
-  height: 2.0rem;
-  align-self: center;
-}
-.instant-price {
-  display: flex;
-  color: #000000; /* text-gray-800 */
-  justify-content: center;
-  text-align: center;
-  vertical-align: bottom;
-  font-size: 1.23rem; /* text-lg */
 }
 
 .buttonContainer {
@@ -188,3 +166,23 @@
     border: none; /* 버튼의 테두리를 제거합니다 */
     background: transparent; /* 버튼의 배경색을 투명하게 설정합니다 */
   }
+
+  .startPrice {
+    color: grey; /* 글자 색상을 회색으로 설정 */
+    font-size: 17px;
+}
+.currentPrice {
+  font-size: 25px; /* 글자 크기를 15px로 설정 */
+  font-weight: bold; /* 글자를 굵게 표시 */
+  text-align: center; /* 텍스트를 중앙 정렬 */
+}
+.instantPrice{
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center; /* 텍스트를 중앙 정렬 */
+}
+
+#productImage {
+  position: relative;
+  top: 27px; /* 위치를 현재보다 5px 아래로 조정 */
+}

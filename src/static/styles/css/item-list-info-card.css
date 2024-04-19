@@ -3,6 +3,10 @@
     font-weight: normal;
   }
 
+.category-space {
+    margin-right: 1rem;
+  }
+
 .card-text {
     margin-bottom: 1rem;
   }

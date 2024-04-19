@@ -21,15 +21,15 @@ function CategoryToggle() {
       const windowWidth = window.innerWidth;
       let newCategoriesPerRow;
       if(windowWidth > 1400 ){
-        newCategoriesPerRow = 9;
+        newCategoriesPerRow = 8;
       }
-      else if (windowWidth > 1000) {
+      else if (windowWidth > 1070) {
         newCategoriesPerRow = 6;
-      } else if (windowWidth > 768) {
+      } else if (windowWidth > 800) {
         newCategoriesPerRow = 4;
-      } else if ( windowWidth > 500){
+      } else if ( windowWidth > 650){
         newCategoriesPerRow = 3;
-      } else if(windowWidth >380){
+      } else if(windowWidth >450){
         newCategoriesPerRow = 2;
       }else{
         newCategoriesPerRow = 1;
