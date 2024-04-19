@@ -6,6 +6,8 @@ import MainPageCard from "../commons/card/MainPageCard";
 import MainPageItem from "../commons/etc/MainPageItem";
 import Footer from "../commons/footer/Footer";
 import CategoryToggle from "../commons/toggle/CategoryMainToggle";
+import footer from "../../static/styles/images/footerup.png";
+
 
 function MainPage() {
   const [toggled, setToggled] = useState(false);
@@ -18,13 +20,14 @@ function MainPage() {
     margin: "100px!important",
   };
   return (
-    <div className="container-fluid" style={wid}>
+    <div  style={wid}>
       <div className="row justify-content-center mx-5">
         <img src={head} className={`img-fluid ${styles.headPicture}`} />
         <CategoryToggle />
         <MainPageItem heading="Hot Item" />
         <MainPageItem heading="New Item" />
       </div>
+      <img src={footer} className={styles.img} />
     </div>
   );
 }

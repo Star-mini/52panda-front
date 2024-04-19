@@ -1,12 +1,8 @@
 .division{
     text-align:center;
-    min-width: 90%;
-    height:1100px;
     background-color: rgb(157, 178, 131);
     justify-self: center;
-    margin-left:auto;
-    margin-right:auto;
-    padding:0px
+    padding:1px
 }
 .font{
     display: inline-block;
@@ -14,6 +10,7 @@
     font-weight:900;
     margin:2%;
 }
-.img{
-    width:90%
-}
+.outer {
+    width: 90% !important;
+    margin: 0 auto; 
+  }

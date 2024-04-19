@@ -13,6 +13,11 @@
     height:300px;
     margin-top:10px;
 }
+.img {
+  width: 90%;
+  display: block;
+  margin: 0 auto; /* 상하 마진은 0, 좌우 마진은 자동으로 설정 */
+}
 @keyframes fade {
     from {
       opacity: 0;
