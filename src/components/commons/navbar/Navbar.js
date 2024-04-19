@@ -6,9 +6,13 @@ import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 
 function Navbar() {
+  const pad = {
+    paddingRight: "100px",
+    paddingLeft: "100px",
+  };
   return (
     <nav class="navbar navbar-expand">
-      <div className="container-fluid">
+      <div className={`container-fluid ${styles.padding}`} style={pad}>
         <a className="navbar-brand" href="#">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>

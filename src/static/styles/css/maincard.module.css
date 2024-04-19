@@ -1,10 +1,28 @@
 .img{
-    width: 100px!important;
+    width: 100%;
 }
+
+
 .my_border{
     border:none;
     display:inline-block;
     margin:1%;
+}
+
+
+
+@media screen and (max-width: 850px)
+ {
+    .mycard{
+        flex:45%;
+        flex-shrink:0.5;
+    }
+}
+@media screen and (max-width: 450px)
+ {
+    .mycard{
+       min-width: 300px;
+    }
 }
 
 .cards{
@@ -12,9 +30,11 @@
     align-items: center;
     margin-top: 0%;
     justify-content:space-between;
-    text-align: center;
+
+    /* text-align: center; */
 
 }
+
 .decokill{
     text-decoration: none;
     color: black;

@@ -4,3 +4,7 @@
     margin-right: 2%;
     margin-left: 2%;
 }
+.myflex{
+    display: flex;
+    flex-wrap: wrap;
+}

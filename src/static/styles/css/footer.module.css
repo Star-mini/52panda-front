@@ -1,7 +1,8 @@
 .division{
-    width:auto;
+    width:90%;
     height:1000px;
     background-color: rgb(157, 178, 131);
+    justify-self: center;
 }
 .font{
     display: inline-block;
