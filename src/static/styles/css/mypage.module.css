@@ -18,6 +18,8 @@
   width: 90%;
   display: block;
   margin: 0 auto; /* 상하 마진은 0, 좌우 마진은 자동으로 설정 */
+  border-top-left-radius: 20px;  /* 상단 왼쪽 모서리에 20px 굴곡 */
+  border-top-right-radius: 20px; /* 상단 오른쪽 모서리에 20px 굴곡 */
 }
 @keyframes fade {
   from {
