@@ -16,19 +16,28 @@ function ProductDetail() {
 
   const images = [
     iphone,
-    "https://via.placeholder.com/300/0000FF",
-    "https://via.placeholder.com/300/FF0000",
+    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV2?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861338000",
+    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861336000",
   ];
 
   const changeImage = (direction) => {
-    let newIndex = currentImageIndex + direction;
-    if (newIndex < 0) newIndex = images.length - 1;
-    if (newIndex >= images.length) newIndex = 0;
-    setCurrentImageIndex(newIndex);
+    // 이미지 페이드 아웃
+    let imageElement = document.getElementsByClassName(styles.productImg)[0];
+    imageElement.style.opacity = 0;
+
+    setTimeout(() => {
+      let newIndex = currentImageIndex + direction;
+      if (newIndex < 0) newIndex = images.length - 1;
+      if (newIndex >= images.length) newIndex = 0;
+      setCurrentImageIndex(newIndex);
+
+      // 이미지 페이드 인
+      imageElement.style.opacity = 1;
+    }, 300); // 0.5초 후 이미지 인덱스 변경 및 페이드 인
   };
 
   const toggleHeart = () => {
-    setIsHeartPink(!isHeartPink); // 하트 이미지 상태를 반전시킵니다.
+    setIsHeartPink(!isHeartPink); // 하트 상태를 반전시킵니다.
   };
 
   const togglePopup = () => {
@@ -66,7 +75,7 @@ function ProductDetail() {
           className={styles.heart}
           alt="Heart"
           onClick={toggleHeart}
-        />{" "}
+        />
         {/* 하트 이미지 클릭 이벤트 추가 */}
         <p className={styles.category}>전자제품/휴대폰/아이폰</p>
         <p className={styles["timeRemaining"]}>
