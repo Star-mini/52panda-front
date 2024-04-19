@@ -1,90 +1,106 @@
 .aboutMore {
-    background-color: #D1E4B8;
-    max-width: 60rem;
-    margin: 4rem auto;
-    padding-top: 2.3rem;
-    padding-right: 4.3rem;
-    padding-bottom: 2.5rem;
-    padding-left: 4.3rem;
-    border-radius: 1rem;
+  background-color: #d1e4b8;
+  max-width: 60rem;
+  margin: 4rem auto;
+  padding-top: 2.3rem;
+  padding-right: 4.3rem;
+  padding-bottom: 2.5rem;
+  padding-left: 4.3rem;
+  border-radius: 1rem;
 }
 
 .tabs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .tab {
-    background-color: #D1E4B8;
-    padding: 0.5rem;
-    padding-bottom: 1.8rem;
-    width: 50%;
-    text-align: center;
-    color: #3E5E45;
-    font-size: 1.8rem;
-    font-weight: 800; /* 글자를 굵게 설정 */
-
+  background-color: #d1e4b8;
+  padding: 0.5rem;
+  padding-bottom: 1.8rem;
+  width: 50%;
+  text-align: center;
+  color: #3e5e45;
+  font-size: 1.8rem;
+  font-weight: 800; /* 글자를 굵게 설정 */
 }
 
 .activeTab {
-    
-    border-bottom: 4px  ;
-    color: #3E5E45;
-    font-size: 1.9rem; /* activeTab 클래스를 가진 요소의 글자 크기를 12px로 설정 */
-    font-weight: 800; /* 글자를 굵게 설정 */
-
+  border-bottom: 4px;
+  color: #3e5e45;
+  font-size: 1.9rem; /* activeTab 클래스를 가진 요소의 글자 크기를 12px로 설정 */
+  font-weight: 800; /* 글자를 굵게 설정 */
 }
 
 .contentBox {
-    padding-top:50%;
-    background-color: #FFFFFF;
-    border-radius: 1rem;
-    padding: 1.5rem 4rem;
-    padding-bottom:15%;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  padding-top: 50%;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1.5rem 4rem;
+  padding-bottom: 15%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.title { 
-    color: #5A5A5A;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 1.7rem;
+.title {
+  color: #5a5a5a;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1.7rem;
 }
 
 .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.875rem;
-    color: #4A7C59;
-    margin-top: 3.5rem;
-    margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: #4a7c59;
+  margin-top: 3.5rem;
+  margin-bottom: 12px;
 }
 
 .userInfo img {
-    width: 50px;
-    height: 50px;
-    border-radius: 40%;
+  width: 50px;
+  height: 50px;
+  border-radius: 40%;
 }
 
 .userDetails {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .username {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .divider {
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
 }
 
 .imageDescription {
-    color: #4A7C59;
-    font-size: 0.875rem;
-    margin-bottom: 1rem;
+  color: #4a7c59;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 640px) {
+  .tab {
+    font-size: 1.3rem;
+    padding: 0rem;
+    padding-bottom: 0rem;
+  }
+  .aboutMore {
+    margin: 0rem auto;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  .contentBox {
+    padding: 0.5rem 1rem;
+  }
+  
+.title {
+    margin-top: 0.3rem;
+  }
 }
