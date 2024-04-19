@@ -17,21 +17,29 @@ function MainPageItem(props) {
           img={notebook}
           category="전자기기/노트북"
           name="그램"
+          startprice="5000억"
+          nowprice="5조"
         />
         <MainPageItemCard
           img={samsung}
           category="전자기기/휴대폰"
           name="삼성플립2"
+          startprice="5000억"
+          nowprice="5조"
         />
         <MainPageItemCard
           img={ddofoki}
           category="식료품/밀키트"
           name="떡볶이밀키트"
+          startprice="5000억"
+          nowprice="5조"
         />
         <MainPageItemCard
           img={redcan}
           category="화장품세트/기초세트"
           name="화장품세트"
+          startprice="5000억"
+          nowprice="5조"
         />
       </div>
     </div>

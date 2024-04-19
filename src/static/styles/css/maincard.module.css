@@ -10,6 +10,26 @@
 }
 
 
+.priceCSS1{
+    position:absolute;
+    left:15%;
+    top:1%;
+    font-size: 35px;
+    color:white;
+   
+}
+.priceCSS2{
+    position: absolute;
+    left: 15%;
+    top: 42%;
+    font-size:35px;
+    color:white;
+}
+
+
+.blackimg{
+    width: 100%;
+}
 
 @media screen and (max-width: 850px)
  {
