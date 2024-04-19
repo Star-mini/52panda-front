@@ -14,7 +14,7 @@
 }
 .logoImg{
     width: 120px;
-    height: 55px;
+    height: auto;  /* 높이는 자동으로 조절되어 원본 비율을 유지 */
 }
 .paragraph{
     font-weight: bold;

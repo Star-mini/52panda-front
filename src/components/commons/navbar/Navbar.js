@@ -1,5 +1,5 @@
 import React from "react";
-import pandaLogo from "../../../static/styles/images/panda_logo.jpg";
+import pandaLogo from "../../../static/styles/images/PandaLogo.png";
 import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
 import mypageButton from "../../../static/styles/images/mypage_panda.png";
