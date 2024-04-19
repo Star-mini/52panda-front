@@ -15,7 +15,7 @@
   }
   
   .amount {
-    font-size: 24px;
+    font-size: 1.7rem;
     font-weight: bold;
   }
   
@@ -68,6 +68,31 @@
 }
 
 .question {
-  text-align: left; /* 텍스트를 왼쪽으로 정렬합니다 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  text-align: left; /* 텍스트를 왼쪽으로 정렬 */
   color: #666;
+  flex-wrap: wrap; /* 줄 바꿈을 허용 */
+}
+
+.bidButton {
+  padding: 5px 20px;
+  background-color: #DEE7D2; /* Blue background */
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@media (max-width: 570px) {
+  .amount {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 0.3rem;
+  }
+  .bidButton {
+    padding: 5px 10px;
+    margin-left: 3rem; /* "얼마에 살까요?" 텍스트 바로 오른쪽에 3rem 간격 */
+  }
 }
