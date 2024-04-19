@@ -15,6 +15,7 @@ function MainPageItemCard(props) {
   const imageContainer1 = {
     margin: "0 auto",
     textAlign: "center",
+    borderRadius: '20px',
     // position: "absolute",
   };
 
@@ -34,8 +35,8 @@ function MainPageItemCard(props) {
   };
 
   return (
-    <div className={`${styles.mycard} card ms-2 me-2`}>
-      <a href="">
+    <div className={`${styles.mycard} card ms-2 me-2`} style={{ borderRadius: '20px' }}>
+    <a href="">
         <div>
           <img
             style={imageContainer1}

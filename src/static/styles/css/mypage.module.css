@@ -1,17 +1,18 @@
-.headPicture{
-    
-    width: 95%;
-    height: auto;
+.headPicture {
+  margin-bottom: 2rem; /* 아래쪽에 1rem 간격 추가 */
+  width: 95%;
+  height: auto;
+  border-radius: 30px;
 }
-.teduri{
-    padding: 5%;
-    height:700px;
-    margin-top:10px;
+.teduri {
+  padding: 5%;
+  height: 700px;
+  margin-top: 10px;
 }
-.teduri2{
-    padding: 5%;
-    height:300px;
-    margin-top:10px;
+.teduri2 {
+  padding: 5%;
+  height: 300px;
+  margin-top: 10px;
 }
 .img {
   width: 90%;
@@ -19,14 +20,14 @@
   margin: 0 auto; /* 상하 마진은 0, 좌우 마진은 자동으로 설정 */
 }
 @keyframes fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  from {
+    opacity: 0;
   }
-  
-  .fadeIn {
-    animation: fade 0.5s ease;
+  to {
+    opacity: 1;
   }
+}
+
+.fadeIn {
+  animation: fade 0.5s ease;
+}
