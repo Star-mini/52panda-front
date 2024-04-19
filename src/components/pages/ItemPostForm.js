@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, ToggleButton } from 'react-bootstrap/';
+import { Container, Row, Col, Form, InputGroup, Button, ToggleButton } from "react-bootstrap/";
 import styles from "../../static/styles/css/itemPostForm.module.css";
 import Navbar from "../commons/navbar/Navbar";
 import ImgInputForm from "../commons/forms/ImgInputForm";
@@ -17,20 +17,22 @@ function ItemPostForm() {
     const [parcel, setParcelChecked] = useState(false);
 
     return (
-        <div>
+        <>
             <Navbar />
-
-            <Container fluid="md" id={styles['input-page-body']}>
+            <Container fluid="md px-4" id={styles['input-page-body']}>
                 <Form>
                     <Row>
                         <ImgInputForm />
                     </Row>
-                    <Form.Group as={Row} className="mb-3 px-2" controlid="item-name" required>
+                    <br />
+                    <br />
+                    <Form.Group as={Row} className="mb-4 px-2" controlid="item-name" required>
                         <Form.Control type="text" placeholder="상품명을 입력하세요" name="item-name" />
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlid="item-category" required>
-                        <Form.Label column sm={2}>카테고리:</Form.Label>
-                        <Col xs={8} sm={3}>
+                    <hr />
+                    <Form.Group as={Row} className="mb-4" controlid="item-category" required>
+                        <Form.Label column xs={5} sm={2}><nobr>카테고리</nobr></Form.Label>
+                        <Col xs={8} sm={4}>
                             <Form.Select>
                                 {categories.map((item, index) => (
                                     <option key={item.key} value={item.key}>{item.value}</option>
@@ -38,20 +40,38 @@ function ItemPostForm() {
                             </Form.Select>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlid="first-price" required>
-                        <Form.Label column xs={3} sm={2}>입찰 시작가:</Form.Label>
-                        <Col xs={5} sm={3}>
-                            <Form.Control type="number" name="first-price" />
+                    <hr />
+                    <Form.Group as={Row} className="mb-4" controlid="first-price" required>
+                        <Form.Label column xs={3} sm={2}><nobr>입찰 시작가</nobr></Form.Label>
+                        <Col xs={5} sm={4}>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text>₩</InputGroup.Text>
+                                <Form.Control type="number" name="first-price" />
+                            </InputGroup>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlid="buynow-price">
-                        <Form.Label column xs={3} sm={2}>즉시 입찰가:</Form.Label>
-                        <Col xs={5} sm={3}>
-                            <Form.Control type="number" name="buynow-price" />
+                    <Form.Group as={Row} className="mb-4" controlid="buynow-price">
+                        <Form.Label column xs={3} sm={2}><nobr>즉시 입찰가</nobr></Form.Label>
+                        <Col xs={5} sm={4}>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Text>₩</InputGroup.Text>
+                                <Form.Control type="number" name="buynow-price" />
+                            </InputGroup>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm={2}>거래 방법:</Form.Label>
+                    <hr />
+                    <Form.Group as={Row} className="mb-4" controlid="auction-finish-time" required>
+                        <Form.Label column xs={5} sm={2}><nobr>경매 완료 시간</nobr></Form.Label>
+                        <Col xs={8} sm={4}>
+                            <Form.Select>
+                                {categories.map((item, index) => (
+                                    <option key={item.key} value={item.key}>{item.value}</option>
+                                ))}
+                            </Form.Select>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-4">
+                        <Form.Label column sm={2}><nobr>거래 방법</nobr></Form.Label>
                         <Col sm={5} className={styles['btn-inline-group']}>
                             <ToggleButton
                                 type="checkbox" variant="outline-success" id="direct-check"
@@ -72,21 +92,22 @@ function ItemPostForm() {
                             </ToggleButton>
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3" controlid="item_detail">
-                        <Form.Label column sm={2}>상세설명:</Form.Label>
+                    <hr />
+                    <Form.Group as={Row} className="mb-4" controlid="item_detail">
+                        <Form.Label column sm={2}><nobr>상세설명</nobr></Form.Label>
                         <Col>
                             <Form.Control as="textarea" type="text" rows="8" name="item_detail" />
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
-                        <Col className={`${styles['btn-inline-group']} ${styles['justif-content-end']} me-3`}>
+                    <Form.Group as={Row} className="mb-4">
+                        <Col className={`me-3 ${styles['btn-inline-group']} ${styles['justif-content-end']}`}>
                             <Button variant="outline-success">취소하기</Button>{' '}
                             <Button variant="success">등록하기</Button>{' '}
                         </Col>
                     </Form.Group>
                 </Form>
             </Container>
-        </div >
+        </ >
     );
 }
 
