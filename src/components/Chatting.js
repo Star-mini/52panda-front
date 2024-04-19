@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../static/styles/css/Chatting.module.css'; 
 import chatting from "../static/styles/images/chatting.png";
 import ChatRoom from './ChatRoom'; // Import the ChatRoom component
+import closeIcon from '../static/styles/images/close.png';
 
 function Chatting() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,8 +27,16 @@ function Chatting() {
       {isOpen && (
         <div className={styles.backdrop} onClick={toggleModal}>
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h2>채팅창 LIST</h2>
-            <button onClick={toggleModal}>닫기</button>
+
+            <div className={styles.Chattingnav} >
+              <h2 className={styles.chattingH2}>채팅창 LIST</h2>
+              <div className={styles.closeButtonContainer}> 
+                <button className={styles.closebox} onClick={toggleModal}>
+                  <img src={closeIcon} className={styles.closeicon} alt="close" />
+                </button>
+              </div>
+            </div>
+            
             <div>
               {chatRoomsData.map((room, index) => (
                 <ChatRoom key={index} nickname={room.nickname} date={room.date} content={room.content} />

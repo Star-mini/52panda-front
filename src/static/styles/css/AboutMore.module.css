@@ -1,11 +1,12 @@
 .aboutMore {
     background-color: #D1E4B8;
     max-width: 60rem;
-    margin: 2.5rem auto;
-    padding-top: 2rem;
+    margin: 4rem auto;
+    padding-top: 2.3rem;
     padding-right: 4.3rem;
-    padding-bottom: 2rem;
+    padding-bottom: 2.5rem;
     padding-left: 4.3rem;
+    border-radius: 1rem;
 }
 
 .tabs {
@@ -17,25 +18,30 @@
 .tab {
     background-color: #D1E4B8;
     padding: 0.5rem;
+    padding-bottom: 1.8rem;
     width: 50%;
     text-align: center;
     color: #3E5E45;
-    font-size: 22px;
-    font-weight: bold; /* 글자를 굵게 설정 */
+    font-size: 1.8rem;
+    font-weight: 800; /* 글자를 굵게 설정 */
 
 }
 
 .activeTab {
+    
     border-bottom: 4px  ;
     color: #3E5E45;
-    font-size: 22px; /* activeTab 클래스를 가진 요소의 글자 크기를 12px로 설정 */
-    font-weight: bold; /* 글자를 굵게 설정 */
+    font-size: 1.9rem; /* activeTab 클래스를 가진 요소의 글자 크기를 12px로 설정 */
+    font-weight: 800; /* 글자를 굵게 설정 */
 
 }
 
 .contentBox {
+    padding-top:50%;
     background-color: #FFFFFF;
+    border-radius: 1rem;
     padding: 1.5rem 4rem;
+    padding-bottom:15%;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
@@ -44,7 +50,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 1rem;
+    margin-top: 1.7rem;
 }
 
 .userInfo {
@@ -53,13 +59,14 @@
     gap: 12px;
     font-size: 0.875rem;
     color: #4A7C59;
+    margin-top: 3.5rem;
     margin-bottom: 12px;
 }
 
 .userInfo img {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 40%;
 }
 
 .userDetails {
