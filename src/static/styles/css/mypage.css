@@ -1,0 +1,36 @@
+.div-margin{
+    margin-top:5rem;
+}
+
+.item-card {
+    margin-bottom: 4rem; 
+  }
+
+.container-zoom {
+    zoom: 90%;
+}
+
+.mypage-buttons{
+    background-color: hsl(86, 30%, 65%);
+    display: flex;
+    justify-content: space-between;
+}
+
+  
+.mypage-button {
+    flex-grow: 1;
+    margin: 5px; 
+    border: none;
+    cursor: pointer;
+    background-color: transparent; 
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .selected {
+    background-color: hsl(86, 29%, 77%); 
+  }
+  
+  .mypage-button:hover {
+    background-color: hsl(86, 29%, 77%); 
+
+  }

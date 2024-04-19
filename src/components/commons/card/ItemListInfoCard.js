@@ -3,7 +3,7 @@
   import { Link } from 'react-router-dom';
   import '../../../static/styles/css/item-list-info-card.css'
 
-  const ItemListInfoCard = ({ image, title, category, categoryDetail,tradingMethod, startPrice,currentPrice,itemId }) => {
+  const ItemListInfoCard = ({ image, title, category, categoryDetail,tradingMethod, startPrice,currentPrice,isAuctionFinished,itemId }) => {
 
     let tradingMethodBadges;
     
@@ -45,7 +45,11 @@
                       <small className="text-muted start-price-font">시작 금액 {startPrice}</small>
                     </Card.Text>
                     <Card.Text className="text-center">
-                    <span className="current-price-font">현재 입찰가 {currentPrice}</span>
+                        {isAuctionFinished ? (
+                        <span className="current-price-font">낙찰 금액 {currentPrice}</span>
+                      ) : (
+                        <span className="current-price-font">현재 금액 {currentPrice}</span>
+                      )}
                     </Card.Text>
                   </Card.Body>
                 </Card.Body>
