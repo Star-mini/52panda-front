@@ -36,7 +36,7 @@ function AboutMore() {
         <img
           src={exFarm}
           alt="A field of freshly tilled soil with a sunset in the background"
-          className={styles.exFarm}
+          className={`${styles.exFarm} img-fluid`}
         />
         <QnA />
       </div>
