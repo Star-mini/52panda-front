@@ -19,7 +19,6 @@ function MainPage() {
   };
   return (
     <div className="container-fluid" style={wid}>
-      <Navbar />
       <div className="row justify-content-center mx-5">
         <img src={head} className={`img-fluid ${styles.headPicture}`} />
         <CategoryToggle />
