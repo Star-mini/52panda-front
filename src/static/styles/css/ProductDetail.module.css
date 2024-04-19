@@ -209,3 +209,17 @@
     height: auto; /* 이미지의 높이를 자동으로 조정 */
   }
 }
+@media (max-width: 375px) {
+  .timeRemaining {
+    font-size: 1.2rem;
+  }
+  .startPrice {
+    font-size: 0.8rem;
+  }
+  .currentPrice {
+    font-size: 1.5rem;
+  }
+  instantPrice {
+    font-size: 1.2rem;
+  }
+}
