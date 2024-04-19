@@ -102,3 +102,15 @@
     margin-left: 0.6rem;
   }
 }
+
+@media (max-width: 430px) {
+  .buttons {
+    display: flex;          /* Flexbox를 활성화 */
+    justify-content: center; /* 요소들을 가운데 정렬 */
+    flex-wrap: wrap;         /* 요소들이 여백을 초과하면 다음 줄로 이동 */
+  }
+  .buttons button {
+    width: 10rem;           /* 버튼의 가로 길이 설정 */
+    margin: 5px auto;       /* 위아래 마진은 5px, 좌우 마진은 자동으로 설정하여 중앙에 위치 */
+  }
+}
