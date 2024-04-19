@@ -219,7 +219,11 @@
   .currentPrice {
     font-size: 1.5rem;
   }
-  instantPrice {
+  .instantPrice {
     font-size: 1.2rem;
   }
+  .productDetails{
+    margin-left: 0rem;
+  }
+
 }
