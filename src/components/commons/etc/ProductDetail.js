@@ -14,6 +14,7 @@ function ProductDetail() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHeartPink, setIsHeartPink] = useState(false);
   const [priceList, setPriceList] = useState([]); // 가격 목록 상태 추가
+  const [isBidComplete, setIsBidComplete] = useState(false); // 낙찰 완료 상태 관리
 
   const images = [
     iphone,
@@ -48,6 +49,11 @@ function ProductDetail() {
     setPriceList([...priceList, { name, price }]); // 새로운 아이템 추가
   };
 
+  const handleBid = () => {
+    setIsBidComplete(true); // 낙찰 완료 상태로 설정
+    togglePopup(); // 팝업 닫기
+  };
+  
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
@@ -81,9 +87,13 @@ function ProductDetail() {
           onClick={toggleHeart}
         />
         <p className={styles.category}>전자제품/휴대폰/아이폰</p>
-        <p className={styles.timeRemaining}>
-          낙찰까지 <span id={styles.bidTime}>13:03:93</span>
-        </p>
+        {
+          isBidComplete ? 
+          <p className={styles.timeRemaining}>낙찰완료</p> :
+          <p className={styles.timeRemaining}>
+            낙찰까지 <span id={styles.bidTime}>13:03:93</span>
+          </p>
+        }
         <div className={styles.biddingDetails}>
           <p className={styles.startPrice}>시작 금액 500,000</p>
           <p className={styles.currentPrice}>현재 금액 800,000</p>
@@ -92,8 +102,12 @@ function ProductDetail() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <button className={styles.bidButton} onClick={togglePopup}>
-          입찰하기
+        <button
+          className={styles.bidButton}
+          onClick={isBidComplete ? undefined : handleBid}
+          style={isBidComplete ? { backgroundColor: '#CDCDCD' } : {}}
+        >
+          {isBidComplete ? '낙찰완료' : '입찰하기'}
         </button>
       </div>
 
