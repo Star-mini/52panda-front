@@ -1,36 +1,40 @@
 import React, { useState } from "react";
-// CSS 파일을 모듈로서 import합니다. 스타일 이름이 겹치지 않도록 styles 객체로 불러옵니다.
 import styles from "../../../static/styles/css/QnA.module.css";
-import writeIcon from "../../../static/styles/images/writhing.png"; // 글쓰기 아이콘 이미지를 가져옵니다.
-import Add from "./Add"; // Add 컴포넌트를 불러옵니다.
+import writeIcon from "../../../static/styles/images/writhing.png";
+import Add from "./Add";
 
 function QnA() {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [isAdding, setIsAdding] = useState(false); // 추가중인지 아닌지를 추적하는 상태
 
   const handleAddClick = () => {
-    const newId = Date.now(); // 새로운 ID를 생성
-    const newComponent = {
-      id: newId,
-      component: (
-        <Add
-          key={newId}
-          onSubmit={(text) => handleQuestionSubmit(text, newId)}
-          onCancel={() => handleCancel(newId)}
-        />
-      ),
-    };
-    setAddComponents((prevComponents) => [...prevComponents, newComponent]);
+    if (!isAdding) { // 이미 추가중이 아니면 추가 로직 수행
+      const newId = Date.now();
+      const newComponent = {
+        id: newId,
+        component: (
+          <Add
+            key={newId}
+            onSubmit={(text) => handleQuestionSubmit(text, newId)}
+            onCancel={() => handleCancel(newId)}
+          />
+        ),
+      };
+      setAddComponents((prevComponents) => [...prevComponents, newComponent]);
+      setIsAdding(true); // 추가중 상태로 설정
+    }
   };
 
   const handleQuestionSubmit = (questionText, id) => {
     const newQuestion = { id: questions.length, text: questionText, status: "답변 미완료" };
     setQuestions([...questions, newQuestion]);
-    handleCancel(id); // ID를 사용하여 해당 Add 컴포넌트 제거
+    handleCancel(id); // 제출 후 추가 컴포넌트 제거
   };
 
   const handleCancel = (id) => {
     setAddComponents((prevComponents) => prevComponents.filter(component => component.id !== id));
+    setIsAdding(false); // 추가중 상태 해제
   };
 
   return (
