@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton } from "react-bootstrap/";
 import styles from "../../static/styles/css/itemPostForm.module.css";
-import Navbar from "../commons/navbar/Navbar";
 import ImgInputForm from "../commons/forms/ImgInputForm";
 
 function ItemPostForm() {
@@ -18,7 +17,6 @@ function ItemPostForm() {
 
     return (
         <>
-            <Navbar />
             <Container fluid="md px-4" id={styles['input-page-body']}>
                 <Form>
                     <Row>
@@ -102,7 +100,7 @@ function ItemPostForm() {
                     <Form.Group as={Row} className="mb-4">
                         <Col className={`me-3 ${styles['btn-inline-group']} ${styles['justif-content-end']}`}>
                             <Button variant="outline-success">취소하기</Button>{' '}
-                            <Button variant="success">등록하기</Button>{' '}
+                            <Button variant="outline-success" className={styles['submit-button']}>등록하기</Button>
                         </Col>
                     </Form.Group>
                 </Form>
