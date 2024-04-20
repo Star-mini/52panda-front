@@ -41,8 +41,12 @@ hr {
   background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
   border-color: #88a06b;
 }
+.cancel-button:hover {
+  background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
+  border-color: #88a06b;
+}
 .activeToggleButton {
-  background-color: #A7C77D !important;
+  background-color: #88a06b !important;
 }
 .textarea-no-resize {
   resize: none;

@@ -105,7 +105,7 @@ function ItemPostForm() {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-4">
                         <Col className={`me-3 ${styles['btn-inline-group']} ${styles['justif-content-end']}`}>
-                            <Button variant="outline-success">취소하기</Button>{' '}
+                            <Button variant="outline-success" className={styles['cancel-button']}>취소하기</Button>{' '}
                             <Button variant="outline-success" className={styles['submit-button']}>등록하기</Button>
                         </Col>
                     </Form.Group>
