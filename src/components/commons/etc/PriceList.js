@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from '../static/styles/css/PriceList.module.css';
+import styles from '../../../static/styles/css/PriceList.module.css';
 
 function PriceList({ items }) {
   const [sortedItems, setSortedItems] = useState([]); // 정렬된 목록 상태

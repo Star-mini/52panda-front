@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // CSS 파일을 모듈로서 import합니다. 스타일 이름이 겹치지 않도록 styles 객체로 불러옵니다.
-import styles from "../static/styles/css/QnA.module.css";
-import writeIcon from "../static/styles/images/writhing.png"; // 글쓰기 아이콘 이미지를 가져옵니다.
+import styles from "../../../static/styles/css/QnA.module.css";
+import writeIcon from "../../../static/styles/images/writhing.png"; // 글쓰기 아이콘 이미지를 가져옵니다.
 import Add from "./Add"; // Add 컴포넌트를 불러옵니다.
 
 function QnA() {

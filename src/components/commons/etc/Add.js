@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../static/styles/css/Add.module.css'; // CSS 모듈을 임포트합니다.
+import styles from '../../../static/styles/css/Add.module.css'; // CSS 모듈을 임포트합니다.
 
 function Add({ onSubmit, onCancel }) {
     const [input, setInput] = useState("");

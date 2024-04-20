@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styles from '../static/styles/css/Chatting.module.css'; 
-import chatting from "../static/styles/images/chatting.png";
+import styles from '../../../static/styles/css/Chatting.module.css'; 
+import chatting from "../../../static/styles/images/chatting.png";
 import ChatRoom from './ChatRoom'; // Import the ChatRoom component
-import closeIcon from '../static/styles/images/close.png';
+import closeIcon from '../../../static/styles/images/close.png';
 
 function Chatting() {
   const [isOpen, setIsOpen] = useState(false);

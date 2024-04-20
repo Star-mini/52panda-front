@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import styles from "../static/styles/css/AboutMore.module.css";
-import profileLogo from "../static/styles/images/profileLogo.png";
-import exFarm from "../static/styles/images/exFarm.png";
+import styles from "../../../static/styles/css/AboutMore.module.css";
+import profileLogo from "../../../static/styles/images/profileLogo.png";
+import exFarm from "../../../static/styles/images/exFarm.png";
 import QnA from "./QnA.js";
 
 function AboutMore() {

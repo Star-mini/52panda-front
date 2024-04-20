@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import styles from "../static/styles/css/ProductDetail.module.css";
-import carouselControlPrev from "../static/styles/images/carouselControlPrev.png";
-import carouselControlNext from "../static/styles/images/carouselControlNext.png";
-import PriceList from "../components/PriceList";
-import AmountSelection from "../components/AmountSelection";
-import heartIcon from "../static/styles/images/heart.png";
-import closeIcon from "../static/styles/images/close.png";
-import iphone from "../static/styles/images/iphone.png";
-import PinkHeart from "../static/styles/images/PinkHeart.png";
+import styles from "../../../static/styles/css/ProductDetail.module.css";
+import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
+import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
+import PriceList from "./PriceList";
+import AmountSelection from "./AmountSelection";
+import heartIcon from "../../../static/styles/images/heart.png";
+import closeIcon from "../../../static/styles/images/close.png";
+import iphone from "../../../static/styles/images/iphone.png";
+import PinkHeart from "../../../static/styles/images/PinkHeart.png";
 
 function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

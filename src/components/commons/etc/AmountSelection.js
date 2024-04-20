@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../static/styles/css/AmountSelection.module.css";
+import styles from "../../../static/styles/css/AmountSelection.module.css";
 
 function AmountSelection({ onBid, togglePopup }) {
   const [amount, setAmount] = useState(100000); // 초기 금액 설정
