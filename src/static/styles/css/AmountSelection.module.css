@@ -12,10 +12,13 @@
     margin-bottom: 7rem;
     background-color: #E9E9E9;
     border-radius: 10px;
+    margin-bottom: 7rem;
+    background-color: #E9E9E9;
+    border-radius: 10px;
   }
   
   .amount {
-    font-size: 24px;
+    font-size: 1.7rem;
     font-weight: bold;
   }
   
@@ -23,9 +26,14 @@
     padding: 10px 20px;
     background-color: #C8D6B7; /* Green background */
     color: black;
+    background-color: #C8D6B7; /* Green background */
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    border-radius: 10px;
     font-weight: bold;
     margin-left: 10px;
     border-radius: 10px;
@@ -36,9 +44,11 @@
     padding: 10px 0;
     margin: 5px;
     background-color: #F1F5EC; /* Light gray background */
+    background-color: #F1F5EC; /* Light gray background */
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 2.7rem;
     margin-right: 2.7rem;
   }
   
@@ -49,9 +59,12 @@
     padding: 5px 20px;
     background-color: #DEE7D2; /* Blue background */
     color: black;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 5rem; /* 왼쪽 버튼과의 여백 추가 */
+    font-weight: bold;
     margin-left: 5rem; /* 왼쪽 버튼과의 여백 추가 */
     font-weight: bold;
   }
@@ -68,6 +81,63 @@
 }
 
 .question {
-  text-align: left; /* 텍스트를 왼쪽으로 정렬합니다 */
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  text-align: left; /* 텍스트를 왼쪽으로 정렬 */
   color: #666;
+  flex-wrap: wrap; /* 줄 바꿈을 허용 */
+}
+
+.bidButton {
+  padding: 5px 20px;
+  background-color: #DEE7D2; /* Blue background */
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.inputArea {
+  border: none; /* 테두리 없음 */
+  resize: none; /* 크기 조절 불가능 */
+  outline: none; /* 기본 아웃라인 제거 */
+  width: 40%;
+  border-radius: 5px;
+}
+
+.inputArea:focus {
+  border: 2px solid rgb(170, 170, 195); /* 포커스 시 테두리 색상 변경 */
+}
+@media (max-width: 570px) {
+  .amount {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 0.3rem;
+  }
+  .bidButton {
+    padding: 5px 10px;
+    margin-left: auto; 
+  }
+  .question{
+    margin-left: 0.6rem;
+  }
+  .maxAmount{
+    margin-left: 0.6rem;
+  }
+  .inputArea {
+    font-size: 1rem;
+    width: 60%;
+  }
+}
+
+@media (max-width: 430px) {
+  .buttons {
+    display: flex;          /* Flexbox를 활성화 */
+    justify-content: center; /* 요소들을 가운데 정렬 */
+    flex-wrap: wrap;         /* 요소들이 여백을 초과하면 다음 줄로 이동 */
+  }
+  .buttons button {
+    width: 10rem;           /* 버튼의 가로 길이 설정 */
+    margin: 5px auto;       /* 위아래 마진은 5px, 좌우 마진은 자동으로 설정하여 중앙에 위치 */
+  }
 }

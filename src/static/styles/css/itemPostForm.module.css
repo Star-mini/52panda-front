@@ -31,3 +31,23 @@ hr {
 .justif-content-end {
   justify-content: end;
 }
+.submit-button {
+  background-color: #A7C77D; /* 버튼 배경색 */
+  border-color: #9DB283; /* 버튼 테두리색 */
+}
+
+/* 버튼 호버 상태 */
+.submit-button:hover {
+  background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
+  border-color: #88a06b;
+}
+.cancel-button:hover {
+  background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
+  border-color: #88a06b;
+}
+.activeToggleButton {
+  background-color: #88a06b !important;
+}
+.textarea-no-resize {
+  resize: none;
+}

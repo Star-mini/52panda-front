@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../static/styles/css/ChatRoom.module.css"; // 모듈 CSS 임포트
-import ChattingPanda from "../static/styles/images/ChattingPanda.png";
+import styles from "../../../static/styles/css/ChatRoom.module.css"; // 모듈 CSS 임포트
+import ChattingPanda from "../../../static/styles/images/ChattingPanda.png";
 
 const ChatRoom = ({ nickname, date, content }) => {
   return (

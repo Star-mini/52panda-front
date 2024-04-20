@@ -1,0 +1,16 @@
+.division{
+    text-align:center;
+    background-color: rgb(157, 178, 131);
+    justify-self: center;
+    padding:1px
+}
+.font{
+    display: inline-block;
+    font-size: 18px;
+    font-weight:900;
+    margin:2%;
+}
+.outer {
+    width: 90% !important;
+    margin: 0 auto; 
+  }

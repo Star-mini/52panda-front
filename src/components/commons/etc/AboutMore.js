@@ -1,16 +1,23 @@
-import React from "react";
-// CSS 파일을 모듈로서 import 합니다. styles라는 객체로 스타일을 불러옵니다.
-import styles from "../static/styles/css/AboutMore.module.css";
-import profileLogo from "../static/styles/images/profileLogo.png";
-import exFarm from "../static/styles/images/exFarm.png";
+import React, { useRef } from "react";
+import styles from "../../../static/styles/css/AboutMore.module.css";
+import profileLogo from "../../../static/styles/images/profileLogo.png";
+import exFarm from "../../../static/styles/images/exFarm.png";
 import QnA from "./QnA.js";
 
 function AboutMore() {
+  // QnA 컴포넌트에 접근하기 위한 ref를 생성합니다.
+  const qnaRef = useRef(null);
+
+  // Q&A 탭을 클릭하면 실행될 함수입니다.
+  const scrollToQnA = () => {
+    qnaRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className={styles.aboutMore}>
       <div className={styles.tabs}>
         <div className={`${styles.tab} ${styles.activeTab}`}>About More</div>
-        <div className={styles.tab}>Q&A</div>
+        <div className={styles.tab} onClick={scrollToQnA}>Q&A</div>
       </div>
       <div className={styles.contentBox}>
         <h1 className={styles.title}>About More</h1>
@@ -36,9 +43,12 @@ function AboutMore() {
         <img
           src={exFarm}
           alt="A field of freshly tilled soil with a sunset in the background"
-          className={styles.exFarm}
+          className={`${styles.exFarm} img-fluid`}
         />
-        <QnA />
+        {/* 여기에 ref를 추가합니다. */}
+        <div ref={qnaRef}>
+          <QnA />
+        </div>
       </div>
     </div>
   );

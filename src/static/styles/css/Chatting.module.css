@@ -21,13 +21,38 @@
     justify-content: flex-end;
     align-items: flex-end;    
   }
+  .Chattingnav {
+    display: flex; /* 자식 요소를 가로로 배치합니다. */
+    justify-content: space-between;
+    align-items: center; /* 자식 요소를 수직 중앙으로 정렬합니다. */
+    margin: 4%;
+  }
+  .chattingH2{
+    font-weight: bold;
+    color: #545454;
+  }
+  .closeButtonContainer {
+    width : 10%;
+    justify-content: flex-end;
+    padding: 0; /* 컨테이너의 패딩을 제거합니다 */
+  }
+  .closeButtonContainer button {
+    border: none; /* 버튼의 테두리를 제거합니다 */
+    background: transparent; /* 버튼의 배경색을 투명하게 설정합니다 */
+  }
+  .closeicon{
+    background-color: rgba(0, 0, 0, 0);
+    width: 3rem;
+    height: 3rem;
+    border: none; /* 버튼의 테두리 제거 */
+  }
   
-  .modal {
+  .modal { 
     background: white;
-    padding: 20px;
+    padding: 2%;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 30%;  
+    width: 28%;  
     height: 80%; 
     z-index: 1001;
   }

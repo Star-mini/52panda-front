@@ -6,3 +6,8 @@
     display: flex;
     flex-direction: row;
 }
+
+.filter-btns .btn-success {
+    background-color: #88a06b !important; /* 원하는 색상 코드로 변경 */
+    border-color: #88a06b !important; /* 원하는 색상 코드로 변경 */
+}

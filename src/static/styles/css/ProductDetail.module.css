@@ -5,9 +5,12 @@
   margin: auto;
   padding: 1rem;
   height: 640px; /* 기존 높이에서 5px 늘림 */
+  height: 640px; /* 기존 높이에서 5px 늘림 */
 }
 
 .carousel {
+  display: flex;
+
   flex: none;
   display: flex;
   justify-content: center;
@@ -27,14 +30,14 @@
   height: 44px; /* 이 값은 화살표 이미지의 실제 크기에 맞게 조정해야 함 */
 }
 
-
 .productDetails {
   flex-grow: 1;
   margin-left: 2.5rem;
   position: relative; /* 포지셔닝 컨텍스트 설정 */
-
 }
 .heart {
+  transition: filter 10s ease; /* 색상 필터 변경에 대한 부드러운 트랜지션 */
+  cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
   position: absolute; /* 절대 위치 */
   top: 5%; /* 위쪽부터의 거리 */
   left: 80%; /* 왼쪽부터의 거리 */
@@ -50,14 +53,14 @@
 }
 
 .productImg {
-    width: 30rem; /* 이미지의 너비를 750px로 설정 */
-    /* 필요한 경우 높이를 자동으로 설정해서 비율을 유지할 수 있습니다. */
-    height: auto; /* 이미지의 높이를 자동으로 조정 */
-  }
-  
+  transition: opacity 0.3s ease-in-out; /* 부드러운 페이드 효과를 위한 설정 */
+  width: 30rem; /* 이미지의 너비 설정 */
+  height: auto; /* 높이는 비율에 맞게 자동으로 설정 */
+  border-radius: 20px; /* 이미지 모서리를 둥글게 */
+}
 
 .category {
-  color: #4A5568; /* text-gray-700 */
+  color: #4a5568; /* text-gray-700 */
   margin-bottom: 1rem;
 }
 
@@ -65,10 +68,10 @@
   background-color: rgb(205, 226, 179);
   display: flex;
   border-radius: 10px;
-  color: #000000; /* text-gray-700 */
+  color: black; /* text-gray-700 */
   justify-content: center;
   align-items: center;
-  font-family: 'font2';
+  font-family: "font2";
   font-size: 2rem;
   height: 2.3em;
 }
@@ -83,10 +86,11 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  width: 100%;
 }
 
 .buttonContainer {
-    width: 100%; /* 부모 컨테이너의 전체 너비를 차지하게 합니다 */
+  width: 100%; /* 부모 컨테이너의 전체 너비를 차지하게 합니다 */
 
   display: flex;
   justify-content: center;
@@ -94,89 +98,89 @@
 }
 
 .bidButton {
-  background-color: hsla(86, 24%, 49%,0.78);
-
-  padding: 0.5rem 1rem;
+  background-color: hsla(86, 24%, 49%, 0.78);
+  padding: 0.7rem 1.2rem;
   border-radius: 0.375rem; /* rounded */
-  margin-top: 2rem;
+  margin-top: 1.8rem;
   transition: background-color 0.3s;
   border: none;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
-.bidButton:hover, .bidButton:focus {
+.bidButton:hover,
+.bidButton:focus {
   background-color: hsla(86, 24%, 49%, 0.78);
-
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* 다른 요소들보다 상위에 위치 */
-  }
-  .closeicon{
-    background-color: rgba(0, 0, 0, 0);
-    width: 3rem;
-    height: 3rem;
-    border: none; /* 버튼의 테두리 제거 */
-  }
-  
-  .popup {
-    border-radius: 25px;
-    background-color: white;
-    padding: 20px; /* 내부 여유 공간 */
-    width: 50%; /* 너비 설정 */
-    height: 70; /* 높이 설정 */
-    box-shadow: 0 4px 8px rgba(0,0,0,0); /* 그림자 효과 */
-    overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
-  }
-  .popupContent {
-    display: flex;
-    justify-content: space-between; /* 컴포넌트 간 간격을 균등하게 조정 */
-    align-items: center; /* 수직 중앙 정렬 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 다른 요소들보다 상위에 위치 */
+}
+.closeicon {
+  background-color: rgba(0, 0, 0, 0);
+  width: 3rem;
+  height: 3rem;
+  border: none; /* 버튼의 테두리 제거 */
+}
 
-  }
-  .carouselControlPrev img,
-  .carouselControlNext img {
-    width: 70%; 
-    height: auto;
-  }
+.popup {
+  border-radius: 25px;
+  background-color: white;
+  padding: 20px; /* 내부 여유 공간 */
+  width: 50%; /* 너비 설정 */ 
+  height: 70; /* 높이 설정 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* 그림자 효과 */
+  overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
+}
+.popupContent {
+  display: flex;
+  justify-content: space-between; /* 컴포넌트 간 간격을 균등하게 조정 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+.carouselControlPrev img,
+.carouselControlNext img {
+  width: 70%;
+  height: auto;
+}
 
-  .carouselControlPrev {
-    left: 10px; /* 컨테이너의 왼쪽 끝에서부터의 거리 */
-  }
-  
-  .carouselControlNext {
-    right: 10px; /* 컨테이너의 오른쪽 끝에서부터의 거리 */
-  }
-  
-  .closeButtonContainer {
-    display: flex;
-    justify-content: flex-end; /* 버튼을 컨테이너의 오른쪽 끝으로 정렬합니다 */
-    padding: 0; /* 컨테이너의 패딩을 제거합니다 */
-  }
+.carouselControlPrev {
+  left: 10px; /* 컨테이너의 왼쪽 끝에서부터의 거리 */
+}
 
-  .closeButtonContainer button {
-    border: none; /* 버튼의 테두리를 제거합니다 */
-    background: transparent; /* 버튼의 배경색을 투명하게 설정합니다 */
-  }
+.carouselControlNext {
+  right: 10px; /* 컨테이너의 오른쪽 끝에서부터의 거리 */
+}
 
-  .startPrice {
-    color: grey; /* 글자 색상을 회색으로 설정 */
-    font-size: 17px;
+.closeButtonContainer {
+  display: flex;
+  justify-content: flex-end; /* 버튼을 컨테이너의 오른쪽 끝으로 정렬합니다 */
+  padding: 0; /* 컨테이너의 패딩을 제거합니다 */
+}
+
+.closeButtonContainer button {
+  border: none; /* 버튼의 테두리를 제거합니다 */
+  background: transparent; /* 버튼의 배경색을 투명하게 설정합니다 */
+}
+
+.startPrice {
+  color: grey; /* 글자 색상을 회색으로 설정 */
+  font-size: 17px;
 }
 .currentPrice {
   font-size: 25px; /* 글자 크기를 15px로 설정 */
   font-weight: bold; /* 글자를 굵게 표시 */
   text-align: center; /* 텍스트를 중앙 정렬 */
 }
-.instantPrice{
+.instantPrice {
   font-size: 20px;
   font-weight: bold;
   text-align: center; /* 텍스트를 중앙 정렬 */
@@ -185,4 +189,68 @@
 #productImage {
   position: relative;
   top: 27px; /* 위치를 현재보다 5px 아래로 조정 */
+}
+
+@media (max-width: 1200px) {
+  .popup {
+    padding: 20px; /* 내부 여유 공간 */
+    width: 70%; /* 너비 설정 */ 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* 그림자 효과 */
+    overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
+  }
+}
+
+@media (max-width: 830px) {
+  .popup {
+    padding: 20px; /* 내부 여유 공간 */
+    width: 90%; /* 너비 설정 */ 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* 그림자 효과 */
+    overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
+  }
+}
+@media (max-width: 630px) {
+  .popup {
+    width: 100%; /* 너비 설정 */ 
+    overflow: auto; /* 내용이 넘치면 스크롤바 생성 */
+  }
+}
+
+@media (max-width: 1020px) {
+  #productImage {
+    position: relative;
+    top: 0px;
+  }
+  .container {
+    margin-bottom: 60%;
+  }
+}
+@media (max-width: 815px) {
+  .carousel {
+    width: 100%; /* 캐러셀의 너비를 부모 컨테이너의 전체 너비로 설정 */
+    margin: 0 auto; /* 좌우 자동 마진을 적용하여 중앙 정렬 */
+  }
+}
+@media (max-width: 615px) {
+  .productImg {
+    width: 20rem; /* 이미지의 너비를 750px로 설정 */
+    /* 필요한 경우 높이를 자동으로 설정해서 비율을 유지할 수 있습니다. */
+    height: auto; /* 이미지의 높이를 자동으로 조정 */
+  }
+}
+@media (max-width: 375px) {
+  .timeRemaining {
+    font-size: 1.2rem;
+  }
+  .startPrice {
+    font-size: 0.8rem;
+  }
+  .currentPrice {
+    font-size: 1.5rem;
+  }
+  .instantPrice {
+    font-size: 1.2rem;
+  }
+  .productDetails{
+    margin-left: 0rem;
+  }
 }

@@ -1,14 +1,18 @@
 import React from "react";
-import pandaLogo from "../../../static/styles/images/panda_logo.jpg";
-import heartButton from "../../../static/styles/images/heart_black.png";
+import pandaLogo from "../../../static/styles/images/PandaLogo.png";
+import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
 import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 
 function Navbar() {
+  const pad = {
+    paddingRight: "100px",
+    paddingLeft: "100px",
+  };
   return (
     <nav class="navbar navbar-expand">
-      <div className="container-fluid">
+      <div className={`container-fluid ${styles.padding}`} style={pad}>
         <a className="navbar-brand" href="#">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>
@@ -25,14 +29,14 @@ function Navbar() {
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
               <a className={styles.a} href="">
-                <p className={styles.paragraph}>Item</p>
+                <p className={styles.paragraph}>물품목록</p>
               </a>
             </li>
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
               <a className={styles.a} href="">
-                <p className={styles.paragraph}>Post</p>
+                <p className={styles.paragraph}>판매하기</p>
               </a>
             </li>
           </ul>
@@ -50,12 +54,7 @@ function Navbar() {
             </li>
             <li className="nav-item">
               <button className={styles.button}>
-                <img
-                  className={styles.img}
-                  width="40px"
-                  src={heartButton}
-                  alt=""
-                />
+                <img className={styles.img} width="40px" src={bell} alt="" />
               </button>
             </li>
             <li class="dropdown nav-item me-5">

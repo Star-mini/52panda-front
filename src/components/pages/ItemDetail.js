@@ -1,7 +1,7 @@
-import React from 'react';
-import AboutMore from '../AboutMore';
-import ProductDetail from '../ProductDetail';
-import Chatting from '../Chatting'; // 경로 확인
+import React from "react";
+import AboutMore from "../commons/etc/AboutMore";
+import ProductDetail from "../commons/etc/ProductDetail";
+import Chatting from "../commons/etc/Chatting"; // 경로 확인
 
 function ItemDetail() {
   return (
