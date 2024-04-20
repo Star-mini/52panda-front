@@ -97,7 +97,17 @@
   cursor: pointer;
   font-weight: bold;
 }
+.inputArea {
+  border: none; /* 테두리 없음 */
+  resize: none; /* 크기 조절 불가능 */
+  outline: none; /* 기본 아웃라인 제거 */
+  width: 40%;
+  border-radius: 5px;
+}
 
+.inputArea:focus {
+  border: 2px solid rgb(170, 170, 195); /* 포커스 시 테두리 색상 변경 */
+}
 @media (max-width: 570px) {
   .amount {
     font-size: 1rem;
@@ -106,7 +116,7 @@
   }
   .bidButton {
     padding: 5px 10px;
-    margin-left: auto; /* "얼마에 살까요?" 텍스트 바로 오른쪽에 3rem 간격 */
+    margin-left: auto; 
   }
   .question{
     margin-left: 0.6rem;
