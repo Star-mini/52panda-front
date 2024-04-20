@@ -13,6 +13,7 @@ function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHeartPink, setIsHeartPink] = useState(false);
+  const [priceList, setPriceList] = useState([]); // 가격 목록 상태 추가
 
   const images = [
     iphone,
@@ -21,7 +22,6 @@ function ProductDetail() {
   ];
 
   const changeImage = (direction) => {
-    // 이미지 페이드 아웃
     let imageElement = document.getElementsByClassName(styles.productImg)[0];
     imageElement.style.opacity = 0;
 
@@ -31,65 +31,68 @@ function ProductDetail() {
       if (newIndex >= images.length) newIndex = 0;
       setCurrentImageIndex(newIndex);
 
-      // 이미지 페이드 인
       imageElement.style.opacity = 1;
-    }, 300); // 0.5초 후 이미지 인덱스 변경 및 페이드 인
+    }, 300);
   };
 
   const toggleHeart = () => {
-    setIsHeartPink(!isHeartPink); // 하트 상태를 반전시킵니다.
+    setIsHeartPink(!isHeartPink);
   };
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
   };
 
+  // 가격 추가 함수
+  const addToPriceList = (name, price) => {
+    setPriceList([...priceList, { name, price }]); // 새로운 아이템 추가
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
         <div
-          className={styles["carouselControlPrev"]}
+          className={styles.carouselControlPrev}
           onClick={() => changeImage(-1)}
         >
           <img src={carouselControlPrev} alt="Previous" />
         </div>
         <div id={styles.productImage}>
           <img
-            className={styles["productImg"]}
+            className={styles.productImg}
             src={images[currentImageIndex]}
             alt="Product Image"
           />
         </div>
         <div
-          className={styles["carouselControlNext"]}
+          className={styles.carouselControlNext}
           onClick={() => changeImage(1)}
         >
           <img src={carouselControlNext} alt="Next" />
         </div>
       </div>
 
-      <div className={styles["productDetails"]}>
-        <h4 className={styles["productTitle"]}>아이폰 13프로</h4>
+      <div className={styles.productDetails}>
+        <h4 className={styles.productTitle}>아이폰 13프로</h4>
         <img
           src={isHeartPink ? PinkHeart : heartIcon}
           className={styles.heart}
           alt="Heart"
           onClick={toggleHeart}
         />
-        {/* 하트 이미지 클릭 이벤트 추가 */}
         <p className={styles.category}>전자제품/휴대폰/아이폰</p>
-        <p className={styles["timeRemaining"]}>
+        <p className={styles.timeRemaining}>
           낙찰까지 <span id={styles.bidTime}>13:03:93</span>
         </p>
-        <div className={styles["biddingDetails"]}>
-          <p className={styles["startPrice"]}>시작 금액 500,000</p>
-          <p className={styles["currentPrice"]}>현재 금액 800,000</p>
-          <p className={styles["instantPrice"]}>즉시낙찰 금액 1,000,000</p>
+        <div className={styles.biddingDetails}>
+          <p className={styles.startPrice}>시작 금액 500,000</p>
+          <p className={styles.currentPrice}>현재 금액 800,000</p>
+          <p className={styles.instantPrice}>즉시낙찰 금액 1,000,000</p>
         </div>
       </div>
 
-      <div className={styles["buttonContainer"]}>
-        <button className={styles["bidButton"]} onClick={togglePopup}>
+      <div className={styles.buttonContainer}>
+        <button className={styles.bidButton} onClick={togglePopup}>
           입찰하기
         </button>
       </div>
@@ -102,9 +105,11 @@ function ProductDetail() {
                 <img src={closeIcon} className={styles.closeicon} alt="close" />
               </button>
             </div>
-            <div className={styles["popupContent"]}>
-              <PriceList />
-              <AmountSelection />
+            <div className={styles.popupContent}>
+              {/* PriceList에 priceList 전달 */}
+              <PriceList items={priceList} />
+              <AmountSelection onBid={addToPriceList} />{" "}
+              {/* AmountSelection에 함수 전달 */}
             </div>
           </div>
         </div>

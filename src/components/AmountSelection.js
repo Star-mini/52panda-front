@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import styles from "../static/styles/css/AmountSelection.module.css"; // 모듈 CSS 임포트
+import styles from "../static/styles/css/AmountSelection.module.css";
 
-function AmountSelection() {
+function AmountSelection({ onBid }) {
   const [amount, setAmount] = useState(1500000); // 초기 금액 설정
+  const [bidValue, setBidValue] = useState(""); // 입찰가를 입력할 상태
 
   const handleAddAmount = (addValue) => {
     setAmount((prevAmount) => prevAmount + addValue);
+  };
+
+  const handleBid = () => {
+    if (bidValue) { // 입찰가가 입력된 경우
+      onBid("사용자", bidValue); // 사용자 이름과 입찰가 전달
+      setBidValue(""); // 입력 필드를 비웁니다.
+    }
   };
 
   return (
@@ -15,8 +23,20 @@ function AmountSelection() {
         <button className={styles.withdraw}>출금 인출</button>
       </div>
       <div className={styles.question}>
-        <input type="text" className={styles.inputArea} placeholder="얼마에 살까요?" /> {/* <textarea> 대신 <input> 사용 */}
-        <button className={styles.bidButton}>입찰</button>
+      <input
+  type="text"
+  className={styles.inputArea}
+  placeholder="얼마에 살까요?"
+  value={bidValue}
+  onChange={(e) => {
+    const newValue = e.target.value;
+    const filteredValue = newValue.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
+    setBidValue(filteredValue);
+  }}
+/>
+        <button className={styles.bidButton} onClick={handleBid}>
+          입찰
+        </button>
       </div>
       <div className={styles.divider}></div>
       <div className={styles.maxAmount}>
