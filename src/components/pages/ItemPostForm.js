@@ -94,7 +94,7 @@ function ItemPostForm() {
                     <Form.Group as={Row} className="mb-4" controlid="item_detail">
                         <Form.Label column sm={2}><nobr>상세설명</nobr></Form.Label>
                         <Col>
-                            <Form.Control as="textarea" type="text" rows="8" name="item_detail" />
+                        <Form.Control as="textarea" className={styles['textarea-no-resize']} rows="8" name="item_detail" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-4">
