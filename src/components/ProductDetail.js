@@ -108,7 +108,7 @@ function ProductDetail() {
             <div className={styles.popupContent}>
               {/* PriceList에 priceList 전달 */}
               <PriceList items={priceList} />
-              <AmountSelection onBid={addToPriceList} />{" "}
+              <AmountSelection onBid={addToPriceList} togglePopup={togglePopup} />
               {/* AmountSelection에 함수 전달 */}
             </div>
           </div>
