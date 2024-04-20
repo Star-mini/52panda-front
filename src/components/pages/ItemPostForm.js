@@ -71,23 +71,29 @@ function ItemPostForm() {
                     <Form.Group as={Row} className="mb-4">
                         <Form.Label column sm={2}><nobr>거래 방법</nobr></Form.Label>
                         <Col sm={5} className={styles['btn-inline-group']}>
-                            <ToggleButton
-                                type="checkbox" variant="outline-success" id="direct-check"
-                                value="1"
-                                checked={direct}
-                                onChange={(e) => setDirectChecked(e.currentTarget.checked)}
-                            >
-                                직거래
-                            </ToggleButton>
-                            <div className="vr" />
-                            <ToggleButton
-                                type="checkbox" variant="outline-success" id="parcel-check"
-                                value="2"
-                                checked={parcel}
-                                onChange={(e) => setParcelChecked(e.currentTarget.checked)}
-                            >
-                                택배
-                            </ToggleButton>
+                        <ToggleButton
+    type="checkbox"
+    variant="outline-success"
+    id="direct-check"
+    value="1"
+    checked={direct}
+    onChange={(e) => setDirectChecked(e.currentTarget.checked)}
+    className={direct ? styles.activeToggleButton : ''}
+>
+    직거래
+</ToggleButton>
+<div className="vr" />
+<ToggleButton
+    type="checkbox"
+    variant="outline-success"
+    id="parcel-check"
+    value="2"
+    checked={parcel}
+    onChange={(e) => setParcelChecked(e.currentTarget.checked)}
+    className={parcel ? styles.activeToggleButton : ''}
+>
+    택배
+</ToggleButton>
                         </Col>
                     </Form.Group>
                     <hr />

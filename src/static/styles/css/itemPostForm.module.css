@@ -41,6 +41,9 @@ hr {
   background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
   border-color: #88a06b;
 }
+.activeToggleButton {
+  background-color: #A7C77D !important;
+}
 .textarea-no-resize {
   resize: none;
 }
