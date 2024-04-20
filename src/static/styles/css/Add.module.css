@@ -1,0 +1,47 @@
+  .inputGroup {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    align-items: center; /* 버튼과 입력 필드가 중앙 정렬되도록 설정 */
+  }
+  
+  .input {
+    border: 2px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    height: 5rem;
+    outline: none;
+  }
+  
+  .input:focus {
+    border-color: #85a05f;
+  }
+  
+  .completeButton, .cancelButton {
+    color: white;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem; /* 글자 크기 1rem으로 설정 */
+    flex-direction: row;
+    width: auto;
+    padding: 0.3rem;
+  }
+  
+  .completeButton {
+    background-color: #d5e0c6; /* Green */
+  }
+  
+
+  .cancelButton {
+    background-color: #dcdbdb; /* Red */
+  }
+  .buttonsContainer {
+    display: flex;
+    flex-direction: column; /* 버튼들을 세로로 쌓기 위해 설정 */
+    gap: 0.5rem; /* 버튼 사이의 간격 */
+  }
+  
+  /* 나머지 스타일은 그대로 유지합니다. */
+  
