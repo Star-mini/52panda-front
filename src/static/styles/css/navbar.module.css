@@ -1,10 +1,12 @@
+/*main page 헤더랑 동일하게 마진 주기! */
+/* 화면 줄어들어도 마진 유지하기 */
+/* 화면 줄어들었을 때, 로고랑, 아이콘&검색창 중간으로 몰리는거 가생이로 뺴주기*/
 .button{
     border: none;
     padding: 10px;
     background-color: transparent;
     color: inherit;
     border-color: inherit;
-
 }
 .img{
     
@@ -18,7 +20,7 @@
 }
 .paragraph{
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     padding: 15px;
     margin-bottom: 0px;
 
@@ -47,10 +49,13 @@
     margin-top: 5px;
     z-index: 9999;
     }
-    
+.dropdown-toggle{
+    display: none;
+}
 .dropdown{
     left: -50%!important;
     position: relative;
+
 }
 
 @media screen and (max-width: 1455px) {
@@ -72,7 +77,8 @@
             margin-top: 10px;
             margin-right: 0px;
             width: 100px!important;
-        }
+    }
+
     .paragraph{
         font-weight: bold;
         font-size: 14px;
@@ -85,7 +91,7 @@
  {
     .input{
             width: 50%;
-            max-width: 70px; /* 최대 너비 설정 */
+            max-width: 40rem; /* 최대 너비 설정 */
             margin-top: 10px;
             margin-right: 0px;
             /* width: 70px!important; */
@@ -97,14 +103,14 @@
         width: 30px;
     }
     .logoImg{
-        width: 40px!important;
-        height: 30px!important;
+        width: 6rem!important;
+        height: auto!important;
         margin-right: 0px;
     }
 
     .img{
-        width: 20px;
-        height: 30px;
+        width: 1.8rem;
+        height: 1.8rem;
     }
     .leftandblock {
         padding-right: 0;
@@ -117,40 +123,36 @@
         margin-left: 0px!important;
         margin-right:0px!important;
     }
-    
+
 }
 @media screen and (max-width: 780px)
  {
-    
+
     .paragraph{
         width: 45px!important;
         min-width: 20px;
-        font-size: 8px;
+        font-size: 0.8rem;
     }
-}
-@media screen and (max-width: 625px)
- {
-    
-    .paragraph{
-        width: 30px!important;
-        margin: 0px;
-        font-size: 5px;
+
+    /*검생창 넓이 완전 작게 만들어주기*/
+    .input.group{
+
+        width: 0.3rem!important; /* 최대 너비 설정 */
+        margin-top: 10px;
+        margin-right: 0px;
+        /* width: 70px!important; */
     }
-    
-}
-@media screen and (max-width: 720px)
- {
-    .padding{
-        padding:15px!important;
-    }
-  
+
+
 }
 
-@media screen and (max-width: 475px)
+@media screen and (max-width: 625px)
  {
-    .padding{
-        padding:0px!important;
+
+    .paragraph{
+       display: none;
     }
+
 }
 
 
