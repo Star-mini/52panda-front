@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <nav class="navbar navbar-expand">
       <div className={`container-fluid ${styles.padding}`} style={pad}>
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>
         <div className="collapse navbar-collapse" id="">
@@ -28,14 +28,14 @@ function Navbar() {
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="">
+              <a className={styles.a} href="/auction">
                 <p className={styles.paragraph}>물품목록</p>
               </a>
             </li>
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="">
+              <a className={styles.a} href="/auction/form">
                 <p className={styles.paragraph}>판매하기</p>
               </a>
             </li>
@@ -77,7 +77,7 @@ function Navbar() {
 
               <ul class={`${styles.dropdown} dropdown-menu`}>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="/mypage">
                     찜한목록
                   </a>
                 </li>
