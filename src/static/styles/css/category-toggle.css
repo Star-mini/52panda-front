@@ -19,3 +19,9 @@
     margin-right: 20px;
     padding:3px;
 }
+
+@media (max-width: 768px) {
+    .category-icon {
+        margin-right: 0;
+    }
+}

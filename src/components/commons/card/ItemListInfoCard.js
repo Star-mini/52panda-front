@@ -35,20 +35,28 @@
               </div>
               <div className="col-md-8">
                 <Card.Body>
-                  <Card.Title className="card-text">{title}</Card.Title>
-                  <Card.Subtitle className="card-text">
+                  <Card.Title className="card-space">{title}</Card.Title>
+                  <Card.Subtitle className="card-space">
                   <span className="category-space">{category}/{categoryDetail}</span>
                     {tradingMethodBadges}
                   </Card.Subtitle>
                   <Card.Body className="bg-light rounded card-body">
-                    <Card.Text>
+                    <Card.Text >
                       <small className="text-muted start-price-font">시작 금액 {startPrice}</small>
                     </Card.Text>
                     <Card.Text className="text-center">
                         {isAuctionFinished ? (
                         <span className="current-price-font">낙찰 금액 {currentPrice}</span>
                       ) : (
-                        <span className="current-price-font">현재 금액 {currentPrice}</span>
+                        <div className='text-space'>
+                          <div className="card-space">
+                              <span className="current-price-font">현재 금액 {currentPrice}</span>
+                          </div>
+                          <div>
+                              <span className="buy-now-price-font">즉시 구매가 {currentPrice}</span>
+                          </div>
+                        </div>
+                        
                       )}
                     </Card.Text>
                   </Card.Body>
