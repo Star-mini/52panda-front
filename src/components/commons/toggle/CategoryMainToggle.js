@@ -74,7 +74,7 @@ function CategoryToggle() {
     <div className="category-main-toggle">
       <div className="all-category-btn">
         <div className="category-icon">
-          <CategoryButton category="전체" onClick={toggleAllCategories} />
+          <CategoryButton category="전체" onClick={toggleAllCategories} type = "main"/>
         </div>
 
         <div>
@@ -89,6 +89,7 @@ function CategoryToggle() {
                     <CategoryButton
                       category={category}
                       onClick={handleCategoryClick}
+                      type = "main"
                     />
                   </div>
                 ))}
