@@ -7,6 +7,7 @@ import MainPageItem from "../commons/etc/MainPageItem";
 import Footer from "../commons/footer/Footer";
 import CategoryToggle from "../commons/toggle/CategoryMainToggle";
 import footer from "../../static/styles/images/footerup.png";
+import Chatting from "../commons/etc/Chatting";
 
 
 function MainPage() {

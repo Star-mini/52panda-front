@@ -10,6 +10,7 @@ import MainPage from "../src/components/pages/MainPage";
 import Login from "../src/components/pages/Login";
 import Navbar from "./components/commons/navbar/Navbar";
 import Footer from "./components/commons/footer/Footer";
+import Chatting from "./components/commons/etc/Chatting";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <Chatting/>
       <Footer />
     </div>
   );
