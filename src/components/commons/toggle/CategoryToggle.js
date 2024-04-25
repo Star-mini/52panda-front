@@ -12,8 +12,11 @@ function CategoryToggle() {
   
   
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-    setFirstRowCategories([category, ...categories.filter(cat => cat !== category).slice(0, categoriesPerRow - 1)]);
+    if(category !== '전체'){
+      setSelectedCategory(category);
+      setFirstRowCategories([category, ...categories.filter(cat => cat !== category).slice(0, categoriesPerRow - 1)]);
+    }
+    
   };
   
   useEffect(() => {
@@ -21,18 +24,20 @@ function CategoryToggle() {
       const windowWidth = window.innerWidth;
       let newCategoriesPerRow;
       if(windowWidth > 1400 ){
-        newCategoriesPerRow = 8;
+        newCategoriesPerRow = 9;
       }
-      else if (windowWidth > 1070) {
+      else if (windowWidth > 1225) {
+        newCategoriesPerRow = 7;
+      } else if (windowWidth > 1000) {
         newCategoriesPerRow = 6;
-      } else if (windowWidth > 800) {
+      } else if (windowWidth > 768) {
         newCategoriesPerRow = 4;
-      } else if ( windowWidth > 650){
+      } else if ( windowWidth > 400){
+        newCategoriesPerRow = 5;
+      }  else if(windowWidth >300){
         newCategoriesPerRow = 3;
-      } else if(windowWidth >450){
-        newCategoriesPerRow = 2;
       }else{
-        newCategoriesPerRow = 1;
+        newCategoriesPerRow = 2;
       }
       setCategoriesPerRow(newCategoriesPerRow);
     }
