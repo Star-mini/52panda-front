@@ -1,6 +1,11 @@
 /*main page 헤더랑 동일하게 마진 주기! */
 /* 화면 줄어들어도 마진 유지하기 */
 /* 화면 줄어들었을 때, 로고랑, 아이콘&검색창 중간으로 몰리는거 가생이로 뺴주기*/
+
+.padding{
+    padding-right: 3%;
+    padding-left:4%;
+}
 .button{
     border: none;
     padding: 10px;
@@ -62,6 +67,11 @@
     .input{
         margin-right: 0px;
         width: 300px!important;
+    }
+    
+    .padding{
+        padding-right: 3%;
+        padding-left:6%;
     }
 }
 @media screen and (max-width: 1250px) {
@@ -128,6 +138,10 @@
 @media screen and (max-width: 780px)
  {
 
+    .padding{
+    padding-right: 5%;
+    padding-left:10%;
+    }
     .paragraph{
         width: 45px!important;
         min-width: 20px;
@@ -152,7 +166,28 @@
     .paragraph{
        display: none;
     }
+    .padding{
+        padding-right: 5%;
+        padding-left:10%;
+    }
 
 }
-
+@media screen and (max-width:500px) {
+    .logoImg{
+        max-width:40px;
+        height:auto;
+    }
+    .img{
+        max-width:30px!important;
+        height: auto;
+    }
+    .button{
+        padding-right: 0px;
+        padding-left:0px;
+    }
+    .padding{
+        padding-left:15%;
+    }
+    
+}
 

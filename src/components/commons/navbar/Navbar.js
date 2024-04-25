@@ -6,13 +6,9 @@ import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 
 function Navbar() {
-  const pad = {
-    paddingRight: "100px",
-    paddingLeft: "100px",
-  };
   return (
     <nav class="navbar navbar-expand">
-      <div className={`container-fluid ${styles.padding}`} style={pad}>
+      <div className={`container-fluid ${styles.padding}`}>
         <a className="navbar-brand" href="/">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>
@@ -45,7 +41,7 @@ function Navbar() {
               <form className="input-group">
                 <input
                   className={`${styles.input} form-control`}
-                  placeholder="찾고 싶은 중고물품을 검색해보세요"
+                  placeholder=""
                 />
                 <button className={styles.button}>
                   <img className={styles.dbg} src={dbg}></img>

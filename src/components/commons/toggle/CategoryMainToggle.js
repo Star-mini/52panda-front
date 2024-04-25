@@ -44,9 +44,9 @@ function CategoryToggle() {
       } else if (windowWidth > 700) {
         newCategoriesPerRow = 4;
       } else if (windowWidth > 500) {
-        newCategoriesPerRow = 3;
-      } else {
         newCategoriesPerRow = 2;
+      } else {
+        newCategoriesPerRow = 1;
       }
       setCategoriesPerRow(newCategoriesPerRow);
     }
