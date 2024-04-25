@@ -6,6 +6,5 @@
     padding:3%;
 }
 .myflex{
-    display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
 }

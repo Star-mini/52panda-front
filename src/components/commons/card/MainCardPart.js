@@ -11,7 +11,7 @@ function MainCardPart(props) {
           alt="..."
         />
         <div className="card-body">
-          <h5 className="card-title">{props.name}</h5>
+          <h5 className={`card-title ${styles.fontSize}`}>{props.name}</h5>
         </div>
       </a>
     </div>

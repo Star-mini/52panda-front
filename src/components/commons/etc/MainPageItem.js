@@ -10,9 +10,9 @@ function MainPageItem(props) {
     marginLeft: "5%",
   };
   return (
-    <div className={styles.itemlistmargin}>
+    <div className={`container ${styles.itemlistmargin}`}>
       <h1 style={h1style}>{props.heading}</h1>
-      <div className="card-group">
+      <div className={`card-group d-flex ${styles.myflex}`}>
         <MainPageItemCard
           img={notebook}
           category="전자기기/노트북"
