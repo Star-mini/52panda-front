@@ -26,6 +26,7 @@ function MainPageItemCard(props) {
     top: "0%",
     opacity: 0.5,
     display: priceVisible ? "block" : "none",
+    borderRadius: '20px'  // 여기에 borderRadius 속성 추가
   };
   const priceContainer1 = {
     display: priceVisible ? "block" : "none",
