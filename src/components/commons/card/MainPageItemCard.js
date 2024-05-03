@@ -15,7 +15,7 @@ function MainPageItemCard(props) {
   const imageContainer1 = {
     margin: "0 auto",
     textAlign: "center",
-    borderRadius: '20px',
+    borderRadius: "20px",
     // position: "absolute",
   };
 
@@ -35,8 +35,11 @@ function MainPageItemCard(props) {
   };
 
   return (
-    <div className={`${styles.mycard} card ms-2 me-2`} style={{ borderRadius: '20px' }}>
-    <a href="">
+    <div
+      className={`${styles.mycard} card ms-2 me-2`}
+      style={{ borderRadius: "20px" }}
+    >
+      <a href="">
         <div>
           <img
             style={imageContainer1}
@@ -66,8 +69,8 @@ function MainPageItemCard(props) {
       </a>
 
       <div className="card-body" onMouseOver={hidePrice}>
-        <h5 className="card-title">{props.category}</h5>
-        <p className="card-text">{props.name}</p>
+        <h5 className={`card-title ${styles.fontSize}`}>{props.category}</h5>
+        <p className={`card-text ${styles.fontSize}`}>{props.name}</p>
       </div>
     </div>
   );

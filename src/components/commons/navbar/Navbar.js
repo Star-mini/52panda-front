@@ -6,14 +6,10 @@ import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 
 function Navbar() {
-  const pad = {
-    paddingRight: "100px",
-    paddingLeft: "100px",
-  };
   return (
     <nav class="navbar navbar-expand">
-      <div className={`container-fluid ${styles.padding}`} style={pad}>
-        <a className="navbar-brand" href="#">
+      <div className={`container-fluid ${styles.padding}`}>
+        <a className="navbar-brand" href="/">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>
         <div className="collapse navbar-collapse" id="">
@@ -28,14 +24,14 @@ function Navbar() {
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="">
+              <a className={styles.a} href="/auction">
                 <p className={styles.paragraph}>물품목록</p>
               </a>
             </li>
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="">
+              <a className={styles.a} href="/auction/form">
                 <p className={styles.paragraph}>판매하기</p>
               </a>
             </li>
@@ -45,7 +41,7 @@ function Navbar() {
               <form className="input-group">
                 <input
                   className={`${styles.input} form-control`}
-                  placeholder="찾고 싶은 중고물품을 검색해보세요"
+                  placeholder=""
                 />
                 <button className={styles.button}>
                   <img className={styles.dbg} src={dbg}></img>
@@ -77,7 +73,7 @@ function Navbar() {
 
               <ul class={`${styles.dropdown} dropdown-menu`}>
                 <li>
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="/mypage">
                     찜한목록
                   </a>
                 </li>
