@@ -25,6 +25,7 @@
 
   .main-type:hover {
     background-color:hsla(84, 30%, 65%,1);
+    transition: background-color 0.3s ease; /* 배경색이 서서히 변하도록 설정 */
 }
 
   .circular-button.selected {
