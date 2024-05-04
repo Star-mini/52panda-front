@@ -5,6 +5,7 @@ import notebook from "../../../static/styles/images/notebook.png";
 import ddofoki from "../../../static/styles/images/ddofoki.png";
 import samsung from "../../../static/styles/images/samsungflip.png";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
+
 function MainPageItem(props) {
   const h1style = {
     marginLeft: "5%",
