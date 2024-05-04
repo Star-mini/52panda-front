@@ -37,6 +37,7 @@
   
   .circular-button:hover {
     background-color: rgb(234, 242, 236);
+    transition: background-color 0.3s ease; /* 배경색이 서서히 변하도록 설정 */
   }
 
   .main-type:hover {
