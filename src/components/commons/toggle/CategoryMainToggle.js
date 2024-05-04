@@ -41,12 +41,8 @@ function CategoryToggle() {
         newCategoriesPerRow = 8;
       } else if (windowWidth > 1000) {
         newCategoriesPerRow = 6;
-      } else if (windowWidth > 700) {
-        newCategoriesPerRow = 4;
-      } else if (windowWidth > 500) {
-        newCategoriesPerRow = 2;
       } else {
-        newCategoriesPerRow = 1;
+        newCategoriesPerRow = 4; // 700픽셀 이상과 500픽셀 이하 모두 여기에 포함
       }
       setCategoriesPerRow(newCategoriesPerRow);
     }
