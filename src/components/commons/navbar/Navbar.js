@@ -87,11 +87,6 @@ function Navbar() {
                     참여한 경매글목록
                   </a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    비밀번호수정
-                  </a>
-                </li>
               </ul>
             </li>
           </ul>
