@@ -35,7 +35,11 @@ function CategoryToggle() {
     function handleResize() {
       const windowWidth = window.innerWidth;
       let newCategoriesPerRow;
-      if (windowWidth > 1400) {
+      if (windowWidth > 2000) { // 2000픽셀 이상인 경우
+        newCategoriesPerRow = 17;
+      } else if (windowWidth > 1500) { // 1440픽셀 이상인 경우
+        newCategoriesPerRow = 12;
+      } else if (windowWidth > 1441) {
         newCategoriesPerRow = 9;
       } else if (windowWidth > 1100) {
         newCategoriesPerRow = 8;
@@ -46,6 +50,8 @@ function CategoryToggle() {
       }
       setCategoriesPerRow(newCategoriesPerRow);
     }
+    
+    
 
     handleResize();
     window.addEventListener("resize", handleResize);

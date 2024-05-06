@@ -63,3 +63,10 @@
     width: 70%;
     height: auto;
   }
+
+  @media (min-width: 1440px) {
+    .category-image {
+      width: 100%;
+      height: auto;
+    }
+  }
