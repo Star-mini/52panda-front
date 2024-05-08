@@ -5,7 +5,7 @@ import ChattingPanda from "../../../static/styles/images/ChattingPanda.png";
 const ChatRoom = ({ room, onClick }) => {
 
   const handleRoomClick = () => {
-    onClick(room.id); 
+    onClick(room.id,room.user); 
   }
 
   return (

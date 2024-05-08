@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import { Client }  from '@stomp/stompjs';
+import styles from '../../../static/styles/css/ChatWindow.module.css';
 
-function ChatWindow({ roomId, onBackButtonClick }) {
+function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
   const [chatMessages, setChatMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
   const [messageInput, setMessageInput] = useState('');
 
+  const chatContainerRef = useRef(null);
 
   const handleMessageInputChange = (e) => {
     setMessageInput(e.target.value);
@@ -35,16 +37,23 @@ function ChatWindow({ roomId, onBackButtonClick }) {
         stompClient.subscribe(`/room/${roomId}`, (message) => {
           const receivedMessage = JSON.parse(message.body);
           setChatMessages((prevMessages) => [...prevMessages, receivedMessage]);
+          
         });
       };
 
       stompClient.activate();
     }
   }, [stompClient, roomId]);
+  
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatMessages]);
 
   const handleSendMessage = () => {
     if (messageInput.trim() !== '') {
-      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:1}) });
+      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:testUser}) })
       setMessageInput('');
     }
   };
@@ -55,23 +64,22 @@ function ChatWindow({ roomId, onBackButtonClick }) {
   };
 
   return (
-    <div>
+    <div  className={styles.chatContainer} ref={chatContainerRef}>
       <button onClick={handleBackButtonClick}>뒤로가기</button>
       <h3>채팅 내역</h3>
-      <ul>
-        {chatMessages.map((message) => (
-          <li key={message.id}>
-            <strong>{message.sender}:</strong> {message.content}
-          </li>
+      {chatMessages.map((message) => (
+          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === testUser ? styles.right : styles.left}`}>
+            {message.content}
+          </div>
         ))}
-      </ul>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className={styles.inputContainer}>
         <input 
+          className={styles.input}
           type="text" 
           value={messageInput} 
           onChange={handleMessageInputChange} 
           placeholder="메시지를 입력하세요" />
-        <button onClick={handleSendMessage} style={{ marginLeft: '8px' }}>전송</button>
+        <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
       </div>
     </div>
   );

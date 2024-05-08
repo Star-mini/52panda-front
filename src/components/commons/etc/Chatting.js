@@ -9,19 +9,18 @@ function Chatting() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedChatRoomId, setSelectedChatRoomId] = useState(null); 
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(false); 
+  const [testUser,setTestUser] = useState(null);
 
   const toggleModal = () => setIsOpen(!isOpen);
 
-  // Sample data for the chat rooms
   const chatRoomsData = [
-    { id: 5, nickname: '꿀', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
-    { id: 2, nickname: '단우', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
-    { id: 3, nickname: '지훈지훈지훈', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
-    { id: 4, nickname: '한현이의 거부권', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
+    { id: 5, user:1,nickname: '꿀', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
+    { id: 5, user:2,nickname: '단우', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
   ];
 
-  const handleChatRoomClick = (roomId) => {
+  const handleChatRoomClick = (roomId,user) => {
     setSelectedChatRoomId(roomId);
+    setTestUser(user);
     setIsChatWindowOpen(true);
   };
 
@@ -51,10 +50,10 @@ function Chatting() {
             
             <div>
             {isChatWindowOpen ? (
-              <ChatWindow roomId={selectedChatRoomId}  onBackButtonClick={handleBackButtonClick} />
+              <ChatWindow roomId={selectedChatRoomId}  testUser={testUser} onBackButtonClick={handleBackButtonClick} />
             ) : (
               chatRoomsData.map((room, index) => (
-                <ChatRoom key={index} room={room} onClick={handleChatRoomClick} />
+                <ChatRoom key={index} room={room} onClick={handleChatRoomClick}/>
               ))
             )}
             </div>
