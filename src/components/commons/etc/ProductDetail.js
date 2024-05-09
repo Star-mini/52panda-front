@@ -38,10 +38,27 @@ function ProductDetail() {
   };
 
   const toggleHeart = () => {
-    if (!isHeartPink) { // 하트가 핑크색이 아닐 때만 요청
-      const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/like/`;
-
-      axios.post(url)
+    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/like/`;
+  
+    if (isHeartPink) { // 핑크색일 때는 DELETE 요청
+      axios.delete(url)
+        .then(response => {
+          console.log('찜하기 취소 성공:', response.data);
+          setIsHeartPink(false); // 성공 시 흰색으로 변경
+        })
+        .catch(error => {
+          console.error('찜하기 취소 실패:', error);
+        });
+    } else { // 흰색일 때는 POST 요청
+      const data = {
+        likeUserId: 1 // 예시로 사용자 ID를 1로 설정
+      };
+  
+      axios.post(url, data, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
         .then(response => {
           console.log('찜하기 성공:', response.data);
           setIsHeartPink(true); // 성공 시 핑크색으로 변경
@@ -49,10 +66,9 @@ function ProductDetail() {
         .catch(error => {
           console.error('찜하기 실패:', error);
         });
-    } else {
-      setIsHeartPink(false); // 핑크색일 때 클릭하면 흰색으로 변경
     }
   };
+  
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
