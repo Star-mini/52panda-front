@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import MainPageItemCard from "../card/MainPageItemCard";
 import redcan from "../../../static/styles/images/redcan.png";
 import notebook from "../../../static/styles/images/notebook.png";
@@ -6,42 +6,60 @@ import ddofoki from "../../../static/styles/images/ddofoki.png";
 import samsung from "../../../static/styles/images/samsungflip.png";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
 
+const items = [
+  { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
+  { img: samsung, category: "전자기기/휴대폰", name: "삼성플립2", startprice: "5000억", nowprice: "5조" },
+  { img: ddofoki, category: "식료품/밀키트", name: "떡볶이밀키트", startprice: "5000억", nowprice: "5조" },
+  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+];
+
 function MainPageItem(props) {
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const itemsPerPage = 4; // 한 페이지에 표시할 항목 수
+  const totalPages = Math.ceil(items.length / itemsPerPage);
+
+  const handlePrev = () => {
+    setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : 0));
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prevPage) => (prevPage < totalPages - 1 ? prevPage + 1 : totalPages - 1));
+  };
+
+  const startIndex = currentPage * itemsPerPage;
+  const selectedItems = items.slice(startIndex, startIndex + itemsPerPage);
+
   const h1style = {
     marginLeft: "5%",
   };
+
   return (
     <div className={`container ${styles.itemlistmargin}`}>
       <h1 style={h1style}>{props.heading}</h1>
-      <div className={`card-group d-flex ${styles.myflex}`}>
-        <MainPageItemCard
-          img={notebook}
-          category="전자기기/노트북"
-          name="그램"
-          startprice="5000억"
-          nowprice="5조"
-        />
-        <MainPageItemCard
-          img={samsung}
-          category="전자기기/휴대폰"
-          name="삼성플립2"
-          startprice="5000억"
-          nowprice="5조"
-        />
-        <MainPageItemCard
-          img={ddofoki}
-          category="식료품/밀키트"
-          name="떡볶이밀키트"
-          startprice="5000억"
-          nowprice="5조"
-        />
-        <MainPageItemCard
-          img={redcan}
-          category="화장품세트/기초세트"
-          name="화장품세트"
-          startprice="5000억"
-          nowprice="5조"
-        />
+      <div className="d-flex justify-content-between align-items-center">
+        <button onClick={handlePrev} disabled={currentPage === 0}>
+          {"<"}
+        </button>
+        <div className={`card-group d-flex ${styles.myflex}`}>
+          {selectedItems.map((item, index) => (
+            <MainPageItemCard
+              key={index}
+              img={item.img}
+              category={item.category}
+              name={item.name}
+              startprice={item.startprice}
+              nowprice={item.nowprice}
+            />
+          ))}
+        </div>
+        <button onClick={handleNext} disabled={currentPage === totalPages - 1}>
+          {">"}
+        </button>
       </div>
     </div>
   );
