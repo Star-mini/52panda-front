@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios'; // Axios 임포트
 import styles from "../../../static/styles/css/ProductDetail.module.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
@@ -37,7 +38,20 @@ function ProductDetail() {
   };
 
   const toggleHeart = () => {
-    setIsHeartPink(!isHeartPink);
+    if (!isHeartPink) { // 하트가 핑크색이 아닐 때만 요청
+      const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/like/`;
+
+      axios.post(url)
+        .then(response => {
+          console.log('찜하기 성공:', response.data);
+          setIsHeartPink(true); // 성공 시 핑크색으로 변경
+        })
+        .catch(error => {
+          console.error('찜하기 실패:', error);
+        });
+    } else {
+      setIsHeartPink(false); // 핑크색일 때 클릭하면 흰색으로 변경
+    }
   };
 
   const togglePopup = () => {
