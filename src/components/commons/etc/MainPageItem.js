@@ -27,13 +27,21 @@ const settings = {
   infinite: true,
   speed: 700, // 슬라이드 전환 속도
   slidesToShow: 4,
-  slidesToScroll: 4,  
+  slidesToScroll: 4,
   autoplay: false,
   autoplaySpeed: 4000, // 자동 전환 속도
   cssEase: 'ease-in-out', // 부드러운 전환 효과를 위한 속도 곡선 설정
   nextArrow: <CustomNextArrow />,
   prevArrow: <CustomPrevArrow />,
-  responsive: [],
+  responsive: [
+    {
+      breakpoint: 500, // 가로 길이가 500px 이하일 때
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2
+      }
+    }
+  ]
 };
 
 function CustomNextArrow(props) {
