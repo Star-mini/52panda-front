@@ -5,16 +5,18 @@ import notebook from "../../../static/styles/images/notebook.png";
 import ddofoki from "../../../static/styles/images/ddofoki.png";
 import samsung from "../../../static/styles/images/samsungflip.png";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
+import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
+import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
 
 const items = [
   { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
   { img: samsung, category: "전자기기/휴대폰", name: "삼성플립2", startprice: "5000억", nowprice: "5조" },
   { img: ddofoki, category: "식료품/밀키트", name: "떡볶이밀키트", startprice: "5000억", nowprice: "5조" },
   { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
-  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
-  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
-  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
-  { img: redcan, category: "화장품세트/기초세트", name: "화장품세트", startprice: "5000억", nowprice: "5조" },
+  { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
+  { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
+  { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
+  { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
 ];
 
 function MainPageItem(props) {
@@ -41,10 +43,14 @@ function MainPageItem(props) {
   return (
     <div className={`container ${styles.itemlistmargin}`}>
       <h1 style={h1style}>{props.heading}</h1>
-      <div className="d-flex justify-content-between align-items-center">
-        <button onClick={handlePrev} disabled={currentPage === 0}>
-          {"<"}
-        </button>
+      <div className={`d-flex justify-content-between align-items-center ${styles.carouselContainer}`}>
+        <img
+          src={carouselControlPrev}
+          alt="Previous"
+          onClick={handlePrev}
+          className={styles.carouselControl}
+          style={{ cursor: currentPage === 0 ? "not-allowed" : "pointer" }}
+        />
         <div className={`card-group d-flex ${styles.myflex}`}>
           {selectedItems.map((item, index) => (
             <MainPageItemCard
@@ -57,9 +63,13 @@ function MainPageItem(props) {
             />
           ))}
         </div>
-        <button onClick={handleNext} disabled={currentPage === totalPages - 1}>
-          {">"}
-        </button>
+        <img
+          src={carouselControlNext}
+          alt="Next"
+          onClick={handleNext}
+          className={styles.carouselControl}
+          style={{ cursor: currentPage === totalPages - 1 ? "not-allowed" : "pointer" }}
+        />
       </div>
     </div>
   );
