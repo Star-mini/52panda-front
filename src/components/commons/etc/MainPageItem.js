@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import MainPageItemCard from "../card/MainPageItemCard";
 import redcan from "../../../static/styles/images/redcan.png";
 import notebook from "../../../static/styles/images/notebook.png";
 import ddofoki from "../../../static/styles/images/ddofoki.png";
 import samsung from "../../../static/styles/images/samsungflip.png";
+import Slider from "react-slick";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
 
@@ -19,58 +22,63 @@ const items = [
   { img: notebook, category: "전자기기/노트북", name: "그램", startprice: "5000억", nowprice: "5조" },
 ];
 
-function MainPageItem(props) {
-  const [currentPage, setCurrentPage] = useState(0);
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 700, // 슬라이드 전환 속도
+  slidesToShow: 4,
+  slidesToScroll: 4,  
+  autoplay: false,
+  autoplaySpeed: 4000, // 자동 전환 속도
+  cssEase: 'ease-in-out', // 부드러운 전환 효과를 위한 속도 곡선 설정
+  nextArrow: <CustomNextArrow />,
+  prevArrow: <CustomPrevArrow />,
+  responsive: [],
+};
 
-  const itemsPerPage = 4; // 한 페이지에 표시할 항목 수
-  const totalPages = Math.ceil(items.length / itemsPerPage);
-
-  const handlePrev = () => {
-    setCurrentPage((prevPage) => (prevPage > 0 ? prevPage - 1 : 0));
-  };
-
-  const handleNext = () => {
-    setCurrentPage((prevPage) => (prevPage < totalPages - 1 ? prevPage + 1 : totalPages - 1));
-  };
-
-  const startIndex = currentPage * itemsPerPage;
-  const selectedItems = items.slice(startIndex, startIndex + itemsPerPage);
-
-  const h1style = {
-    marginLeft: "5%",
-  };
-
+function CustomNextArrow(props) {
+  const { className, style, onClick } = props;
   return (
-    <div className={`container ${styles.itemlistmargin}`}>
-      <h1 style={h1style}>{props.heading}</h1>
-      <div className={`d-flex justify-content-between align-items-center ${styles.carouselContainer}`}>
-        <img
-          src={carouselControlPrev}
-          alt="Previous"
-          onClick={handlePrev}
-          className={styles.carouselControl}
-          style={{ cursor: currentPage === 0 ? "not-allowed" : "pointer" }}
-        />
-        <div className={`card-group d-flex ${styles.myflex}`}>
-          {selectedItems.map((item, index) => (
+    <img
+      src={carouselControlNext}
+      alt="Next"
+      onClick={onClick}
+      className={`${className} ${styles.carouselControl}`}
+      style={{ ...style, display: "block" }}
+    />
+  );
+}
+
+function CustomPrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <img
+      src={carouselControlPrev}
+      alt="Previous"
+      onClick={onClick}
+      className={`${className} ${styles.carouselControl}`}
+      style={{ ...style, display: "block" }}
+    />
+  );
+}
+
+function MainPageItem({ heading }) {
+  return (
+    <div className={`container ${styles.itemlistmargin} ${styles.carouselContainer}`}>
+      <h1>{heading}</h1>
+      <Slider {...settings}>
+        {items.map((item, index) => (
+          <div key={index}>
             <MainPageItemCard
-              key={index}
               img={item.img}
               category={item.category}
               name={item.name}
               startprice={item.startprice}
               nowprice={item.nowprice}
             />
-          ))}
-        </div>
-        <img
-          src={carouselControlNext}
-          alt="Next"
-          onClick={handleNext}
-          className={styles.carouselControl}
-          style={{ cursor: currentPage === totalPages - 1 ? "not-allowed" : "pointer" }}
-        />
-      </div>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
