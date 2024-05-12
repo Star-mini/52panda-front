@@ -14,29 +14,39 @@ function MainPageItemCard(props) {
     textAlign: "center",
     borderRadius: "20px",
     transition: "opacity 0.1s ease", // 트랜지션 추가
+    width: "100%", // imageContainer2와 동일한 너비
+    height: "100%", // imageContainer2와 동일한 높이
+    position: "relative", // 상대 위치 지정
+    zIndex: 1, // 낮은 z-index 설정
   };
 
   const imageContainer2 = {
     margin: "0 auto",
     textAlign: "center",
-    position: "absolute",
-    top: "0%",
-    opacity: priceVisible ? 0.5 : 0.3, // 가시성에 따라 opacity 변경
+    position: "absolute", // imageContainer1 위에 위치
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    opacity: priceVisible ? 0.4 : 0.2, // 가시성에 따라 opacity 변경
     display: "block",
     borderRadius: "20px",
-    transition: "opacity 0.1s ease" // 여기에 transition 속성 추가
+    transition: "opacity 0.1s ease", // 여기에 transition 속성 추가
+    zIndex: 2, // 높은 z-index 설정
   };
 
   const priceContainer1 = {
     opacity: priceVisible ? 1 : 0, // 서서히 나타나는 효과를 위해 opacity 추가
     transition: "opacity 1s ease", // opacity 변경에 대한 트랜지션 추가
-    display: "block"
+    display: "block",
+    zIndex: 3, // 높은 z-index 설정
   };
   
   const priceContainer2 = {
     opacity: priceVisible ? 1 : 0, // 서서히 나타나는 효과를 위해 opacity 추가
     transition: "opacity 1s ease", // opacity 변경에 대한 트랜지션 추가
-    display: "block"
+    display: "block",
+    zIndex: 3, // 높은 z-index 설정
   };
 
   return (
@@ -47,7 +57,7 @@ function MainPageItemCard(props) {
       onMouseOver={() => togglePriceVisibility(true)} // 이벤트를 div 전체에 적용하여 자연스러운 동작을 보장
     >
       <a href="#">
-        <div>
+        <div style={{ position: "relative" }}>
           <img
             style={imageContainer1}
             src={props.img}
