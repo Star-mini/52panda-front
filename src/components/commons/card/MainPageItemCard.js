@@ -12,7 +12,7 @@ function MainPageItemCard(props) {
   const imageContainer1 = {
     margin: "0 auto",
     textAlign: "center",
-    borderRadius: "20px",
+    borderRadius: "20px 20px 0 0", // 위쪽 두 개의 꼭짓점만 굴곡 추가
     transition: "opacity 0.1s ease", // 트랜지션 추가
     width: "100%", // imageContainer2와 동일한 너비
     height: "100%", // imageContainer2와 동일한 높이
@@ -30,7 +30,7 @@ function MainPageItemCard(props) {
     height: "100%",
     opacity: priceVisible ? 0.4 : 0.2, // 가시성에 따라 opacity 변경
     display: "block",
-    borderRadius: "20px",
+    borderRadius: "20px 20px 0 0", // 위쪽 두 개의 꼭짓점만 굴곡 추가
     transition: "opacity 0.1s ease", // 여기에 transition 속성 추가
     zIndex: 2, // 높은 z-index 설정
   };
@@ -85,7 +85,12 @@ function MainPageItemCard(props) {
       </a>
 
       <div className="card-body">
-        <h5 className={`card-title ${styles.fontSize}`}>{props.category}</h5>
+        <h5 
+          className={`card-title ${styles.fontSize}`} 
+          style={{ marginTop: "0.7rem" }}  // margin-top 1rem 추가
+        >
+          {props.category}
+        </h5>
         <p className={`card-text ${styles.fontSize}`}>{props.name}</p>
       </div>
     </div>
