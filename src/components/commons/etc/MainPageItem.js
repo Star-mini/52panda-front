@@ -61,9 +61,9 @@ function MainPageItem({ heading }) {
 
   useEffect(() => {
     const baseURL = process.env.REACT_APP_API_URL;
-    const endpoint = heading === "New Item" ? "/no-auth/new-item" : "/no-auth/hot-item";
+    const endpoint = heading === "New Item" ? "/v1/no-auth/new-item" : "/v1/no-auth/hot-item";
     const url = `${baseURL}${endpoint}`;
-
+  
     axios.get(url)
       .then(response => {
         const data = response.data;
@@ -73,6 +73,7 @@ function MainPageItem({ heading }) {
       })
       .catch(error => console.error('Error fetching data:', error));
   }, [heading]);
+  
 
   return (
     <div className={`container ${styles.itemlistmargin} ${styles.carouselContainer}`}>
