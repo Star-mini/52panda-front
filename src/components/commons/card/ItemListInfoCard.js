@@ -48,7 +48,7 @@ const ItemListInfoCard = ({
   }
 
   return (
-    <Link to="/detail" className="card-link">
+    <Link to={`/detail/${itemId}`} className="card-link">
       <Card className="container d-flex justify-content-center p-0">
         <div className="row g-0 ">
           <div className="col-md-4">
@@ -59,7 +59,7 @@ const ItemListInfoCard = ({
               <Card.Title className="card-space">{title}</Card.Title>
               <Card.Subtitle className="card-space">
                 <span className="category-space">
-                  {category}/{categoryDetail}
+                  {category}
                 </span>
                 {tradingMethodBadges}
               </Card.Subtitle>
