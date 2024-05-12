@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import MainPageItemCard from "../card/MainPageItemCard";
 import Slider from "react-slick";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
@@ -10,17 +11,17 @@ import carouselControlNext from "../../../static/styles/images/carouselControlNe
 const settings = {
   dots: true,
   infinite: true,
-  speed: 700, // 슬라이드 전환 속도
+  speed: 700,
   slidesToShow: 4,
   slidesToScroll: 4,
   autoplay: false,
-  autoplaySpeed: 4000, // 자동 전환 속도
-  cssEase: 'ease-in-out', // 부드러운 전환 효과를 위한 속도 곡선 설정
+  autoplaySpeed: 4000,
+  cssEase: 'ease-in-out',
   nextArrow: <CustomNextArrow />,
   prevArrow: <CustomPrevArrow />,
   responsive: [
     {
-      breakpoint: 500, // 가로 길이가 500px 이하일 때
+      breakpoint: 500,
       settings: {
         slidesToShow: 2,
         slidesToScroll: 2
@@ -59,16 +60,15 @@ function MainPageItem({ heading }) {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const url =
-      heading === "New Item"
-        ? "http://localhost:8081/api/v1/no-auth/new-item"
-        : "http://localhost:8081/api/v1/no-auth/hot-item";
-    
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
+    const baseURL = process.env.REACT_APP_API_URL;
+    const endpoint = heading === "New Item" ? "/no-auth/new-item" : "/no-auth/hot-item";
+    const url = `${baseURL}${endpoint}`;
+
+    axios.get(url)
+      .then(response => {
+        const data = response.data;
         if (data.success) {
-          setItems(data.data.hotItemListDtos.filter(item => item !== null)); // null 값 필터링
+          setItems(data.data.hotItemListDtos.filter(item => item !== null));
         }
       })
       .catch(error => console.error('Error fetching data:', error));
