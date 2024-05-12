@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MainPageItemCard from "../card/MainPageItemCard";
 import Slider from "react-slick";
+import { useNavigate } from "react-router-dom";
 import styles from "../../../static/styles/css/mainpageitem.module.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -58,6 +59,7 @@ function CustomPrevArrow(props) {
 
 function MainPageItem({ heading }) {
   const [items, setItems] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const baseURL = process.env.REACT_APP_API_URL;
@@ -73,14 +75,17 @@ function MainPageItem({ heading }) {
       })
       .catch(error => console.error('Error fetching data:', error));
   }, [heading]);
-  
+
+  const handleClick = (itemId) => {
+    navigate(`/detail?itemId=${itemId}`);
+  };
 
   return (
     <div className={`container ${styles.itemlistmargin} ${styles.carouselContainer}`}>
       <h1>{heading}</h1>
       <Slider {...settings}>
         {items.map((item, index) => (
-          <div key={index}>
+          <div key={index} onClick={() => handleClick(item.itemId)}>
             <MainPageItemCard
               img={item.thumbnail}
               category={item.category}
