@@ -7,7 +7,7 @@ function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(1); // 테스트용 ID
+  const [userId, setUserId] = useState(3); // 테스트용 ID
 
   useEffect(() => {
     if (productData && productData.questions) {
@@ -47,8 +47,16 @@ function QnA({ productData }) {
   };
 
   const handleCancel = (id) => {
-    setAddComponents((prevComponents) => prevComponents.filter(component => component.id !== id));
+    setAddComponents((prevComponents) =>
+      prevComponents.filter((component) => component.id !== id)
+    );
     setIsAdding(false);
+  };
+
+  const handleDelete = (questionId) => {
+    setQuestions((prevQuestions) =>
+      prevQuestions.filter((q) => q.questionId !== questionId)
+    );
   };
 
   return (
@@ -63,20 +71,34 @@ function QnA({ productData }) {
         </div>
       )}
       <div className={styles.divider}></div>
-
+  
       {/* 질문과 답변 섹션 */}
-      {questions.map(q => (
+      {questions.map((q) => (
         <div key={q.questionId}>
           <div className={styles.question}>
             <h4 className={styles.questionText}>Q. {q.questionContents}</h4>
-            <div className={q.comments.length > 0 ? styles.status : styles.noStatus}>
-              {q.comments.length > 0 ? "답변완료" : "답변 미완료"}
+            <div className={styles.statusContainer}>
+              <div
+                className={
+                  q.comments.length > 0 ? styles.status : styles.noStatus
+                }
+              >
+                {q.comments.length > 0 ? "답변완료" : "답변 미완료"}
+              </div>
             </div>
           </div>
-          <p className={styles.date}>
-            문의일: {new Date(q.questionTime).toLocaleString()}
-          </p>
-          {q.comments.map(comment => (
+          <div className={styles.dateAndDelete}>
+            <p className={styles.date}>
+              문의일: {new Date(q.questionTime).toLocaleString()}
+            </p>
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleDelete(q.questionId)}
+            >
+              삭제
+            </button>
+          </div>
+          {q.comments.map((comment) => (
             <div key={comment.commentId} className={styles.answer}>
               <h4 className={styles.answerText}>A. {comment.comment}</h4>
               <p className={styles.date}>
@@ -87,7 +109,7 @@ function QnA({ productData }) {
           <div className={styles.divider}></div>
         </div>
       ))}
-      {addComponents.map(component => component.component)}
+      {addComponents.map((component) => component.component)}
     </div>
   );
 }
