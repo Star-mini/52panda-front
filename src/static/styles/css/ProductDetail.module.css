@@ -262,4 +262,7 @@
   .heart {
     left: 95%;
   }
+  .bidButton {
+    margin-top: 0rem;
+  }
 }
