@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap; /* 자식 요소들이 넘치면 다음 줄로 넘어가도록 합니다 */
-  max-width: 1024px;
+  max-width: 1100px;
   margin: auto;
   padding: 1rem;
   height: 640px; /* 기존 높이에서 5px 늘림 */
@@ -13,6 +13,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  margin-left: 1rem;
 }
 
 .carouselControlPrev,
@@ -28,7 +29,7 @@
 
 .productDetails {
   flex-grow: 1;
-  margin-left: 2.5rem;
+  margin-left: 5rem;
   position: relative;
 }
 
@@ -53,7 +54,7 @@
 .productImg {
   transition: opacity 0.3s ease-in-out; /* 부드러운 페이드 효과를 위한 설정 */
   width: 29rem; /* 이미지의 너비 설정 */
-  height: 25rem; /* 높이는 비율에 맞게 자동으로 설정 */
+  height: 26rem; /* 높이는 비율에 맞게 자동으로 설정 */
   border-radius: 20px; /* 이미지 모서리를 둥글게 */
   object-fit: cover; /* 이미지 비율을 유지하면서 잘리게 설정 */
 }
@@ -242,7 +243,7 @@
   }
 }
 
-@media (max-width: 375px) {
+@media (max-width: 400px) {
   .timeRemaining {
     font-size: 1.2rem;
   }
@@ -257,5 +258,8 @@
   }
   .productDetails {
     margin-left: 0rem;
+  }
+  .heart {
+    left: 95%;
   }
 }
