@@ -7,7 +7,7 @@ function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(3); // 테스트용 ID
+  const [userId, setUserId] = useState(1); // 테스트용 ID
 
   useEffect(() => {
     if (productData && productData.questions) {
@@ -17,7 +17,7 @@ function QnA({ productData }) {
     // setUserId(localStorage.getItem("id"));
   }, [productData]);
 
-  const handleAddClick = () => {
+  const handleAddClick = (questionId) => {
     if (!isAdding) {
       const newId = Date.now();
       const newComponent = {
@@ -25,8 +25,10 @@ function QnA({ productData }) {
         component: (
           <Add
             key={newId}
-            onSubmit={(text) => handleQuestionSubmit(text, newId)}
+            questionId={questionId} // questionId를 Add 컴포넌트에 전달
+            onSubmit={(text) => handleQuestionSubmit(text, newId, questionId)}
             onCancel={() => handleCancel(newId)}
+            isAnswering={questionId !== null} // questionId가 있을 경우 답변 모드
           />
         ),
       };
@@ -35,14 +37,34 @@ function QnA({ productData }) {
     }
   };
 
-  const handleQuestionSubmit = (questionText, id) => {
-    const newQuestion = {
-      questionId: questions.length + 1,
-      questionContents: questionText,
-      questionTime: new Date().toISOString(),
-      comments: [],
-    };
-    setQuestions([...questions, newQuestion]);
+  const handleQuestionSubmit = (text, id, questionId) => {
+    if (questionId !== null) {
+      setQuestions((prevQuestions) =>
+        prevQuestions.map((q) =>
+          q.questionId === questionId
+            ? {
+                ...q,
+                comments: [
+                  ...q.comments,
+                  {
+                    commentId: q.comments.length + 1,
+                    comment: text,
+                    commentTime: new Date().toISOString(),
+                  },
+                ],
+              }
+            : q
+        )
+      );
+    } else {
+      const newQuestion = {
+        questionId: questions.length + 1,
+        questionContents: text,
+        questionTime: new Date().toISOString(),
+        comments: [],
+      };
+      setQuestions([...questions, newQuestion]);
+    }
     handleCancel(id);
   };
 
@@ -64,14 +86,14 @@ function QnA({ productData }) {
       <h1 className={styles.title}>Q&A</h1>
       {productData.sellerId !== userId && (
         <div className={styles.buttonContainer}>
-          <button className={styles.writeButton} onClick={handleAddClick}>
+          <button className={styles.writeButton} onClick={() => handleAddClick(null)}>
             <img src={writeIcon} alt="글쓰기" className={styles.icon} />
             문의글 작성
           </button>
         </div>
       )}
       <div className={styles.divider}></div>
-  
+
       {/* 질문과 답변 섹션 */}
       {questions.map((q) => (
         <div key={q.questionId}>
@@ -91,13 +113,26 @@ function QnA({ productData }) {
             <p className={styles.date}>
               문의일: {new Date(q.questionTime).toLocaleString()}
             </p>
-            <button
-              className={styles.deleteButton}
-              onClick={() => handleDelete(q.questionId)}
-            >
-              삭제
-            </button>
+            {productData.sellerId === userId && (
+              <button
+                className={styles.deleteButton}
+                onClick={() => handleDelete(q.questionId)}
+              >
+                삭제
+              </button>
+            )}
           </div>
+          {q.comments.length === 0 && productData.sellerId === userId && (
+            <div className={styles.answerButtonContainer}>
+              <button
+                className={styles.writeButton}
+                onClick={() => handleAddClick(q.questionId)}
+              >
+                <img src={writeIcon} alt="답변 작성" className={styles.icon} />
+                답변 작성
+              </button>
+            </div>
+          )}
           {q.comments.map((comment) => (
             <div key={comment.commentId} className={styles.answer}>
               <h4 className={styles.answerText}>A. {comment.comment}</h4>
