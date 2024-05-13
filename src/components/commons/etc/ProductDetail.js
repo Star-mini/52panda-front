@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import styles from "../../../static/styles/css/ProductDetail.module.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
@@ -8,33 +7,15 @@ import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
-import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
-function ProductDetail() {
+function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHeartPink, setIsHeartPink] = useState(false);
   const [priceList, setPriceList] = useState([]);
   const [isBidComplete, setIsBidComplete] = useState(false);
-  const [productData, setProductData] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState("");
-  const location = useLocation();
-
-  const searchParams = new URLSearchParams(location.search);
-  const itemId = searchParams.get('itemId');
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}`);
-        setProductData(response.data.data);
-      } catch (error) {
-        console.error('API 호출 오류:', error);
-      }
-    };
-
-    fetchData();
-  }, [itemId]);
 
   useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
@@ -79,7 +60,7 @@ function ProductDetail() {
   };
 
   const toggleHeart = () => {
-    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/like/`;
+    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
 
     if (isHeartPink) {
       axios.delete(url)
