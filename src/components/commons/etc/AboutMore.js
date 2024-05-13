@@ -49,7 +49,7 @@ function AboutMore({ productData }) {
         {/* 여기에 ref를 추가합니다. */}
         <div ref={qnaRef}>
           {/* QnA 컴포넌트삽입 */}
-          <QnA />
+          <QnA productData={productData} />
         </div>
       </div>
     </div>
