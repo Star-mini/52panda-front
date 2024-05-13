@@ -14,8 +14,8 @@ function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHeartPink, setIsHeartPink] = useState(false);
-  const [priceList, setPriceList] = useState([]); // 가격 목록 상태 추가
-  const [isBidComplete, setIsBidComplete] = useState(false); // 낙찰 완료 상태 관리
+  const [priceList, setPriceList] = useState([]);
+  const [isBidComplete, setIsBidComplete] = useState(false);
 
   const images = [
     iphone,
@@ -40,18 +40,18 @@ function ProductDetail() {
   const toggleHeart = () => {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/like/`;
   
-    if (isHeartPink) { // 핑크색일 때는 DELETE 요청
+    if (isHeartPink) {
       axios.delete(url)
         .then(response => {
           console.log('찜하기 취소 성공:', response.data);
-          setIsHeartPink(false); // 성공 시 흰색으로 변경
+          setIsHeartPink(false);
         })
         .catch(error => {
           console.error('찜하기 취소 실패:', error);
         });
-    } else { // 흰색일 때는 POST 요청
+    } else {
       const data = {
-        likeUserId: 1 // 예시로 사용자 ID를 1로 설정
+        likeUserId: 1
       };
   
       axios.post(url, data, {
@@ -61,29 +61,23 @@ function ProductDetail() {
         })
         .then(response => {
           console.log('찜하기 성공:', response.data);
-          setIsHeartPink(true); // 성공 시 핑크색으로 변경
+          setIsHeartPink(true);
         })
         .catch(error => {
           console.error('찜하기 실패:', error);
         });
     }
   };
-  
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
   };
 
-  // 가격 추가 함수
-  const addToPriceList = (name, price) => {
-    setPriceList([...priceList, { name, price }]); // 새로운 아이템 추가
+  const addToPriceList = (name, price, isBidComplete) => {
+    setPriceList([...priceList, { name, price }]);
+    setIsBidComplete(isBidComplete);
   };
 
-  const handleBid = () => {
-    setIsBidComplete(true); // 낙찰 완료 상태로 설정
-    togglePopup(); // 팝업 닫기
-  };
-  
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
@@ -134,7 +128,7 @@ function ProductDetail() {
       <div className={styles.buttonContainer}>
         <button
           className={styles.bidButton}
-          onClick={isBidComplete ? undefined : handleBid}
+          onClick={isBidComplete ? undefined : togglePopup}
           style={isBidComplete ? { backgroundColor: '#CDCDCD' } : {}}
         >
           {isBidComplete ? '낙찰완료' : '입찰하기'}
@@ -150,10 +144,8 @@ function ProductDetail() {
               </button>
             </div>
             <div className={styles.popupContent}>
-              {/* PriceList에 priceList 전달 */}
               <PriceList items={priceList} />
               <AmountSelection onBid={addToPriceList} togglePopup={togglePopup} />
-              {/* AmountSelection에 함수 전달 */}
             </div>
           </div>
         </div>
