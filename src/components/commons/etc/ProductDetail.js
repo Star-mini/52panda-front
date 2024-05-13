@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import axios from 'axios'; // Axios 임포트
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import styles from "../../../static/styles/css/ProductDetail.module.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
@@ -7,8 +7,8 @@ import PriceList from "./PriceList";
 import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
-import iphone from "../../../static/styles/images/iphone.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
+import { useLocation } from 'react-router-dom';
 
 function ProductDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -16,21 +16,61 @@ function ProductDetail() {
   const [isHeartPink, setIsHeartPink] = useState(false);
   const [priceList, setPriceList] = useState([]);
   const [isBidComplete, setIsBidComplete] = useState(false);
+  const [productData, setProductData] = useState(null);
+  const [timeRemaining, setTimeRemaining] = useState("");
+  const location = useLocation();
 
-  const images = [
-    iphone,
-    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV2?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861338000",
-    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861336000",
-  ];
+  const searchParams = new URLSearchParams(location.search);
+  const itemId = searchParams.get('itemId');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}`);
+        setProductData(response.data.data);
+      } catch (error) {
+        console.error('API 호출 오류:', error);
+      }
+    };
+
+    fetchData();
+  }, [itemId]);
+
+  useEffect(() => {
+    if (!productData || !productData.bidFinishTime) return;
+
+    const calculateTimeRemaining = () => {
+      const finishTime = new Date(productData.bidFinishTime).getTime();
+      const currentTime = new Date().getTime();
+      const timeDiff = finishTime - currentTime;
+
+      if (timeDiff <= 0) {
+        setTimeRemaining("00:00:00");
+        return;
+      }
+
+      const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      setTimeRemaining(`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+    };
+
+    const timer = setInterval(calculateTimeRemaining, 1000);
+
+    return () => clearInterval(timer);
+  }, [productData]);
 
   const changeImage = (direction) => {
+    if (!productData || !productData.images) return;
+
     let imageElement = document.getElementsByClassName(styles.productImg)[0];
     imageElement.style.opacity = 0;
 
     setTimeout(() => {
       let newIndex = currentImageIndex + direction;
-      if (newIndex < 0) newIndex = images.length - 1;
-      if (newIndex >= images.length) newIndex = 0;
+      if (newIndex < 0) newIndex = productData.images.length - 1;
+      if (newIndex >= productData.images.length) newIndex = 0;
       setCurrentImageIndex(newIndex);
 
       imageElement.style.opacity = 1;
@@ -38,8 +78,8 @@ function ProductDetail() {
   };
 
   const toggleHeart = () => {
-    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/like/`;
-  
+    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/like/`;
+
     if (isHeartPink) {
       axios.delete(url)
         .then(response => {
@@ -53,12 +93,12 @@ function ProductDetail() {
       const data = {
         likeUserId: 1
       };
-  
+
       axios.post(url, data, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           console.log('찜하기 성공:', response.data);
           setIsHeartPink(true);
@@ -78,6 +118,10 @@ function ProductDetail() {
     setIsBidComplete(isBidComplete);
   };
 
+  if (!productData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
@@ -90,7 +134,7 @@ function ProductDetail() {
         <div id={styles.productImage}>
           <img
             className={styles.productImg}
-            src={images[currentImageIndex]}
+            src={productData.images[currentImageIndex].imageURL}
             alt="Product Image"
           />
         </div>
@@ -103,25 +147,25 @@ function ProductDetail() {
       </div>
 
       <div className={styles.productDetails}>
-        <h4 className={styles.productTitle}>아이폰 13프로</h4>
+        <h4 className={styles.productTitle}>{productData.title}</h4>
         <img
           src={isHeartPink ? PinkHeart : heartIcon}
           className={styles.heart}
           alt="Heart"
           onClick={toggleHeart}
         />
-        <p className={styles.category}>전자제품/휴대폰/아이폰</p>
+        <p className={styles.category}>{productData.categoryName}</p>
         {
           isBidComplete ? 
           <p className={styles.timeRemaining}>낙찰완료</p> :
           <p className={styles.timeRemaining}>
-            낙찰까지 <span id={styles.bidTime}>13:03:93</span>
+            낙찰까지<span style={{ marginLeft: '10px' }} id={styles.bidTime}>{timeRemaining}</span>
           </p>
         }
         <div className={styles.biddingDetails}>
-          <p className={styles.startPrice}>시작 금액 500,000</p>
-          <p className={styles.currentPrice}>현재 금액 800,000</p>
-          <p className={styles.instantPrice}>즉시낙찰 금액 1,000,000</p>
+          <p className={styles.startPrice}>시작 금액 {productData.startPrice}원</p>
+          <p className={styles.currentPrice}>현재 금액 {productData.maxPrice}원</p>
+          <p className={styles.instantPrice}>즉시낙찰 금액 {productData.buyNowPrice}원</p>
         </div>
       </div>
 
