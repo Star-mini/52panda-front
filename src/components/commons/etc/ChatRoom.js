@@ -5,7 +5,7 @@ import ChattingPanda from "../../../static/styles/images/ChattingPanda.png";
 const ChatRoom = ({ room, onClick }) => {
 
   const handleRoomClick = () => {
-    onClick(room.id,room.user); 
+    onClick(room.roomId,room.chatTitle); 
   }
 
   return (
@@ -16,9 +16,13 @@ const ChatRoom = ({ room, onClick }) => {
         className={styles.pandaIcon}
       />
       <div className={styles.chatInfo}>
-        <div className={styles.nickname}>{room.nickname}</div>
-        <div className={styles.date}>{room.date}</div>
-        <div className={styles.content}>{room.content}</div>
+        <div className={styles.nickname}>{room.username}</div>
+        <div className={styles.date}>{room.recentDateTime}</div>
+        {room.recentContent !== null ? (
+          <div className={styles.content}>{room.recentContent}</div>
+        ) : (
+          <div className={styles.content}>채팅내용 없음</div>
+        )}
       </div>
       <hr className={styles.separator} />
     </div>

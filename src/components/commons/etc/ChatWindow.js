@@ -1,8 +1,10 @@
 import React, { useState, useEffect , useRef} from 'react';
 import { Client }  from '@stomp/stompjs';
 import styles from '../../../static/styles/css/ChatWindow.module.css';
+import axios from 'axios';
+import backImg from '../../../static/styles/images/chatback.png';
 
-function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
+function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
   const [messageInput, setMessageInput] = useState('');
@@ -14,6 +16,27 @@ function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
   };
 
   useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8081/chat/room/content?roomId=${roomId}`);
+        console.log("테스트용",response.data.data);
+
+        const messages = response.data.data;
+        const newMessages = messages.map(message => ({
+          content: message.content, 
+          chatUser: message.chatUser
+        }));
+        
+        setChatMessages(prevMessages => [...prevMessages, ...newMessages]);
+      } catch (error) {
+        console.error('Error fetching chat content:', error);
+      }
+    };
+
+    fetchData();
+
+
     const socket = new WebSocket('ws://localhost:8081/ws');
     const stomp = new Client({
       webSocketFactory: () => socket,
@@ -53,7 +76,7 @@ function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
 
   const handleSendMessage = () => {
     if (messageInput.trim() !== '') {
-      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:testUser}) })
+      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:1}) })
       setMessageInput('');
     }
   };
@@ -64,11 +87,16 @@ function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
   };
 
   return (
-    <div  className={styles.chatContainer} ref={chatContainerRef}>
-      <button onClick={handleBackButtonClick}>뒤로가기</button>
-      <h3>채팅 내역</h3>
+    <div>
+      <div className={styles.chatTitle}>
+        <img className={styles.backImg} src={backImg} alt="뒤로가기" onClick={handleBackButtonClick} />
+        <h3>{roomTitle}</h3>
+      </div>
+      <div  className={styles.chatContainer} ref={chatContainerRef}>
+      
+      
       {chatMessages.map((message) => (
-          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === testUser ? styles.right : styles.left}`}>
+          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === 1 ? styles.right : styles.left}`}>
             {message.content}
           </div>
         ))}
@@ -82,6 +110,8 @@ function ChatWindow({ roomId, onBackButtonClick ,testUser}) {
         <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
       </div>
     </div>
+    </div>
+    
   );
 }
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import styles from '../../../static/styles/css/Chatting.module.css'; 
 import chatting from "../../../static/styles/images/chatting.png";
 import ChatRoom from './ChatRoom'; // Import the ChatRoom component
@@ -7,20 +8,27 @@ import ChatWindow from './ChatWindow';
 
 function Chatting() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedChatRoomId, setSelectedChatRoomId] = useState(null); 
+  const [selectedChatRoomId, setSelectedChatRoomId] = useState(null);
+  const [selectedChatRoomTitle, setSelectedChatRoomTitle] = useState(null); 
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(false); 
-  const [testUser,setTestUser] = useState(null);
+  const [chatRoomsData, setChatRoomsData] = useState(null);
 
   const toggleModal = () => setIsOpen(!isOpen);
 
-  const chatRoomsData = [
-    { id: 5, user:1,nickname: '꿀', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
-    { id: 5, user:2,nickname: '단우', date: '24/03/12 08:12:31', content: '어머고 꺄꺄꺄 오모모모' },
-  ];
+  useEffect(() => {
+    axios.get('http://localhost:8081/chat/rooms')
+      .then(response => {
+        setChatRoomsData(response.data.data); 
+        console.log(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching chat rooms:', error);
+      });
+  }, [isChatWindowOpen]);
 
-  const handleChatRoomClick = (roomId,user) => {
+  const handleChatRoomClick = (roomId,chatTitle) => {
     setSelectedChatRoomId(roomId);
-    setTestUser(user);
+    setSelectedChatRoomTitle(chatTitle);
     setIsChatWindowOpen(true);
   };
 
@@ -50,11 +58,13 @@ function Chatting() {
             
             <div>
             {isChatWindowOpen ? (
-              <ChatWindow roomId={selectedChatRoomId}  testUser={testUser} onBackButtonClick={handleBackButtonClick} />
+              <ChatWindow roomId={selectedChatRoomId} roomTitle={selectedChatRoomTitle} onBackButtonClick={handleBackButtonClick} />
             ) : (
-              chatRoomsData.map((room, index) => (
-                <ChatRoom key={index} room={room} onClick={handleChatRoomClick}/>
-              ))
+              <div>
+                  {chatRoomsData.map((room, index) => (
+                    <ChatRoom key={index} room={room} onClick={handleChatRoomClick}/>
+                  ))}
+              </div>
             )}
             </div>
           </div>

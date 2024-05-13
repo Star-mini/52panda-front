@@ -58,6 +58,9 @@
     z-index: 1001;
     margin-bottom: 20px;
     margin-right: 20px; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    overflow-x: hidden;
   }
-  
+
   
