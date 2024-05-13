@@ -7,11 +7,14 @@ function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [userId, setUserId] = useState(1); // 테스트용 ID
 
   useEffect(() => {
     if (productData && productData.questions) {
       setQuestions(productData.questions);
     }
+    // 실제 코드에서는 아래 주석을 사용하여 localStorage에서 id를 가져옵니다.
+    // setUserId(localStorage.getItem("id"));
   }, [productData]);
 
   const handleAddClick = () => {
@@ -51,12 +54,14 @@ function QnA({ productData }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Q&A</h1>
-      <div className={styles.buttonContainer}>
-        <button className={styles.writeButton} onClick={handleAddClick}>
-          <img src={writeIcon} alt="글쓰기" className={styles.icon} />
-          문의글 작성
-        </button>
-      </div>
+      {productData.sellerId !== userId && (
+        <div className={styles.buttonContainer}>
+          <button className={styles.writeButton} onClick={handleAddClick}>
+            <img src={writeIcon} alt="글쓰기" className={styles.icon} />
+            문의글 작성
+          </button>
+        </div>
+      )}
       <div className={styles.divider}></div>
 
       {/* 질문과 답변 섹션 */}
