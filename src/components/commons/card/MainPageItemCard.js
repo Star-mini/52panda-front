@@ -28,7 +28,7 @@ function MainPageItemCard(props) {
     left: "0",
     width: "100%",
     height: "100%",
-    opacity: priceVisible ? 0.4 : 0.2, // 가시성에 따라 opacity 변경
+    opacity: priceVisible ? 0.3 : 0, // 가시성에 따라 opacity 변경
     display: "block",
     borderRadius: "20px 20px 0 0", // 위쪽 두 개의 꼭짓점만 굴곡 추가
     transition: "opacity 0.1s ease", // 여기에 transition 속성 추가
