@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../commons/navbar/Navbar";
 import head from "../../static/styles/images/head.png";
+import head2 from "../../static/styles/images/head2.png";
 import styles from "../../static/styles/css/mypage.module.css";
 import MainPageCard from "../commons/card/MainPageCard";
 import MainPageItem from "../commons/etc/MainPageItem";
@@ -21,7 +22,7 @@ function MainPage() {
   return (
     <div style={wid}>
       <div className="row justify-content-center mx-5">
-        <img src={head} className={`img-fluid ${styles.headPicture}`} />
+        <img src={head2} className={`img-fluid ${styles.headPicture}`} />
         <CategoryToggle />
         <MainPageItem heading="Hot Item" />
         <MainPageItem heading="New Item" />
