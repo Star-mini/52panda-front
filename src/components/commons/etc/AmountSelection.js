@@ -15,10 +15,10 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const handleBid = () => {
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
-      if (numericBidValue >= amount) {
+      if (numericBidValue >= amount) { // 즉시 낙찰 금액과 같거나 높은 경우
         if (
           window.confirm(
-            `입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액과 같습니다. 즉시 낙찰로 진행하시겠어요?`
+            `입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`
           )
         ) {
           onBid("사용자", amount.toString(), true);
