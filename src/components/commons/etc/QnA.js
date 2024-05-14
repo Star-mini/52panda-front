@@ -166,9 +166,7 @@ function QnA({ productData }) {
             </div>
           ))}
           {/* 질문이 답변 중이 아닐 때만 구분자를 추가합니다 */}
-          {(!isAdding || q.comments.length > 0) && (
             <div className={styles.divider}></div>
-          )}
         </div>
       ))}
       {addComponents.map((component) => component.component)}
