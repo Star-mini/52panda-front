@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styles from '../../../static/styles/css/Add.module.css';
+import React, { useState } from "react";
+import axios from "axios";
+import styles from "../../../static/styles/css/Add.module.css";
 
-function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {  // userId 매개변수 추가
+function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {
+  // userId 매개변수 추가
   const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,11 +11,22 @@ function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) { 
   };
 
   const handleCompleteClick = () => {
-    const apiUrl = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/qna/`;
+    if (!input.trim()) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
 
-    const data = isAnswering
-      ? { answerContents: input, questionId: questionId }
-      : { questionContents: input, questionUserId: userId }; // 사용자 ID를 questionUserId로 전송
+    let apiUrl;
+    let data;
+    if (isAnswering) {
+      // 답변 등록의 경우에는 아래와 같이 itemId와 questionId를 포함한 URL을 사용.
+      apiUrl = `http://localhost:8081/api/v1/auth/auction/${itemId}/qna/${questionId}/`;
+      data = { comment: input, questionId: questionId }; // 'answerContents' 대신 'comment'를 사용
+    } else {
+      // 질문 등록의 경우에는 기존의 URL을 사용.
+      apiUrl = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/qna/`;
+      data = { questionContents: input, questionUserId: userId };
+    }
 
     axios
       .post(apiUrl, data)
