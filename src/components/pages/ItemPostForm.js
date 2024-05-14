@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton } from "react-bootstrap/";
 import styles from "../../static/styles/css/itemPostForm.module.css";
 import ImgInputForm from "../commons/forms/ImgInputForm";
+import FinishDateInputForm from "../commons/forms/FinishDateInputForm";
 
 function ItemPostForm() {
   const categories = [
@@ -13,6 +14,8 @@ function ItemPostForm() {
   ];
 
   const [itemName, setItemName] = useState("");
+  const [finishDate, setFinishDate] = useState('');
+  const [finishHour, setFinishHour] = useState('');
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
 
@@ -69,18 +72,16 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
         <hr />
-        <Form.Group as={Row} className="mb-4" controlid="auction-finish-time" required>
-          <Form.Label column xs={5} sm={2}><nobr>경매 완료 시간</nobr></Form.Label>
-          <Col xs={8} sm={4}>
-            <Form.Select>
-              {categories.map((item, index) => (
-                <option key={item.key} value={item.key}>
-                  {item.value}
-                </option>
-              ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
+
+
+        <FinishDateInputForm
+          finishDate={finishDate}
+          setFinishDate={setFinishDate}
+          finishHour={finishHour}
+          setFinishHour={setFinishHour}
+        />
+
+
         <Form.Group as={Row} className="mb-4">
           <Form.Label column sm={2}><nobr>거래 방법</nobr></Form.Label>
           <Col sm={5} className={styles['btn-inline-group']}>
