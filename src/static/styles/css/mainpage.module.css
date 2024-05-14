@@ -1,0 +1,35 @@
+.headPicture {
+  margin-bottom: 2rem; /* 아래쪽에 1rem 간격 추가 */
+  width: 95%;
+  height: auto;
+  border-radius: 15px;
+}
+.teduri {
+  padding: 5%;
+  height: 700px;
+  margin-top: 10px;
+}
+.teduri2 {
+  padding: 5%;
+  height: 300px;
+  margin-top: 10px;
+}
+.img {
+  width: 90%;
+  display: block;
+  margin: 0 auto; /* 상하 마진은 0, 좌우 마진은 자동으로 설정 */
+  border-top-left-radius: 20px;  /* 상단 왼쪽 모서리에 20px 굴곡 */
+  border-top-right-radius: 20px; /* 상단 오른쪽 모서리에 20px 굴곡 */
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fade 0.5s ease;
+}

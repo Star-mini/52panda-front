@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import Navbar from "../commons/navbar/Navbar";
-import head from "../../static/styles/images/head.png";
 import head2 from "../../static/styles/images/head2.png";
-import styles from "../../static/styles/css/mypage.module.css";
-import MainPageCard from "../commons/card/MainPageCard";
+import styles from "../../static/styles/css/mainpage.module.css";
 import MainPageItem from "../commons/etc/MainPageItem";
-import Footer from "../commons/footer/Footer";
 import CategoryToggle from "../commons/toggle/CategoryMainToggle";
 import footer from "../../static/styles/images/footerup.png";
 
