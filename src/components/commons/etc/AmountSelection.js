@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "../../../static/styles/css/AmountSelection.module.css";
 
-function AmountSelection({ onBid, togglePopup }) {
-  const [amount, setAmount] = useState(1000000); // 즉시 낙찰 금액 설정
+function AmountSelection({ onBid, togglePopup, productData }) {
+  const amount = productData.buyNowPrice; // 즉시 낙찰 금액을 productData에서 가져옴
   const [bidValue, setBidValue] = useState(""); // 입찰가를 입력할 상태
 
   const handleAddAmount = (addValue) => {
     setBidValue((prevBidValue) => {
-      const newBidValue = parseInt(prevBidValue || '0') + addValue;
+      const newBidValue = parseInt(prevBidValue || "0") + addValue;
       return newBidValue.toString();
     });
   };
@@ -16,7 +16,11 @@ function AmountSelection({ onBid, togglePopup }) {
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
       if (numericBidValue >= amount) {
-        if (window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액과 같습니다. 즉시 낙찰로 진행하시겠어요?`)) {
+        if (
+          window.confirm(
+            `입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액과 같습니다. 즉시 낙찰로 진행하시겠어요?`
+          )
+        ) {
           onBid("사용자", amount.toString(), true);
           alert("즉시 낙찰에 성공했습니다. 축하합니다.😊");
           togglePopup();
@@ -38,7 +42,9 @@ function AmountSelection({ onBid, togglePopup }) {
     <div className={styles.container}>
       <div className={styles.header}>
         <span className={styles.amount}>{amount.toLocaleString()}원</span>
-        <button className={styles.withdraw} onClick={handleInstantBid}>즉시 입찰</button>
+        <button className={styles.withdraw} onClick={handleInstantBid}>
+          즉시 입찰
+        </button>
       </div>
       <div className={styles.question}>
         <input

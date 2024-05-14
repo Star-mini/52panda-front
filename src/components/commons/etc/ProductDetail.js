@@ -7,7 +7,7 @@ import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
-import axios from 'axios';
+import axios from "axios";
 
 function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -16,12 +16,12 @@ function ProductDetail({ productData }) {
   const [priceList, setPriceList] = useState([]);
   const [isBidComplete, setIsBidComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
-  const [loading, setLoading] = useState(true);  // 로딩 상태를 관리하기 위한 상태 추가
+  const [loading, setLoading] = useState(true); // 로딩 상태를 관리하기 위한 상태 추가
 
   useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
 
-    setLoading(true);  // 계산 시작 전 로딩 상태를 true로 설정
+    setLoading(true); // 계산 시작 전 로딩 상태를 true로 설정
     const calculateTimeRemaining = () => {
       const finishTime = new Date(productData.bidFinishTime).getTime();
       const currentTime = new Date().getTime();
@@ -29,42 +29,52 @@ function ProductDetail({ productData }) {
 
       if (timeDiff <= 0) {
         setTimeRemaining("00:00:00");
-        setLoading(false);  // 계산이 끝나면 로딩 상태를 false로 설정
+        setLoading(false); // 계산이 끝나면 로딩 상태를 false로 설정
         return;
       }
 
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const hours = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-      setTimeRemaining(`${days}일 ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
-      setLoading(false);  // 시간 계산이 끝나면 로딩 상태를 false로 설정
+      setTimeRemaining(
+        `${days}일 ${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+          2,
+          "0"
+        )}:${String(seconds).padStart(2, "0")}`
+      );
+      setLoading(false); // 시간 계산이 끝나면 로딩 상태를 false로 설정
     };
 
     const timer = setInterval(calculateTimeRemaining, 1000);
-    return () => clearInterval(timer);  // 컴포넌트 정리 시 타이머 제거
+    return () => clearInterval(timer); // 컴포넌트 정리 시 타이머 제거
   }, [productData]);
 
-// 낙찰 정보를 렌더링하는 함수
-const renderBidInfo = () => {
-  if (isBidComplete) {
-    // 낙찰 완료된 상태
-    return <p className={styles.timeRemaining}>낙찰완료</p>;
-  }
+  // 낙찰 정보를 렌더링하는 함수
+  const renderBidInfo = () => {
+    if (isBidComplete) {
+      // 낙찰 완료된 상태
+      return <p className={styles.timeRemaining}>낙찰완료</p>;
+    }
 
-  if (loading) {
-    // 로딩 중 상태
-    return <p className={styles.timeRemaining}>낙찰까지 Loading...</p>;
-  }
+    if (loading) {
+      // 로딩 중 상태
+      return <p className={styles.timeRemaining}>낙찰까지 Loading...</p>;
+    }
 
-  // 일반적인 남은 시간 표시
-  return (
-    <p className={styles.timeRemaining}>
-      낙찰까지<span style={{ marginLeft: '10px' }} id={styles.bidTime}>{timeRemaining}</span>
-    </p>
-  );
-};
+    // 일반적인 남은 시간 표시
+    return (
+      <p className={styles.timeRemaining}>
+        낙찰까지
+        <span style={{ marginLeft: "10px" }} id={styles.bidTime}>
+          {timeRemaining}
+        </span>
+      </p>
+    );
+  };
 
   const changeImage = (direction) => {
     if (!productData || !productData.images) return;
@@ -86,30 +96,32 @@ const renderBidInfo = () => {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
 
     if (isHeartPink) {
-      axios.delete(url)
-        .then(response => {
-          console.log('찜하기 취소 성공:', response.data);
+      axios
+        .delete(url)
+        .then((response) => {
+          console.log("찜하기 취소 성공:", response.data);
           setIsHeartPink(false);
         })
-        .catch(error => {
-          console.error('찜하기 취소 실패:', error);
+        .catch((error) => {
+          console.error("찜하기 취소 실패:", error);
         });
     } else {
       const data = {
-        likeUserId: 1
+        likeUserId: 1,
       };
 
-      axios.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => {
-          console.log('찜하기 성공:', response.data);
+      axios
+        .post(url, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log("찜하기 성공:", response.data);
           setIsHeartPink(true);
         })
-        .catch(error => {
-          console.error('찜하기 실패:', error);
+        .catch((error) => {
+          console.error("찜하기 실패:", error);
         });
     }
   };
@@ -162,9 +174,15 @@ const renderBidInfo = () => {
         <p className={styles.category}>{productData.categoryName}</p>
         {renderBidInfo()}
         <div className={styles.biddingDetails}>
-          <p className={styles.startPrice}>시작 금액 {productData.startPrice}원</p>
-          <p className={styles.currentPrice}>현재 금액 {productData.maxPrice}원</p>
-          <p className={styles.instantPrice}>즉시낙찰 금액 {productData.buyNowPrice}원</p>
+          <p className={styles.startPrice}>
+            시작 금액 {productData.startPrice}원
+          </p>
+          <p className={styles.currentPrice}>
+            현재 금액 {productData.maxPrice}원
+          </p>
+          <p className={styles.instantPrice}>
+            즉시낙찰 금액 {productData.buyNowPrice}원
+          </p>
         </div>
       </div>
 
@@ -172,9 +190,9 @@ const renderBidInfo = () => {
         <button
           className={styles.bidButton}
           onClick={isBidComplete ? undefined : togglePopup}
-          style={isBidComplete ? { backgroundColor: '#CDCDCD' } : {}}
+          style={isBidComplete ? { backgroundColor: "#CDCDCD" } : {}}
         >
-          {isBidComplete ? '낙찰완료' : '입찰하기'}
+          {isBidComplete ? "낙찰완료" : "입찰하기"}
         </button>
       </div>
 
@@ -188,7 +206,11 @@ const renderBidInfo = () => {
             </div>
             <div className={styles.popupContent}>
               <PriceList items={priceList} />
-              <AmountSelection onBid={addToPriceList} togglePopup={togglePopup} />
+              <AmountSelection
+                onBid={addToPriceList}
+                togglePopup={togglePopup}
+                productData={productData}
+              />
             </div>
           </div>
         </div>
