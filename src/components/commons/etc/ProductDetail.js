@@ -209,7 +209,7 @@ function ProductDetail({ productData }) {
               </button>
             </div>
             <div className={styles.popupContent}>
-              <PriceList items={priceList} />
+              <PriceList items={priceList} productData={productData} isPopupVisible={isPopupVisible} />
               <AmountSelection
                 onBid={addToPriceList}
                 togglePopup={togglePopup}
