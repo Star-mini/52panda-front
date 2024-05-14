@@ -177,9 +177,13 @@ function ProductDetail({ productData }) {
           <p className={styles.startPrice}>
             시작 금액 {productData.startPrice}원
           </p>
-          <p className={styles.currentPrice}>
-            현재 금액 {productData.maxPrice}원
-          </p>
+          {isBidComplete ? (
+            <p className={styles.currentPrice}>낙찰완료</p>
+          ) : (
+            <p className={styles.currentPrice}>
+              현재 금액 {productData.maxPrice}원
+            </p>
+          )}
           <p className={styles.instantPrice}>
             즉시낙찰 금액 {productData.buyNowPrice}원
           </p>
