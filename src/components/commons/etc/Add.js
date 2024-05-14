@@ -20,7 +20,7 @@ function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {
     let data;
     if (isAnswering) {
       // 답변 등록의 경우에는 아래와 같이 itemId와 questionId를 포함한 URL을 사용.
-      apiUrl = `http://localhost:8081/api/v1/auth/auction/${itemId}/qna/${questionId}/`;
+      apiUrl = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/qna/${questionId}/`;
       data = { comment: input, questionId: questionId }; // 'answerContents' 대신 'comment'를 사용
     } else {
       // 질문 등록의 경우에는 기존의 URL을 사용.
