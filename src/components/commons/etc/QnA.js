@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import styles from "../../../static/styles/css/QnA.module.css";
 import writeIcon from "../../../static/styles/images/writhing.png";
 import Add from "./Add";
+import axios from "axios";
 
 function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(3); // 테스트용 ID
+  const [userId, setUserId] = useState(1); // 테스트용 ID
 
   useEffect(() => {
     if (productData && productData.questions) {
@@ -26,8 +27,8 @@ function QnA({ productData }) {
           <Add
             key={newId}
             questionId={questionId}
-            itemId={productData.itemId}  // productData에서 itemId를 전달
-            userId={userId}  // userId를 Add 컴포넌트에 전달
+            itemId={productData.itemId} // productData에서 itemId를 전달
+            userId={userId} // userId를 Add 컴포넌트에 전달
             onSubmit={(text) => handleQuestionSubmit(text, newId, questionId)}
             onCancel={() => handleCancel(newId)}
             isAnswering={questionId !== null}
@@ -38,9 +39,25 @@ function QnA({ productData }) {
       setIsAdding(true);
     }
   };
-  
-  
 
+  const deleteQuestion = async (questionId) => {
+    handleDelete(questionId); // API 요청 전에 UI를 먼저 업데이트
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/qna/${questionId}/`
+      );
+      if (response.status !== 200) {
+        // 삭제 실패 시, UI에서 삭제된 항목을 복구하거나 에러 메시지를 표시
+        console.error("서버에서 삭제 실패, UI 복구 필요");
+        // 복구 로직 필요 (선택적)
+      }
+    } catch (error) {
+      console.error("질문 삭제 요청 실패:", error);
+      // 에러 처리 로직 필요 (선택적)
+    }
+  };
+
+  
   const handleQuestionSubmit = (text, id, questionId) => {
     if (questionId !== null) {
       setQuestions((prevQuestions) =>
@@ -123,7 +140,7 @@ function QnA({ productData }) {
             {productData.sellerId === userId && (
               <button
                 className={styles.deleteButton}
-                onClick={() => handleDelete(q.questionId)}
+                onClick={() => deleteQuestion(q.questionId)}
               >
                 삭제
               </button>
