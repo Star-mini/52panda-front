@@ -64,7 +64,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       </div>
       <div className={styles.divider}></div>
       <div className={styles.maxAmount}>
-        <span>최대 5000만원 가능</span>
+        <span>{amount.toLocaleString()}원까지 가능</span> {/* 수정된 부분 */}
       </div>
       <div className={styles.buttons}>
         <button className={styles.button} onClick={() => handleAddAmount(1000)}>
