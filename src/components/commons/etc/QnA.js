@@ -86,7 +86,10 @@ function QnA({ productData }) {
       <h1 className={styles.title}>Q&A</h1>
       {productData.sellerId !== userId && (
         <div className={styles.buttonContainer}>
-          <button className={styles.writeButton} onClick={() => handleAddClick(null)}>
+          <button
+            className={styles.writeButton}
+            onClick={() => handleAddClick(null)}
+          >
             <img src={writeIcon} alt="글쓰기" className={styles.icon} />
             문의글 작성
           </button>
@@ -95,7 +98,7 @@ function QnA({ productData }) {
       <div className={styles.divider}></div>
 
       {/* 질문과 답변 섹션 */}
-      {questions.map((q) => (
+      {questions.map((q, index) => (
         <div key={q.questionId}>
           <div className={styles.question}>
             <h4 className={styles.questionText}>Q. {q.questionContents}</h4>
@@ -141,7 +144,10 @@ function QnA({ productData }) {
               </p>
             </div>
           ))}
-          <div className={styles.divider}></div>
+          {/* 질문이 답변 중이 아닐 때만 구분자를 추가합니다 */}
+          {(!isAdding || q.comments.length > 0) && (
+            <div className={styles.divider}></div>
+          )}
         </div>
       ))}
       {addComponents.map((component) => component.component)}
