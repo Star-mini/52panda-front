@@ -37,15 +37,7 @@ function AboutMore({ productData }) {
         <p className={styles.imageDescription}>
           {productData?.itemDetailContent || "Loading..."}
         </p>
-        {/* 모든 이미지를 렌더링하고 margin-right를 적용합니다. */}
-        {productData?.images && productData.images.map((image, index) => (
-          <img
-            key={index}
-            src={image.imageURL}
-            alt={`Auction item ${index + 1}`}
-            className={`${styles.exFarm} ${styles.imageMargin} img-fluid`}
-          />
-        ))}
+
         {/* 여기에 ref를 추가합니다. */}
         <div ref={qnaRef}>
           {/* QnA 컴포넌트삽입 */}

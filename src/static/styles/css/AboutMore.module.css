@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #4a7c59;
   margin-top: 3.5rem;
   margin-bottom: 12px;
@@ -81,13 +81,16 @@
 
 .imageDescription {
   color: #4a7c59;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 .imageMargin {
   margin: 3rem;
   border-radius: 20px;
+}
+.registrationDate{
+  font-size: 0.8rem;
 }
 @media (max-width: 640px) {
   .tab {
