@@ -11,7 +11,7 @@ import food from "../../../static/styles/images/food.png";
 import styles from "../../../static/styles/css/maincard.module.css";
 import MainCardPart from "./MainCardPart";
 function MainCard({ onClick, beMenu }) {
-  if (beMenu == "no") {
+  if (beMenu === "no") {
     return (
       <div>
         <div className={`card-group ${styles.cards}`}>

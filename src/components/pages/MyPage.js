@@ -3,6 +3,7 @@ import noImage from "../../static/styles/images/noimage.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import "../../static/styles/css/mypage.css"
+import axios from 'axios';
 
 function MyPage() {
 
@@ -19,22 +20,25 @@ function MyPage() {
 
   const fetchData = () => {
     setLoading(true);
-    const newItems = [
-      { id: 1, image: noImage, title: '푸바오', category: 'IT',categoryDetail:'노트북', tradingMethod: 0, startPrice: 1000, currentPrice: 1200 },
-      { id: 2, image: noImage, title: '아이바오', category: '동물', categoryDetail:'노트북',tradingMethod: 2, startPrice: 15300, currentPrice: 18300 },
-      { id: 3, image: noImage, title: 'A바오', category: '의류', categoryDetail:'노트북',tradingMethod: 2, startPrice: 100, currentPrice: 18001 },
-      { id: 4, image: noImage, title: 'B바오', category: '애기', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 5, image: noImage, title: 'C바오', category: '야채', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 6, image: noImage, title: 'D바오', category: '자동차', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 7, image: noImage, title: 'E바오', category: '기타', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 8, image: noImage, title: 'F바오', category: '동물', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 9, image: noImage, title: 'G바오', category: '동물', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-      { id: 10, image: noImage, title: 'H바오', category: '동물', categoryDetail:'노트북',tradingMethod: 2, startPrice: 1500, currentPrice: 1800 },
-    ];
-    setItems(prevItems => [...prevItems, ...newItems]);
-    setCurrentPage(prevPage => prevPage + 1);
-    setLoading(false);
+    const endpointMap = {
+      '찜': 'http://localhost:8081/api/v1/auth/mypage/like',
+      '등록글': 'http://localhost:8081/api/v1/auth/mypage/auction',
+      '입찰': 'http://localhost:8081/api/v1/auth/mypage/bid',
+      '낙찰': 'http://localhost:8081/api/v1/auth/mypage/award'
+    }
+    axios.get(endpointMap[selectedMenu])
+        .then(response => {
+          console.log("testeseatstre",response.data);
+          setItems(prevItems => [...prevItems, ...response.data]); //받은 데이터를 아이템에 추가
+          setCurrentPage(prevPage => prevPage + 1);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error('Error fetching items: ', error);
+          setLoading(false);
+        })
   };
+
 
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu);
@@ -65,10 +69,9 @@ function MyPage() {
             {items.map((item, index) => (
               <div key={index} className="col-md-6 item-card">
                 <ItemListInfoCard
-                  image={item.image}
-                  title={item.title}
+                  image={item.thumbnail}
+                  title={item.itemTitle}
                   category={item.category}
-                  categoryDetail={item.categoryDetail}
                   tradingMethod={item.tradingMethod}
                   startPrice={item.startPrice}
                   currentPrice={item.currentPrice}
