@@ -12,6 +12,7 @@ function ItemPostForm() {
     { key: 5, value: "5번 옵션" },
   ];
 
+  const [itemName, setItemName] = useState("");
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
 
@@ -24,7 +25,16 @@ function ItemPostForm() {
         </Row>
         <br />
         <Form.Group as={Row} className="mb-4 px-2" controlid="item-name" required>
-          <Form.Control type="text" placeholder="상품명을 입력하세요" name="item-name" />
+          <Form.Control
+            type="text" placeholder="상품명을 입력하세요"
+            name="item-name"
+            maxLength="40"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+          />
+          <div className={styles['text-count']}>
+            {itemName.length}/40
+          </div>
         </Form.Group>
         <hr />
         <Form.Group as={Row} className="mb-4" controlid="item-category" required>
