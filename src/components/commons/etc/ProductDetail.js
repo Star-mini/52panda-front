@@ -16,10 +16,12 @@ function ProductDetail({ productData }) {
   const [priceList, setPriceList] = useState([]);
   const [isBidComplete, setIsBidComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
+  const [loading, setLoading] = useState(true);  // 로딩 상태를 관리하기 위한 상태 추가
 
   useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
 
+    setLoading(true);  // 계산 시작 전 로딩 상태를 true로 설정
     const calculateTimeRemaining = () => {
       const finishTime = new Date(productData.bidFinishTime).getTime();
       const currentTime = new Date().getTime();
@@ -27,6 +29,7 @@ function ProductDetail({ productData }) {
 
       if (timeDiff <= 0) {
         setTimeRemaining("00:00:00");
+        setLoading(false);  // 계산이 끝나면 로딩 상태를 false로 설정
         return;
       }
 
@@ -36,12 +39,21 @@ function ProductDetail({ productData }) {
       const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
       setTimeRemaining(`${days}일 ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+      setLoading(false);  // 시간 계산이 끝나면 로딩 상태를 false로 설정
     };
 
     const timer = setInterval(calculateTimeRemaining, 1000);
-
-    return () => clearInterval(timer);
+    return () => clearInterval(timer);  // 컴포넌트 정리 시 타이머 제거
   }, [productData]);
+
+  // 낙찰 정보를 렌더링하는 함수
+  const renderBidInfo = () => {
+    return loading ? 
+      <p className={styles.timeRemaining}>낙찰까지 Loading...</p> :
+      <p className={styles.timeRemaining}>
+        낙찰까지<span style={{ marginLeft: '10px' }} id={styles.bidTime}>{timeRemaining}</span>
+      </p>;
+  };
 
   const changeImage = (direction) => {
     if (!productData || !productData.images) return;
@@ -137,13 +149,7 @@ function ProductDetail({ productData }) {
           onClick={toggleHeart}
         />
         <p className={styles.category}>{productData.categoryName}</p>
-        {
-          isBidComplete ? 
-          <p className={styles.timeRemaining}>낙찰완료</p> :
-          <p className={styles.timeRemaining}>
-            낙찰까지<span style={{ marginLeft: '10px' }} id={styles.bidTime}>{timeRemaining}</span>
-          </p>
-        }
+        {renderBidInfo()}
         <div className={styles.biddingDetails}>
           <p className={styles.startPrice}>시작 금액 {productData.startPrice}원</p>
           <p className={styles.currentPrice}>현재 금액 {productData.maxPrice}원</p>
