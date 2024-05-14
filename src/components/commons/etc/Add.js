@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../../../static/styles/css/Add.module.css';
 
-function Add({ onSubmit, onCancel, isAnswering, questionId }) {
+function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {  // userId 매개변수 추가
   const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,11 +10,11 @@ function Add({ onSubmit, onCancel, isAnswering, questionId }) {
   };
 
   const handleCompleteClick = () => {
-    const apiUrl = `${process.env.REACT_APP_API_URL}/v1/auth/auction/3/qna/`;
+    const apiUrl = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}/qna/`;
 
     const data = isAnswering
-      ? { answerContents: input, questionId: questionId } // questionId를 포함하여 답변 데이터 전송
-      : { questionContents: input, questionUserId: 1 }; // 질문 데이터
+      ? { answerContents: input, questionId: questionId }
+      : { questionContents: input, questionUserId: userId }; // 사용자 ID를 questionUserId로 전송
 
     axios
       .post(apiUrl, data)

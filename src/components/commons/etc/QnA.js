@@ -7,7 +7,7 @@ function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(1); // 테스트용 ID
+  const [userId, setUserId] = useState(3); // 테스트용 ID
 
   useEffect(() => {
     if (productData && productData.questions) {
@@ -25,10 +25,12 @@ function QnA({ productData }) {
         component: (
           <Add
             key={newId}
-            questionId={questionId} // questionId를 Add 컴포넌트에 전달
+            questionId={questionId}
+            itemId={productData.itemId}  // productData에서 itemId를 전달
+            userId={userId}  // userId를 Add 컴포넌트에 전달
             onSubmit={(text) => handleQuestionSubmit(text, newId, questionId)}
             onCancel={() => handleCancel(newId)}
-            isAnswering={questionId !== null} // questionId가 있을 경우 답변 모드
+            isAnswering={questionId !== null}
           />
         ),
       };
@@ -36,6 +38,8 @@ function QnA({ productData }) {
       setIsAdding(true);
     }
   };
+  
+  
 
   const handleQuestionSubmit = (text, id, questionId) => {
     if (questionId !== null) {
