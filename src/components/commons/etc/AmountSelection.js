@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styles from "../../../static/styles/css/AmountSelection.module.css";
 
 function AmountSelection({ onBid, togglePopup, productData }) {
@@ -15,7 +16,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
     });
   };
 
-  const handleBid = () => {
+  const handleBid = async () => {
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
       if (numericBidValue <= currentBidPrice) {
@@ -25,21 +26,36 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
       if (numericBidValue >= amount) {
         if (window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
-          onBid("사용자", amount.toString(), true);
-          alert("즉시 낙찰에 성공했습니다. 축하합니다.😊");
-          togglePopup();
+          await sendBidRequest(amount, true);
         }
       } else {
-        onBid("사용자", bidValue, false);
-        setBidValue("");
+        await sendBidRequest(bidValue, false);
       }
     }
   };
 
-  const handleInstantBid = () => {
-    onBid("사용자", amount.toString(), true);
-    alert("축하합니다. 낙찰하셨습니다.😊");
-    togglePopup();
+  const handleInstantBid = async () => {
+    await sendBidRequest(amount, true);
+  };
+
+  const sendBidRequest = async (price, isImmediate) => {
+    const itemId = productData.itemId;
+    const userId = localStorage.getItem("id") || 2; // 로컬스토리지에서 가져오거나 기본값 3 사용
+    const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
+        price: parseInt(price, 10),
+        itemId: itemId,
+        userId: userId,
+        nickname: nickname,
+      });
+      alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
+      onBid(nickname, price.toString(), isImmediate);
+    } catch (error) {
+      console.error("입찰 요청에 실패했습니다:", error);
+      alert("입찰 요청에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
