@@ -81,7 +81,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const handleErrorResponse = (error) => {
     switch (error.code) {
       case 40008:
-        alert("경매 목록을 갱신해야할거같아요.😊");
+        alert("입력하시는 동안 다른 사람이 더 높게 입찰했어요. 경매 목록을 갱신해야할거같아요.😊");
         break;
       case 40009:
         alert("현재 최고 입찰자와 같은 사용자입니다.😊");
