@@ -40,9 +40,9 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
   const sendBidRequest = async (price, isImmediate) => {
     const itemId = productData.itemId;
-    const userId = localStorage.getItem("id") || 2; // 로컬스토리지에서 가져오거나 기본값 3 사용
+    const userId = localStorage.getItem("id") || 3; // 로컬스토리지에서 가져오거나 기본값 2 사용
     const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
-
+  
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
         price: parseInt(price, 10),
@@ -50,13 +50,33 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         userId: userId,
         nickname: nickname,
       });
-      alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
-      onBid(nickname, price.toString(), isImmediate);
+  
+      if (response.data.success) {
+        alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
+        onBid(nickname, price.toString(), isImmediate);
+      } else {
+        handleErrorResponse(response.data.error);
+      }
     } catch (error) {
       console.error("입찰 요청에 실패했습니다:", error);
       alert("입찰 요청에 실패했습니다. 다시 시도해주세요.");
     }
   };
+  
+  const handleErrorResponse = (error) => {
+    switch (error.code) {
+      case 40009:
+        alert("현재 최고 입찰자와 같은 사용자입니다.😊");
+        break;
+      case 40011:
+        alert("물품 판매자와 같은 사용자입니다.😊");
+        break;
+      // 다른 오류 코드에 따른 처리 추가
+      default:
+        alert("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+  
 
   return (
     <div className={styles.container}>
