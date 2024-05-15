@@ -21,6 +21,12 @@ function ProductDetail({ productData }) {
   useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
 
+    if (productData.auctionComplete) {
+      setIsBidComplete(true);
+      setLoading(false); // 로딩 상태를 false로 설정
+      return;
+    }
+
     setLoading(true); // 계산 시작 전 로딩 상태를 true로 설정
     const calculateTimeRemaining = () => {
       const finishTime = new Date(productData.bidFinishTime).getTime();
