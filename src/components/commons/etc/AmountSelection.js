@@ -49,13 +49,13 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       return;
     }
 
-    await sendBidRequest(amount, true);
+    await sendBidRequest(amount, true); // 즉시 입찰은 buyNowPrice로
     setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
   };
 
   const sendBidRequest = async (price, isImmediate) => {
     const itemId = productData.itemId;
-    const userId = localStorage.getItem("id") || 3; // 로컬스토리지에서 가져오거나 기본값 2 사용
+    const userId = localStorage.getItem("id") || 3; // 로컬스토리지에서 가져오거나 기본값 3 사용
     const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
   
     try {
