@@ -5,6 +5,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const amount = productData.buyNowPrice; // 즉시 낙찰 금액
   const [bidValue, setBidValue] = useState(""); // 입찰가 상태
   const startPrice = productData.startPrice; // 시작 입찰 금액
+  const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
   const increment = startPrice >= 10000 ? startPrice * 0.01 : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
 
   const handleAddAmount = (multiplier) => {
@@ -17,6 +18,11 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const handleBid = () => {
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
+      if (numericBidValue <= currentBidPrice) {
+        alert("입찰은 현재입찰가보다 높아야 입찰하실 수 있어요😊");
+        return;
+      }
+
       if (numericBidValue >= amount) {
         if (window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
           onBid("사용자", amount.toString(), true);
