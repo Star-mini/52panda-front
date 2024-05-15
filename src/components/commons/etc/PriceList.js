@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../static/styles/css/PriceList.module.css';
+import rotate from '../../../static/styles/images/rotate.png';
 
 function PriceList({ items, productData, isPopupVisible }) {
   const [bids, setBids] = useState(items); // 서버에서 받은 입찰 정보를 저장할 상태
@@ -30,7 +31,7 @@ function PriceList({ items, productData, isPopupVisible }) {
         console.error('입찰 정보 불러오기 실패:', error);
       }
     };
-  
+
     if (isPopupVisible && productData && productData.itemId) {
       fetchBids(); // 모달이 보일 때 데이터 불러오기
     }
@@ -48,6 +49,7 @@ function PriceList({ items, productData, isPopupVisible }) {
 
   return (
     <div className={styles.container}>
+      <img src={rotate} alt="rotate" className={styles.rotate} /> {/* 회전 이미지 추가 */}
       <div className={styles.header}>
         <span className={styles.currentPriceTitle}>현재 가격</span>
         <span className={styles.currentPrice}>{currentPrice}</span>
