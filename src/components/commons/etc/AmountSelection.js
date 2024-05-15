@@ -69,7 +69,9 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       if (response.data.success) {
         alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
         onBid(nickname, price.toString(), isImmediate);
-        togglePopup(); // 즉시 낙찰 성공 시 팝업 닫기
+        if (isImmediate) {
+          togglePopup(); // 즉시 낙찰 성공 시 팝업 닫기
+        }
       } else {
         handleErrorResponse(response.data.error);
       }
