@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../static/styles/css/PriceList.module.css';
 
-function PriceList({ productData, isPopupVisible }) {
-  const [items, setItems] = useState([]); // 서버에서 받은 입찰 정보를 저장할 상태
+function PriceList({ items, productData, isPopupVisible }) {
+  const [bids, setBids] = useState(items); // 서버에서 받은 입찰 정보를 저장할 상태
   const [currentPrice, setCurrentPrice] = useState('0원'); // 최고 가격 상태
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function PriceList({ productData, isPopupVisible }) {
               return a.name.localeCompare(b.name);
             }
           });
-          setItems(sortedItems); // 정렬된 입찰 정보를 상태에 저장
+          setBids(sortedItems); // 정렬된 입찰 정보를 상태에 저장
           if (sortedItems.length > 0) {
             setCurrentPrice(sortedItems[0].price.toLocaleString() + '원'); // 배열의 첫 번째 요소 가격을 최고 가격으로 설정
           }
@@ -36,6 +36,16 @@ function PriceList({ productData, isPopupVisible }) {
     }
   }, [isPopupVisible, productData]); // isPopupVisible 또는 productData가 변경될 때마다 다시 불러오기
 
+  useEffect(() => {
+    // 전달된 items를 bids 상태에 업데이트
+    if (items.length > 0) {
+      const updatedBids = [items[0], ...bids];
+      setBids(updatedBids);
+      setCurrentPrice(updatedBids[0].price.toLocaleString() + '원');
+    }
+    console.log("Updated bids in PriceList: ", items);
+  }, [items]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -43,7 +53,7 @@ function PriceList({ productData, isPopupVisible }) {
         <span className={styles.currentPrice}>{currentPrice}</span>
       </div>
       <div className={styles.itemList}>
-        {items.slice(0, 4).map((item, index) => (
+        {bids.slice(0, 4).map((item, index) => (
           <div key={index} className={styles.item}>
             <span className={styles.itemName}>{item.name}</span>
             <span className={styles.itemPrice}>{item.price.toLocaleString()}원</span>

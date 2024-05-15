@@ -131,7 +131,12 @@ function ProductDetail({ productData }) {
   };
 
   const addToPriceList = (name, price, isBidComplete) => {
-    setPriceList([...priceList, { name, price }]);
+    const updatedPriceList = [
+      ...priceList,
+      { name, price: parseInt(price, 10) },
+    ];
+    setPriceList(updatedPriceList);
+    console.log("Updated PriceList: ", updatedPriceList);
     setIsBidComplete(isBidComplete);
   };
 
@@ -209,7 +214,11 @@ function ProductDetail({ productData }) {
               </button>
             </div>
             <div className={styles.popupContent}>
-              <PriceList items={priceList} productData={productData} isPopupVisible={isPopupVisible} />
+              <PriceList
+                items={priceList}
+                productData={productData}
+                isPopupVisible={isPopupVisible}
+              />
               <AmountSelection
                 onBid={addToPriceList}
                 togglePopup={togglePopup}
