@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../../../static/styles/css/AmountSelection.module.css";
 
 function AmountSelection({ onBid, togglePopup, productData }) {
   const amount = productData.buyNowPrice; // 즉시 낙찰 금액
   const [bidValue, setBidValue] = useState(""); // 입찰가 상태
+  const [lastBidTime, setLastBidTime] = useState(null); // 마지막 입찰 시간 상태
   const startPrice = productData.startPrice; // 시작 입찰 금액
   const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
   const increment = startPrice >= 10000 ? startPrice * 0.01 : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
@@ -17,6 +18,12 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   };
 
   const handleBid = async () => {
+    const now = new Date().getTime();
+    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
+      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
+      return;
+    }
+
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
       if (numericBidValue <= currentBidPrice) {
@@ -32,10 +39,18 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         await sendBidRequest(bidValue, false);
       }
     }
+    setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
   };
 
   const handleInstantBid = async () => {
+    const now = new Date().getTime();
+    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
+      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
+      return;
+    }
+
     await sendBidRequest(amount, true);
+    setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
   };
 
   const sendBidRequest = async (price, isImmediate) => {
@@ -77,7 +92,6 @@ function AmountSelection({ onBid, togglePopup, productData }) {
     }
   };
   
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
