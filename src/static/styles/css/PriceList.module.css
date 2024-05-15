@@ -64,5 +64,8 @@
     padding: 0.5rem;
     margin-bottom: 1rem;
   }
+  .rotate{
+    height: 1rem; /* 높이 1.5rem 지정 */
+  }
 
 }
