@@ -73,23 +73,23 @@ function Navbar() {
 
               <ul class={`${styles.dropdown} dropdown-menu`}>
                 <li>
-                  <a class="dropdown-item" href="/mypage">
+                  <a class="dropdown-item" href="/mypage?select=like">
                     찜한목록
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    경매글목록
+                  <a class="dropdown-item" href="/mypage?select=auction">
+                    경매등록목록
+                  </a>s
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/mypage?select=bid">
+                    경매참여목록
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    참여한 경매글목록
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    비밀번호수정
+                  <a class="dropdown-item" href="/mypage?select=award">
+                    입찰완료목록
                   </a>
                 </li>
               </ul>
