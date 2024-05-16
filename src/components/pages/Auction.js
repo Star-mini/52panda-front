@@ -41,11 +41,11 @@ function Auction() {
 
       let tradingMethodValue = null;
       if(filters.tradingMethod === "택배"){
-        tradingMethodValue = 0;
-      }else if(filters.tradingMethod === "직거래"){
         tradingMethodValue = 1;
-      }else if(filters.tradingMethod === "전체"){ 
+      }else if(filters.tradingMethod === "직거래"){
         tradingMethodValue = 2;
+      }else if(filters.tradingMethod === "전체"){ 
+        tradingMethodValue = 3;
       }
 
       const params = {

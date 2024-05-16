@@ -17,21 +17,21 @@ const ItemListInfoCard = ({
   let tradingMethodBadges;
 
   switch (tradingMethod) {
-    case 0:
+    case 1:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
           택배
         </Badge>
       );
       break;
-    case 1:
+    case 2:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
           직거래
         </Badge>
       );
       break;
-    case 2:
+    case 3:
       tradingMethodBadges = (
         <>
           <Badge bg="secondary" className="badge-space">
