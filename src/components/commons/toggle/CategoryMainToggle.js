@@ -35,21 +35,28 @@ function CategoryToggle() {
     function handleResize() {
       const windowWidth = window.innerWidth;
       let newCategoriesPerRow;
-      if (windowWidth > 1400) {
-        newCategoriesPerRow = 9;
+    
+      if (windowWidth > 2000) {
+        // 2000픽셀 초과인 경우
+        newCategoriesPerRow = 17;
+      } else if (windowWidth > 1500) {
+        // 1500픽셀 초과 2000픽셀 이하인 경우
+        newCategoriesPerRow = 12; // 예시로 변경, 적절한 값 설정 필요
       } else if (windowWidth > 1100) {
-        newCategoriesPerRow = 8;
+        // 1100픽셀 초과 1500픽셀 이하인 경우
+        newCategoriesPerRow = 9;
       } else if (windowWidth > 1000) {
+        // 1000픽셀 초과 1100픽셀 이하인 경우
         newCategoriesPerRow = 6;
-      } else if (windowWidth > 700) {
-        newCategoriesPerRow = 4;
-      } else if (windowWidth > 500) {
-        newCategoriesPerRow = 2;
       } else {
-        newCategoriesPerRow = 1;
+        // 1000픽셀 이하인 경우
+        newCategoriesPerRow = 4;
       }
+    
       setCategoriesPerRow(newCategoriesPerRow);
     }
+    
+    
 
     handleResize();
     window.addEventListener("resize", handleResize);

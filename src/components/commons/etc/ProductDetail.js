@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../../static/styles/css/ProductDetail.module.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
@@ -6,30 +6,92 @@ import PriceList from "./PriceList";
 import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
-import iphone from "../../../static/styles/images/iphone.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
+import axios from "axios";
 
-function ProductDetail() {
+function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isHeartPink, setIsHeartPink] = useState(false);
-  const [priceList, setPriceList] = useState([]); // 가격 목록 상태 추가
-  const [isBidComplete, setIsBidComplete] = useState(false); // 낙찰 완료 상태 관리
+  const [priceList, setPriceList] = useState([]);
+  const [isBidComplete, setIsBidComplete] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState("");
+  const [loading, setLoading] = useState(true); // 로딩 상태를 관리하기 위한 상태 추가
 
-  const images = [
-    iphone,
-    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV2?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861338000",
-    "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MME73_AV3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1632861336000",
-  ];
+  useEffect(() => {
+    if (!productData || !productData.bidFinishTime) return;
+
+    if (productData.auctionComplete) {
+      setIsBidComplete(true);
+      setLoading(false); // 로딩 상태를 false로 설정
+      return;
+    }
+
+    setLoading(true); // 계산 시작 전 로딩 상태를 true로 설정
+    const calculateTimeRemaining = () => {
+      const finishTime = new Date(productData.bidFinishTime).getTime();
+      const currentTime = new Date().getTime();
+      const timeDiff = finishTime - currentTime;
+
+      if (timeDiff <= 0) {
+        setTimeRemaining("00:00:00");
+        setLoading(false); // 계산이 끝나면 로딩 상태를 false로 설정
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      setTimeRemaining(
+        `${days}일 ${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+          2,
+          "0"
+        )}:${String(seconds).padStart(2, "0")}`
+      );
+      setLoading(false); // 시간 계산이 끝나면 로딩 상태를 false로 설정
+    };
+
+    const timer = setInterval(calculateTimeRemaining, 1000);
+    return () => clearInterval(timer); // 컴포넌트 정리 시 타이머 제거
+  }, [productData]);
+
+  // 낙찰 정보를 렌더링하는 함수
+  const renderBidInfo = () => {
+    if (isBidComplete) {
+      // 낙찰 완료된 상태
+      return <p className={styles.timeRemaining}>낙찰완료</p>;
+    }
+
+    if (loading) {
+      // 로딩 중 상태
+      return <p className={styles.timeRemaining}>낙찰까지 Loading...</p>;
+    }
+
+    // 일반적인 남은 시간 표시
+    return (
+      <p className={styles.timeRemaining}>
+        낙찰까지
+        <span style={{ marginLeft: "10px" }} id={styles.bidTime}>
+          {timeRemaining}
+        </span>
+      </p>
+    );
+  };
 
   const changeImage = (direction) => {
+    if (!productData || !productData.images) return;
+
     let imageElement = document.getElementsByClassName(styles.productImg)[0];
     imageElement.style.opacity = 0;
 
     setTimeout(() => {
       let newIndex = currentImageIndex + direction;
-      if (newIndex < 0) newIndex = images.length - 1;
-      if (newIndex >= images.length) newIndex = 0;
+      if (newIndex < 0) newIndex = productData.images.length - 1;
+      if (newIndex >= productData.images.length) newIndex = 0;
       setCurrentImageIndex(newIndex);
 
       imageElement.style.opacity = 1;
@@ -37,23 +99,57 @@ function ProductDetail() {
   };
 
   const toggleHeart = () => {
-    setIsHeartPink(!isHeartPink);
+    const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
+
+    if (isHeartPink) {
+      axios
+        .delete(url)
+        .then((response) => {
+          console.log("찜하기 취소 성공:", response.data);
+          setIsHeartPink(false);
+        })
+        .catch((error) => {
+          console.error("찜하기 취소 실패:", error);
+        });
+    } else {
+      const data = {
+        likeUserId: 1,
+      };
+
+      axios
+        .post(url, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log("찜하기 성공:", response.data);
+          setIsHeartPink(true);
+        })
+        .catch((error) => {
+          console.error("찜하기 실패:", error);
+        });
+    }
   };
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
   };
 
-  // 가격 추가 함수
-  const addToPriceList = (name, price) => {
-    setPriceList([...priceList, { name, price }]); // 새로운 아이템 추가
+  const addToPriceList = (name, price, isBidComplete) => {
+    const updatedPriceList = [
+      ...priceList,
+      { name, price: parseInt(price, 10) },
+    ];
+    setPriceList(updatedPriceList);
+    console.log("Updated PriceList: ", updatedPriceList);
+    setIsBidComplete(isBidComplete);
   };
 
-  const handleBid = () => {
-    setIsBidComplete(true); // 낙찰 완료 상태로 설정
-    togglePopup(); // 팝업 닫기
-  };
-  
+  if (!productData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.carousel}>
@@ -66,7 +162,7 @@ function ProductDetail() {
         <div id={styles.productImage}>
           <img
             className={styles.productImg}
-            src={images[currentImageIndex]}
+            src={productData.images[currentImageIndex].imageURL}
             alt="Product Image"
           />
         </div>
@@ -79,35 +175,39 @@ function ProductDetail() {
       </div>
 
       <div className={styles.productDetails}>
-        <h4 className={styles.productTitle}>아이폰 13프로</h4>
+        <h4 className={styles.productTitle}>{productData.title}</h4>
         <img
           src={isHeartPink ? PinkHeart : heartIcon}
           className={styles.heart}
           alt="Heart"
           onClick={toggleHeart}
         />
-        <p className={styles.category}>전자제품/휴대폰/아이폰</p>
-        {
-          isBidComplete ? 
-          <p className={styles.timeRemaining}>낙찰완료</p> :
-          <p className={styles.timeRemaining}>
-            낙찰까지 <span id={styles.bidTime}>13:03:93</span>
-          </p>
-        }
+        <p className={styles.category}>{productData.categoryName}</p>
+        {renderBidInfo()}
         <div className={styles.biddingDetails}>
-          <p className={styles.startPrice}>시작 금액 500,000</p>
-          <p className={styles.currentPrice}>현재 금액 800,000</p>
-          <p className={styles.instantPrice}>즉시낙찰 금액 1,000,000</p>
+          <p className={styles.startPrice}>
+            시작 금액 {productData.startPrice}원
+          </p>
+          {isBidComplete ? (
+            <p className={styles.currentPrice}>낙찰완료</p>
+          ) : (
+            <p className={styles.currentPrice}>
+              현재 금액 {productData.maxPrice}원
+            </p>
+          )}
+          <p className={styles.instantPrice}>
+            즉시낙찰 금액 {productData.buyNowPrice}원
+          </p>
         </div>
       </div>
 
       <div className={styles.buttonContainer}>
         <button
           className={styles.bidButton}
-          onClick={isBidComplete ? undefined : handleBid}
-          style={isBidComplete ? { backgroundColor: '#CDCDCD' } : {}}
+          onClick={isBidComplete ? undefined : togglePopup}
+          style={isBidComplete ? { backgroundColor: "#CDCDCD" } : {}}
         >
-          {isBidComplete ? '낙찰완료' : '입찰하기'}
+          {isBidComplete ? "낙찰완료" : "입찰하기"}
         </button>
       </div>
 
@@ -120,10 +220,16 @@ function ProductDetail() {
               </button>
             </div>
             <div className={styles.popupContent}>
-              {/* PriceList에 priceList 전달 */}
-              <PriceList items={priceList} />
-              <AmountSelection onBid={addToPriceList} togglePopup={togglePopup} />
-              {/* AmountSelection에 함수 전달 */}
+              <PriceList
+                items={priceList}
+                productData={productData}
+                isPopupVisible={isPopupVisible}
+              />
+              <AmountSelection
+                onBid={addToPriceList}
+                togglePopup={togglePopup}
+                productData={productData}
+              />
             </div>
           </div>
         </div>
