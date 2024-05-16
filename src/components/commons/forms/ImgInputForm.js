@@ -3,7 +3,7 @@ import { Form, Image } from 'react-bootstrap';
 import { CameraFillIcon, XCicleFillIcon } from '../../../static/styles/javascript/icons';
 import styles from '../../../static/styles/css/imgInputForm.module.css';
 
-const ImgInputForm = () => {
+const ImgInputForm = ({ onImageChange }) => {
   const [itemImgs, setItemImgs] = useState([]);
 
   const onImgChange = (e) => {
@@ -22,10 +22,17 @@ const ImgInputForm = () => {
         const img = window.URL.createObjectURL(file);
         return {
           id: itemImgs.length + idx + 1,
-          img
+          img,
+          file
         };
       });
-      setItemImgs((prev) => [...prev, ...newImgs]);
+
+      setItemImgs((prev) => {
+        const updatedImgs = [...prev, ...newImgs];
+        onImageChange(updatedImgs.map(item => item.file));  //상위 컴포넌트에 파일 객체 전달
+        return updatedImgs;
+      });
+
       e.target.value = '';
     }
   };
@@ -34,7 +41,11 @@ const ImgInputForm = () => {
     const imgToRevoke = itemImgs.find(item => item.id === deleteImg).img;
     window.URL.revokeObjectURL(imgToRevoke);
 
-    setItemImgs((prev) => prev.filter((item) => item.id !== deleteImg));
+    setItemImgs((prev) => {
+      const updatedImgs = prev.filter((item) => item.id !== deleteImg);
+      onImageChange(updatedImgs.map(item => item.file));
+      return updatedImgs;
+    });
   };
 
   return (
@@ -45,7 +56,7 @@ const ImgInputForm = () => {
       </Form.Label>
       <Form.Control
         type="file" multiple
-        accept="image/png, image/jpeg, image/jpg" enctype="multipart/form-data"
+        accept="image/png, image/jpeg, image/jpg"
         className={styles['hidden']}
         onChange={onImgChange} />
       {itemImgs.map((item) => (
