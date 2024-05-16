@@ -17,21 +17,21 @@ const ItemListInfoCard = ({
   let tradingMethodBadges;
 
   switch (tradingMethod) {
-    case 0:
+    case 1:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
           택배
         </Badge>
       );
       break;
-    case 1:
+    case 2:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
           직거래
         </Badge>
       );
       break;
-    case 2:
+    case 3:
       tradingMethodBadges = (
         <>
           <Badge bg="secondary" className="badge-space">
@@ -48,7 +48,7 @@ const ItemListInfoCard = ({
   }
 
   return (
-    <Link to="/detail" className="card-link">
+    <Link to={`/detail?itemId=${itemId}`} className="card-link">
       <Card className="container d-flex justify-content-center p-0">
         <div className="row g-0 ">
           <div className="col-md-4">
@@ -59,7 +59,7 @@ const ItemListInfoCard = ({
               <Card.Title className="card-space">{title}</Card.Title>
               <Card.Subtitle className="card-space">
                 <span className="category-space">
-                  {category}/{categoryDetail}
+                  {category}
                 </span>
                 {tradingMethodBadges}
               </Card.Subtitle>
