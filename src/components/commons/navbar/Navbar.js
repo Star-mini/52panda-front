@@ -80,7 +80,7 @@ function Navbar() {
                 <li>
                   <a class="dropdown-item" href="/mypage?select=auction">
                     경매등록목록
-                  </a>s
+                  </a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="/mypage?select=bid">
