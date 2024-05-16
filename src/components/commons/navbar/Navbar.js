@@ -6,13 +6,9 @@ import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 
 function Navbar() {
-  const pad = {
-    paddingRight: "100px",
-    paddingLeft: "100px",
-  };
   return (
     <nav class="navbar navbar-expand">
-      <div className={`container-fluid ${styles.padding}`} style={pad}>
+      <div className={`container-fluid ${styles.padding}`}>
         <a className="navbar-brand" href="/">
           <img src={pandaLogo} className={styles.logoImg} alt="" />
         </a>
@@ -45,7 +41,7 @@ function Navbar() {
               <form className="input-group">
                 <input
                   className={`${styles.input} form-control`}
-                  placeholder="찾고 싶은 중고물품을 검색해보세요"
+                  placeholder=""
                 />
                 <button className={styles.button}>
                   <img className={styles.dbg} src={dbg}></img>
@@ -77,23 +73,23 @@ function Navbar() {
 
               <ul class={`${styles.dropdown} dropdown-menu`}>
                 <li>
-                  <a class="dropdown-item" href="/mypage">
+                  <a class="dropdown-item" href="/mypage?select=like">
                     찜한목록
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    경매글목록
+                  <a class="dropdown-item" href="/mypage?select=auction">
+                    경매등록목록
+                  </a>s
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/mypage?select=bid">
+                    경매참여목록
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    참여한 경매글목록
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    비밀번호수정
+                  <a class="dropdown-item" href="/mypage?select=award">
+                    입찰완료목록
                   </a>
                 </li>
               </ul>

@@ -31,6 +31,18 @@
   margin-bottom: 1.25rem; /* 20px */
   flex-wrap: wrap; /* 줄바꿈 허용 */
 }
+.container {
+  /* 기존 스타일 유지 */
+  position: relative; /* 부모 컨테이너에 상대적 위치 지정 */
+}
+
+.rotate {
+  position: absolute; /* 절대 위치 지정 */
+  right: 0; /* 오른쪽에 배치 */
+  margin-right: 0.5rem;
+  height: 1.5rem; /* 높이 1.5rem 지정 */
+}
+
 @media (max-width: 570px) {
 
   .currentPriceTitle {
@@ -51,6 +63,9 @@
   .item{
     padding: 0.5rem;
     margin-bottom: 1rem;
+  }
+  .rotate{
+    height: 1rem; /* 높이 1.5rem 지정 */
   }
 
 }

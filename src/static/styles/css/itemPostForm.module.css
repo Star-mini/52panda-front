@@ -9,18 +9,36 @@ hr {
   max-width: 940px;
   padding: 2.5em 1em;
   border-radius: 0.5rem;
+}
 
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
+/* Chrome, Safari, Edge, Opera */
+#input-page-body input::-webkit-outer-spin-button,
+#input-page-body input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
-  /* Firefox  */
-  input[type='number'] {
-    -moz-appearance: textfield;
-  }
+/* Firefox  */
+#input-page-body input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.form-title {
+  text-align: center;
+  bold: 700;
+}
+
+.btn-method-active,
+.btn-method-active:hover {
+  background-color: #88a06b !important;
+  border: 2px solid #88a06b !important;
+}
+
+.btn-method-inactive,
+.btn-method-inactive:hover {
+  background-color: #F1F5EC !important;
+  border: 2px solid #9DB283 !important;
+  color: #666 !important;
 }
 
 .btn-inline-group {
@@ -31,23 +49,21 @@ hr {
 .justif-content-end {
   justify-content: end;
 }
-.submit-button {
-  background-color: #A7C77D; /* 버튼 배경색 */
-  border-color: #9DB283; /* 버튼 테두리색 */
+
+.submit-button,
+.cancel-button {
+  background-color: #F1F5EC;
+  border: 2px solid #9DB283;
+  color: black;
 }
 
-/* 버튼 호버 상태 */
-.submit-button:hover {
-  background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
-  border-color: #88a06b;
-}
+.submit-button:hover,
 .cancel-button:hover {
-  background-color: #88a06b; /* 호버시 좀 더 어두운 색 */
-  border-color: #88a06b;
+  background-color: #88a06b;
+  border: 2px solid #88a06b;
+  color: white;
 }
-.activeToggleButton {
-  background-color: #88a06b !important;
-}
+
 .textarea-no-resize {
   resize: none;
 }

@@ -5,7 +5,25 @@
     margin-left: 2%;
     padding:3%;
 }
+
 .myflex{
-    display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
+}
+
+.carouselContainer {
+    position: relative;
+}
+
+.carouselControl {
+    height: 2rem !important;           /* 높이를 30px로 설정 */
+    width: auto;            /* 높이에 맞게 가로 길이 자동 조정 */
+    cursor: pointer;
+    margin: -1rem -0.25rem 0;   /* 위로 1rem 이동, 좌우에 1rem 간격 추가 */
+    opacity: 0;             /* 초기 상태에서는 투명 */
+    transition: opacity 0.4s ease; /* 자연스러운 트랜지션 효과 */
+    z-index: 10;            /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.carouselContainer:hover .carouselControl {
+    opacity: 1;             /* 마우스를 올리면 버튼이 보이도록 */
 }
