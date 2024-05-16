@@ -4,7 +4,7 @@ import CategoryButton from '../button/CategoryButton';
 
 const categories = ['전자기기', '여성의류', '가구인테리어', '티켓_교환권', '남성의류', '액세서리','생활가전', '생활주방', '가공식품','식물', '반려동물용품', '뷰티_미용','도서_음반', '유아용품', '스포츠_레저','게임_취미', '기타']; 
 
-function CategoryToggle() {
+function CategoryToggle({onSelectCategory}) {
   const [showAll, setShowAll] = useState(false);
   const [categoriesPerRow, setCategoriesPerRow] = useState(9);
   const [firstRowCategories, setFirstRowCategories] = useState([]);
@@ -12,12 +12,18 @@ function CategoryToggle() {
   
   
   const handleCategoryClick = (category) => {
-    if(category !== '전체'){
+    if (selectedCategory === category) {
+      setSelectedCategory(null);
+      onSelectCategory(null);
+      setFirstRowCategories(categories.slice(0, categoriesPerRow)); 
+    } else if(category !== '전체'){
       setSelectedCategory(category);
+      onSelectCategory(category); 
       setFirstRowCategories([category, ...categories.filter(cat => cat !== category).slice(0, categoriesPerRow - 1)]);
     }
     
   };
+
   
   useEffect(() => {
     function handleResize() {
