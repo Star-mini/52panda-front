@@ -4,6 +4,7 @@ import styles from "../../static/styles/css/mainpage.module.css";
 import MainPageItem from "../commons/etc/MainPageItem";
 import CategoryToggle from "../commons/toggle/CategoryMainToggle";
 import footer from "../../static/styles/images/footerup.png";
+import Chatting from "../commons/etc/Chatting";
 
 function MainPage() {
   const [toggled, setToggled] = useState(false);
