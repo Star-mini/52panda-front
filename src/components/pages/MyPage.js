@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import noImage from "../../static/styles/images/noimage.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import "../../static/styles/css/mypage.css"
@@ -16,9 +15,14 @@ function MyPage() {
   useEffect(() => {
     setItems([]);
     fetchData();
-  }, [selectedMenu]); 
+  }, [selectedMenu]);
 
-  const fetchData = () => {
+    // useEffect(() => {
+    //     const searchParams = new URLSearchParams(location.search);
+    //     const userId = searchParams.get("sel");
+    // }, []);
+
+    const fetchData = () => {
     setLoading(true);
     const endpointMap = {
       '찜': 'http://localhost:8081/api/v1/auth/mypage/like',
@@ -52,11 +56,13 @@ function MyPage() {
         <button className={selectedMenu === '등록글' ? 'mypage-button selected' : 'mypage-button'} onClick={() => handleMenuClick('등록글')}>등록글 목록</button>
         <button className={selectedMenu === '입찰' ? 'mypage-button selected' : 'mypage-button'} onClick={() => handleMenuClick('입찰')}>입찰 목록</button>
         <button className={selectedMenu === '낙찰' ? 'mypage-button selected' : 'mypage-button'} onClick={() => handleMenuClick('낙찰')}>낙찰 목록</button>
+
+
       </div>
-        
+
       <div className='div-margin container'>
 
-        
+
         <InfiniteScroll
           dataLength={items.length}
           next={fetchData}
