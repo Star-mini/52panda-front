@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/auction" element={<Auction />} />
-        <Route path="/detail/:itemId" element={<ItemDetail />} />
+        <Route path="/detail" element={<ItemDetail />} />
         <Route path="/auction/form" element={<ItemPostForm />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/login" element={<Login />} />
