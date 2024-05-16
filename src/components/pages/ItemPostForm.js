@@ -75,6 +75,7 @@ function ItemPostForm() {
     if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
       return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
     }
+    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
     return "";
   };
 
