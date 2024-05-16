@@ -61,7 +61,6 @@ function MyPage() {
           dataLength={items.length}
           next={fetchData}
           hasMore={hasMore}
-          loader={<h4>Loading...</h4>}
           scrollThreshold={0.9}
           scrollableTarget="scrollableDiv"
         >
