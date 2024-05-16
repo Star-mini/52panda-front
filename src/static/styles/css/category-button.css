@@ -12,19 +12,37 @@
   }
   
 
-  @media (max-width: 768px) {
+  @media (max-width: 630px) {
     .circular-button {
-      width: 60px;
-      height: 60px;
-    }
+      width: 80px;
+      height: 80px;
+    }   
 }
+
+@media (max-width: 530px) {
+  .circular-button {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 380px) {
+  .circular-button {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+
   
   .circular-button:hover {
     background-color: rgb(234, 242, 236);
+    transition: background-color 0.3s ease; /* 배경색이 서서히 변하도록 설정 */
   }
 
   .main-type:hover {
     background-color:hsla(84, 30%, 65%,1);
+    transition: background-color 0.3s ease; /* 배경색이 서서히 변하도록 설정 */
 }
 
   .circular-button.selected {
@@ -44,4 +62,11 @@
   .category-image{
     width: 70%;
     height: auto;
+  }
+
+  @media (min-width: 1440px) {
+    .category-image {
+      width: 100%;
+      height: auto;
+    }
   }
