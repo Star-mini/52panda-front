@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
@@ -52,16 +54,17 @@ function ItemPostForm() {
 
     try {
       const formData = buildFormData(trading_method);
+      toast.info("저장하는 중이에요.😊");
       const response = await axios.post(itemFormApi, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("저장이 완료됐습니다.😊");
       console.log(response.data);
-      alert("물품 등록이 성공적으로 완료되었습니다.");
     } catch (error) {
+      toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
-      alert("물품 등록에 실패했습니다.");
     }
   };
 
@@ -96,6 +99,7 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
+      <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
