@@ -67,7 +67,7 @@ function Auction() {
 
       console.log("params",params);
     
-      const response = await axios.get('http://localhost:8081/api/v1/no-auth/auction', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction`, {
         params: params
       });
 
