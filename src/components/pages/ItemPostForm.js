@@ -8,7 +8,7 @@ import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 
 function ItemPostForm() {
-  const itemFormApi = 'http://localhost:8081/api/v1/auth/auction/form/';
+  const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
 
   const categories = [
     '전자기기', '여성의류', '가구인테리어', '티켓_교환권',

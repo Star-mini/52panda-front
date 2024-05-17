@@ -4,6 +4,7 @@ import styles from '../../../static/styles/css/ChatWindow.module.css';
 import axios from 'axios';
 import backImg from '../../../static/styles/images/chatback.png';
 
+
 function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [stompClient, setStompClient] = useState(null);
@@ -19,7 +20,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8081/chat/room/content?roomId=${roomId}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/room/content?roomId=${roomId}`);
         console.log("테스트용",response.data.data);
 
         const messages = response.data.data;
@@ -37,7 +38,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
     fetchData();
 
 
-    const socket = new WebSocket('ws://localhost:8081/ws');
+    const socket = new WebSocket(`${process.env.REACT_APP_CHAT_URL}`);
     const stomp = new Client({
       webSocketFactory: () => socket,
       debug: function () {
