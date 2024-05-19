@@ -1,12 +1,15 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 
 function ItemPostForm() {
   const itemFormApi = 'http://localhost:8081/api/v1/auth/auction/form/';
+  const embeddingApi = 'https://api.openai.com/v1/embeddings';
 
   const categories = [
     '전자기기', '여성의류', '가구인테리어', '티켓_교환권',
@@ -27,6 +30,7 @@ function ItemPostForm() {
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (imageFiles) => {
     setItemImgs(imageFiles);
@@ -50,19 +54,43 @@ function ItemPostForm() {
       return;
     }
 
+    setLoading(true);
     try {
+      // OpenAI 임베딩 요청
+      const embeddingResponse = await axios.post(
+        embeddingApi,
+        {
+          input: contents,
+          model: 'text-embedding-ada-002',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+        }
+      );
+      const embedding = embeddingResponse.data.data[0].embedding;
+
+      // 임베딩 값을 콘솔에 출력
+      console.log("Embedding:", embedding);
+
+      // 아이템 등록 요청
       const formData = buildFormData(trading_method);
-      const response = await axios.post(itemFormApi, formData, {
+      toast.info("저장하는 중이에요.😊");
+      const itemResponse = await axios.post(itemFormApi, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
-      alert("물품 등록이 성공적으로 완료되었습니다.");
+
+      toast.success("저장이 완료됐습니다.😊");
+      console.log(itemResponse.data);
     } catch (error) {
+      toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
-      alert("물품 등록에 실패했습니다.");
     }
+    setLoading(false);
   };
 
   const validateInputs = (trading_method) => {
@@ -75,6 +103,7 @@ function ItemPostForm() {
     if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
       return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
     }
+    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
     return "";
   };
 
@@ -95,6 +124,7 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
+      <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
@@ -215,8 +245,9 @@ function ItemPostForm() {
               variant="success"
               className={styles['submit-button']}
               type="submit"
+              disabled={loading} // 로딩 중일 때 버튼 비활성화
             >
-              등록하기
+              {loading ? '등록 중...' : '등록하기'}
             </Button>
           </Col>
         </Form.Group>
