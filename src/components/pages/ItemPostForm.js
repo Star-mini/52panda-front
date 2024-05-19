@@ -8,7 +8,7 @@ import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 
 function ItemPostForm() {
-  const itemFormApi = 'http://localhost:8081/api/v1/auth/auction/form/';
+  const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
   const embeddingApi = 'https://api.openai.com/v1/embeddings';
 
   const categories = [
@@ -38,7 +38,7 @@ function ItemPostForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     let trading_method = "-1";
     if (direct && parcel) {
       trading_method = "3";
@@ -47,15 +47,25 @@ function ItemPostForm() {
     } else if (parcel) {
       trading_method = "2";
     }
-
+  
     const error = validateInputs(trading_method);
     if (error) {
       setError(error);
       return;
     }
-
+  
     setLoading(true);
     try {
+      // 아이템 등록 요청
+      const formData = buildFormData(trading_method);
+      toast.info("저장하는 중이에요.😊");
+  
+      const itemResponse = await axios.post(itemFormApi, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
       // OpenAI 임베딩 요청
       const embeddingResponse = await axios.post(
         embeddingApi,
@@ -71,19 +81,14 @@ function ItemPostForm() {
         }
       );
       const embedding = embeddingResponse.data.data[0].embedding;
-
-      // 임베딩 값을 콘솔에 출력
-      console.log("Embedding:", embedding);
-
-      // 아이템 등록 요청
-      const formData = buildFormData(trading_method);
-      toast.info("저장하는 중이에요.😊");
-      const itemResponse = await axios.post(itemFormApi, formData, {
+  
+      // 임베딩 저장 요청
+      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, embedding, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       });
-
+  
       toast.success("저장이 완료됐습니다.😊");
       console.log(itemResponse.data);
     } catch (error) {
