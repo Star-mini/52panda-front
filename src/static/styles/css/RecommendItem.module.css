@@ -1,0 +1,30 @@
+.recommendItem {
+    flex: 0 0 auto;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 5rem;
+  }
+  
+  .recommendItem__image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .recommendItem__details {
+    text-align: center;
+  }
+  
+  .recommendItem__title {
+    margin: 0.5rem !important; /* 명시적으로 margin을 0으로 설정 */
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .recommendItem__price {
+    margin: 0 !important; /* 명시적으로 margin을 0으로 설정 */
+    margin-bottom: 0.3rem !important; /* 아래쪽 마진을 0.5rem로 설정 */
+    color: #555;
+  }
+  
