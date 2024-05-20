@@ -1,0 +1,15 @@
+.container {
+    margin-left: 10rem;
+  }
+  
+  .recommend {
+    padding: 20px;
+    background-color: #f0f4f0;
+  }
+  
+  .recommend__list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+  }
+  
