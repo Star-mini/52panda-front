@@ -3,6 +3,10 @@ import Slider from "react-slick";
 import styles from "../../../static/styles/css/Recommend.module.css";
 import RecommendItem from "./RecommendItem";
 import mac from '../../../static/styles/images/mac.png';
+import prev from '../../../static/styles/images/carouselControlPrev.png';
+import next from '../../../static/styles/images/carouselControlNext.png';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Recommend = () => {
   const items = [
@@ -29,11 +33,13 @@ const Recommend = () => {
   ];
 
   const settings = {
-    dots: true, // 슬라이더 하단에 점 표시 여부
-    infinite: true, // 무한 슬라이더 여부
-    speed: 500, // 슬라이드 속도
-    slidesToShow: 4, // 한 번에 보여줄 슬라이드 수
-    slidesToScroll: 1, // 한 번에 넘어갈 슬라이드 수
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    prevArrow: <img src={prev} className={styles.aprevArrow} alt="Previous" />,
+    nextArrow: <img src={next} className={styles.anextArrow} alt="Next" />,
     responsive: [
       {
         breakpoint: 1300,
