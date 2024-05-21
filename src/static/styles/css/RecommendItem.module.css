@@ -4,9 +4,6 @@
     border-radius: 10px;
     overflow: hidden;
     margin-right: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 아이템을 가운데 정렬 */
   }
   
   .recommendItem__image {
@@ -32,6 +29,7 @@
   
   @media (max-width: 1055px) {
     .recommendItem {
+      width: 23%; /* 화면 크기에 맞게 90%로 조정 */
       margin-right: 0; /* 여백을 없앰 */
     }
   
