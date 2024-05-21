@@ -10,6 +10,14 @@ function Navbar() {
 
   const login = localStorage.getItem("login");
 
+  const handleLogout = () => {
+    localStorage.removeItem("login");
+    localStorage.removeItem("id");
+    localStorage.removeItem("access");
+    localStorage.removeItem("username");
+
+  };
+
   return (
     <nav class="navbar navbar-expand">
       <div className={`container-fluid ${styles.padding}`}>
@@ -96,6 +104,11 @@ function Navbar() {
                     <li>
                       <a className="dropdown-item" href="/mypage?select=award">
                         입찰완료목록
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/"  onClick={handleLogout}>
+                        로그아웃
                       </a>
                     </li>
                   </>
