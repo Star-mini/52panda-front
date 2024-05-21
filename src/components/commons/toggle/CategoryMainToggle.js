@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../static/styles/css/category-toggle.css";
 import CategoryButton from "../button/CategoryButton";
+import { Link } from "react-router-dom";
 
 const categories = [
   "전자기기",
@@ -29,6 +30,7 @@ function CategoryToggle() {
 
   const handleCategoryClick = (category) => {
     //category를 넘겨주기
+    window.location.href = `/auction?category=${category}`;
   };
 
   useEffect(() => {
@@ -39,10 +41,10 @@ function CategoryToggle() {
       if (windowWidth > 2000) {
         // 2000픽셀 초과인 경우
         newCategoriesPerRow = 17;
-      } else if (windowWidth > 1500) {
+      } else if (windowWidth > 1600) {
         // 1500픽셀 초과 2000픽셀 이하인 경우
         newCategoriesPerRow = 12; // 예시로 변경, 적절한 값 설정 필요
-      } else if (windowWidth > 1100) {
+      } else if (windowWidth > 1300) {
         // 1100픽셀 초과 1500픽셀 이하인 경우
         newCategoriesPerRow = 9;
       } else if (windowWidth > 1000) {
@@ -94,10 +96,11 @@ function CategoryToggle() {
                 .map((category) => (
                   <div key={category} className="category-icon">
                     <CategoryButton
-                      category={category}
-                      onClick={handleCategoryClick}
-                      type = "main"
-                    />
+                        category={category}
+                        onClick={handleCategoryClick}
+                        type = "main"
+                      />
+                    
                   </div>
                 ))}
             </div>
