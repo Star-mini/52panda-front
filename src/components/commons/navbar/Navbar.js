@@ -4,8 +4,12 @@ import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
 import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
+
+  const login = localStorage.getItem("login");
+
   return (
     <nav class="navbar navbar-expand">
       <div className={`container-fluid ${styles.padding}`}>
@@ -31,7 +35,7 @@ function Navbar() {
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="/auction/form">
+              <a className={styles.a} href={login === "1" ? "/auction/form" : "/login"}>
                 <p className={styles.paragraph}>판매하기</p>
               </a>
             </li>
@@ -71,27 +75,37 @@ function Navbar() {
                 </button>
               </a>
 
-              <ul class={`${styles.dropdown} dropdown-menu`}>
-                <li>
-                  <a class="dropdown-item" href="/mypage?select=like">
-                    찜한목록
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/mypage?select=auction">
-                    경매등록목록
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/mypage?select=bid">
-                    경매참여목록
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/mypage?select=award">
-                    입찰완료목록
-                  </a>
-                </li>
+              <ul className={`${styles.dropdown} dropdown-menu`}>
+                {login === "1" ? (
+                  <>
+                    <li>
+                      <a className="dropdown-item" href="/mypage?select=like">
+                        찜한목록
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/mypage?select=auction">
+                        경매등록목록
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/mypage?select=bid">
+                        경매참여목록
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="/mypage?select=award">
+                        입찰완료목록
+                      </a>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <Link className="dropdown-item" to="/login">
+                      로그인
+                    </Link>
+                  </li>
+                )}
               </ul>
             </li>
           </ul>
