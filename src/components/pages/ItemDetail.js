@@ -17,7 +17,7 @@ function ItemDetail() {
     const fetchData = async () => {
       try {
         if (itemId) {
-          const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/auction/${itemId}`);
+          const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction/${itemId}`);
           setProductData(response.data.data);
         } else {
           console.error('itemId가 URL에 없습니다.');
