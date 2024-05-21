@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
-import noImage from "../../static/styles/images/noimage.png";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import FilterButton from '../commons/button/FilterButton';
 import CategoryToggle from '../commons/toggle/CategoryToggle';
 import '../../static/styles/css/auction.css'
 import WriteImage from '../../static/styles/images/write.png'
 import axios from 'axios';
+import { Link, useLocation } from 'react-router-dom';
+import { client } from '../util/client';
 
 function Auction() {
   const [items,setItems] = useState([]);
@@ -19,7 +20,19 @@ function Auction() {
     tradingMethod: "거래 방법"
   });
 
+  
+  const location = useLocation();
+
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [location.search]);
+  
+  useEffect(() => {
+    setItems([]);
     fetchData();
   }, [filters,selectedCategory]); 
 
@@ -64,14 +77,10 @@ function Auction() {
       if(selectedCategory !== null ){
         params.category = selectedCategory
       }
-
-      console.log("params",params);
     
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction`, {
         params: params
       });
-
-      console.log(regionValue);
   
   
       const progressItemListDto = response.data.data;
@@ -90,6 +99,8 @@ function Auction() {
             currentPrice: item.currentPrice
         };
         setItems(prevItems => [...prevItems, processedItem]);
+
+        console.log(items);
     });
 
       setCurrentPage(prevPage => prevPage + 1);
@@ -107,16 +118,17 @@ function Auction() {
     setFilters({ ...filters, [type]: value });
   };
   
+  
   return (
     <div className='container container-zoom'>
       <CategoryToggle onSelectCategory={handleCategoryChange}></CategoryToggle>
 
       <div className='auction-filter'>
         <FilterButton handleFilterChange={handleFilterChange} selectedRegion={filters.region} selectedTradingMethod={filters.tradingMethod}/>
-        <button className="btn btn-success">
-            글쓰기  
-            <img src={WriteImage} alt="Button Image" className='btn-image' />
-        </button>
+        <Link to={localStorage.getItem("login") === "1" ? "/auction/form" : "/login"} className="btn btn-success">
+          글쓰기
+          <img src={WriteImage} alt="Button Image" className="btn-image" />
+        </Link>
       </div>
       
 
