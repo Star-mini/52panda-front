@@ -29,7 +29,6 @@
   
   @media (max-width: 1055px) {
     .recommendItem {
-      width: 23%; /* 화면 크기에 맞게 90%로 조정 */
       margin-right: 0; /* 여백을 없앰 */
     }
   
@@ -38,3 +37,8 @@
     }
   }
   
+  @media (max-width: 500px) {
+    .recommendItem {
+        width: 9rem;
+    }
+  }

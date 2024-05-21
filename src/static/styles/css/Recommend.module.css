@@ -1,4 +1,5 @@
 .recommend {
+    width: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,3 +10,8 @@
     width: 100%;
   }
   
+  @media screen and (max-width: 1055px) {
+    .recommend{
+      width: 100%;
+    }
+  }

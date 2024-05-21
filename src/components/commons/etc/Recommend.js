@@ -36,7 +36,16 @@ const Recommend = () => {
     slidesToScroll: 1, // 한 번에 넘어갈 슬라이드 수
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 700,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
