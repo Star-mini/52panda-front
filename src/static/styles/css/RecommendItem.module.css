@@ -41,4 +41,10 @@
     .recommendItem {
         width: 9rem;
     }
+    .recommendItem__title {
+        font-size: 15px;
+    }
+    .recommendItem__price {
+        font-size: 12px;
+    }
   }
