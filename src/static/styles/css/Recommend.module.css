@@ -1,15 +1,14 @@
-.container {
-    margin-left: 10rem;
-  }
-  
-  .recommend {
-    padding: 20px;
-    background-color: #f0f4f0;
+.recommend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
   }
   
   .recommend__list {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
-    overflow-x: auto;
   }
   

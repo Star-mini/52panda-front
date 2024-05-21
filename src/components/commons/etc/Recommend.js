@@ -28,7 +28,7 @@ const Recommend = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className={styles.recommend}>
       <h2>추천 상품</h2>
       <div className={styles.recommend__list}>
         {items.map((item, index) => (
