@@ -1,4 +1,5 @@
 import React from "react";
+import Slider from "react-slick";
 import styles from "../../../static/styles/css/Recommend.module.css";
 import RecommendItem from "./RecommendItem";
 import mac from '../../../static/styles/images/mac.png';
@@ -27,10 +28,29 @@ const Recommend = () => {
     },
   ];
 
+  const settings = {
+    dots: true, // 슬라이더 하단에 점 표시 여부
+    infinite: true, // 무한 슬라이더 여부
+    speed: 500, // 슬라이드 속도
+    slidesToShow: 4, // 한 번에 보여줄 슬라이드 수
+    slidesToScroll: 1, // 한 번에 넘어갈 슬라이드 수
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+    ]
+  };
+
   return (
     <div className={styles.recommend}>
       <h2>추천 상품</h2>
-      <div className={styles.recommend__list}>
+      <Slider {...settings} className={styles.recommend__list}>
         {items.map((item, index) => (
           <RecommendItem
             key={index}
@@ -39,7 +59,7 @@ const Recommend = () => {
             price={item.price}
           />
         ))}
-      </div>
+      </Slider>
     </div>
   );
 };
