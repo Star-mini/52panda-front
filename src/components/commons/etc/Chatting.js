@@ -5,6 +5,7 @@ import chatting from "../../../static/styles/images/chatting.png";
 import ChatRoom from './ChatRoom'; // Import the ChatRoom component
 import closeIcon from '../../../static/styles/images/close.png';
 import ChatWindow from './ChatWindow';
+import { Client } from '@stomp/stompjs';
 
 function Chatting() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ function Chatting() {
 
   useEffect(() => {
     if (isOpen) {
-      axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/rooms`)
+      Client.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/rooms`)
         .then(response => {
           setChatRoomsData(response.data.data); 
           console.log(response.data.data);
