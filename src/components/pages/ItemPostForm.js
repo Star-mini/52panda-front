@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
+import { client } from '../util/client';
 
 function ItemPostForm() {
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
@@ -55,7 +56,7 @@ function ItemPostForm() {
     try {
       const formData = buildFormData(trading_method);
       toast.info("저장하는 중이에요.😊");
-      const response = await axios.post(itemFormApi, formData, {
+      const response = await client.post(itemFormApi, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
