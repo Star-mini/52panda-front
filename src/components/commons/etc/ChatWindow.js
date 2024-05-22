@@ -3,6 +3,7 @@ import { Client }  from '@stomp/stompjs';
 import styles from '../../../static/styles/css/ChatWindow.module.css';
 import axios from 'axios';
 import backImg from '../../../static/styles/images/chatback.png';
+import { client } from '../../util/client';
 
 
 function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
@@ -20,7 +21,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/room/content?roomId=${roomId}`);
+        const response = await client.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/room/content?roomId=${roomId}`);
         console.log("테스트용",response.data.data);
 
         const messages = response.data.data;
