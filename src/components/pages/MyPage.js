@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import "../../static/styles/css/mypage.css";
-import axios from 'axios';
 import { client } from "../util/client";
 import { useLocation } from 'react-router-dom';
 
@@ -39,11 +38,14 @@ function MyPage() {
         if (loading || !selectedMenu) return;
         setLoading(true);
         const endpointMap = {
-            'like': '${process.env.REACT_APP_API_URL}/v1/auth/mypage/like',
-            'auction': '${process.env.REACT_APP_API_URL}/v1/auth/mypage/auction',
-            'bid': '${process.env.REACT_APP_API_URL}/v1/auth/mypage/bid',
-            'award': '${process.env.REACT_APP_API_URL}/v1/auth/mypage/award'
+            'like': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/like`,
+            'auction': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/auction`,
+            'bid': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/bid`,
+            'award': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/award`
         };
+
+        console.log(`Fetching data from: ${endpointMap[selectedMenu]}`);
+
         client.get(endpointMap[selectedMenu], { params: { page } })
             .then(response => {
                 const fetchedItems = response.data;
