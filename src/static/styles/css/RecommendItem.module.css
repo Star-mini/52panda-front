@@ -1,0 +1,50 @@
+.recommendItem {
+    width: 15rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 1rem;
+  }
+  
+  .recommendItem__image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .recommendItem__details {
+    text-align: center;
+  }
+  
+  .recommendItem__title {
+    margin: 0.5rem !important;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .recommendItem__price {
+    margin: 0 !important;
+    margin-bottom: 0.3rem !important;
+    color: #555;
+  }
+  
+  @media (max-width: 1055px) {
+    .recommendItem {
+      margin-right: 0; /* 여백을 없앰 */
+    }
+  
+    .recommend__list {
+      justify-content: center; /* 가운데 정렬 */
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .recommendItem {
+        width: 9rem;
+    }
+    .recommendItem__title {
+        font-size: 15px;
+    }
+    .recommendItem__price {
+        font-size: 12px;
+    }
+  }

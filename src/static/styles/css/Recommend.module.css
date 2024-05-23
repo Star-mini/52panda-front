@@ -1,0 +1,17 @@
+.recommend {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.recommend__list {
+  width: 100%;
+}
+
+@media screen and (max-width: 1055px) {
+  .recommend {
+    width: 100%;
+  }
+}

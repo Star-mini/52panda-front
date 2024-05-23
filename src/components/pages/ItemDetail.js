@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import ProductDetail from "../commons/etc/ProductDetail";
 import AboutMore from "../commons/etc/AboutMore";
+import Recommend from "../commons/etc/Recommend";
 
 function ItemDetail() {
   const [productData, setProductData] = useState(null);
@@ -37,6 +38,7 @@ function ItemDetail() {
     <div>
       <ProductDetail productData={productData} />
       <AboutMore productData={productData} />
+      <Recommend itemId={productData.itemId} /> {/* itemId를 Recommend 컴포넌트로 전달 */}
     </div>
   );
 }

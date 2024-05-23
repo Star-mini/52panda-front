@@ -1,6 +1,8 @@
-import axios from 'axios';
+  import axios from 'axios';
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
@@ -11,6 +13,7 @@ import { useNavigate} from 'react-router-dom';
 
 function ItemPostForm() {
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
+  const embeddingApi = 'https://api.openai.com/v1/embeddings';
 
   const categories = [
     '전자기기', '여성의류', '가구인테리어', '티켓_교환권',
@@ -30,7 +33,9 @@ function ItemPostForm() {
   const [finishHour, setFinishHour] = useState('');
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
+  const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
   const navigate = useNavigate();
@@ -41,7 +46,7 @@ function ItemPostForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     let trading_method = "-1";
     if (direct && parcel) {
       trading_method = "3";
@@ -50,21 +55,52 @@ function ItemPostForm() {
     } else if (parcel) {
       trading_method = "2";
     }
-
+  
     const error = validateInputs(trading_method);
     if (error) {
       setError(error);
       return;
     }
-
+  
+    setLoading(true);
+    setError(''); // 오류 메시지 초기화
+    setEmbedding(null); // 임베딩 초기화
+  
     try {
+      // 아이템 등록 요청
       const formData = buildFormData(trading_method);
       toast.info("저장하는 중이에요.😊");
-      const response = await client.post(itemFormApi, formData, {
+  
+      const itemResponse = await client.post(itemFormApi, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+  
+      // OpenAI 임베딩 요청
+      const embeddingResponse = await axios.post(
+        embeddingApi,
+        {
+          input: contents,
+          model: 'text-embedding-ada-002',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+        }
+      );
+      const newEmbedding = embeddingResponse.data.data[0].embedding;
+      setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
+  
+      // 임베딩 저장 요청
+      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
       toast.success("저장이 완료됐습니다.😊", {
         autoClose: 2000, 
         onClose: () => {
@@ -74,8 +110,10 @@ function ItemPostForm() {
       });
     } catch (error) {
       toast.error("물품 등록에 실패했습니다.");
+      toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
     }
+    setLoading(false);
   };
 
   const validateInputs = (trading_method) => {
@@ -88,6 +126,7 @@ function ItemPostForm() {
     if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
       return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
     }
+    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
     if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
     return "";
   };
@@ -109,6 +148,7 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
+      <ToastContainer />
       <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
@@ -230,8 +270,9 @@ function ItemPostForm() {
               variant="success"
               className={styles['submit-button']}
               type="submit"
+              disabled={loading} // 로딩 중일 때 버튼 비활성화
             >
-              등록하기
+              {loading ? '등록 중...' : '등록하기'}
             </Button>
           </Col>
         </Form.Group>
