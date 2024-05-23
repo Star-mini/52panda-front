@@ -1,0 +1,49 @@
+name: Front-end Docker Image CI
+on:
+  push:
+    branches: [ "main" ] 
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 0. env 팡리 만들
+      - name: make .env
+        run: |
+          cd ./
+          touch ./.env
+          echo "${{ secrets.ENV }}" > ./.env
+        shell: bash
+        
+      # 1. Docker 이미지 빌드
+      - name: Build Docker Image
+        run: docker build -t feed1119/panda-frontend:${{ github.sha }} .
+
+      # 2. DockerHub 로그인
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      # 3. Docker Hub 이미지 푸시
+      - name: Push Docker Image to Docker Hub
+        run: docker push feed1119/panda-frontend:${{ github.sha }}
+
+      # 4. 다른 Git 리포지토리에 매니페스트 파일 업데이트
+      - name: Update Manifest in Another Repository
+        run: |
+          git clone https://feeding1119:${{ secrets.LOGIN_TOKEN }}@github.com/KCS-final/frontend-argocd.git
+          cd frontend-argocd
+          sed -i 's|image: feed1119/panda-frontend:.*|image: feed1119/panda-frontend:${{ github.sha }}|' frontend.yaml
+          git config --global user.name feeding1119
+          git config --global user.email akkaa1119@naver.com
+          git add frontend.yaml
+          git commit -m "Update image tag to latest"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.LOGIN_TOKEN }}

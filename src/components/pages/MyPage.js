@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import "../../static/styles/css/mypage.css"
 import axios from 'axios';
+import { client } from "../util/client";
 
 function MyPage() {
 
@@ -25,12 +26,12 @@ function MyPage() {
     const fetchData = () => {
     setLoading(true);
     const endpointMap = {
-      '찜': 'http://localhost:8081/api/v1/auth/mypage/like',
-      '등록글': 'http://localhost:8081/api/v1/auth/mypage/auction',
-      '입찰': 'http://localhost:8081/api/v1/auth/mypage/bid',
-      '낙찰': 'http://localhost:8081/api/v1/auth/mypage/award'
+      '찜': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/like`,
+      '등록글': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/auction`,
+      '입찰': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/bid`,
+      '낙찰': `${process.env.REACT_APP_API_URL}/v1/auth/mypage/award`
     }
-    axios.get(endpointMap[selectedMenu])
+    client.get(endpointMap[selectedMenu])
         .then(response => {
           console.log("testeseatstre",response.data);
           setItems(prevItems => [...prevItems, ...response.data]); //받은 데이터를 아이템에 추가

@@ -5,6 +5,7 @@ import chatting from "../../../static/styles/images/chatting.png";
 import ChatRoom from './ChatRoom'; // Import the ChatRoom component
 import closeIcon from '../../../static/styles/images/close.png';
 import ChatWindow from './ChatWindow';
+import { client } from '../../util/client';
 
 function Chatting() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,7 @@ function Chatting() {
 
   useEffect(() => {
     if (isOpen) {
-      axios.get('http://localhost:8081/chat/rooms')
+      client.get(`${process.env.REACT_APP_API_URL}/v1/auth/chat/rooms`)
         .then(response => {
           setChatRoomsData(response.data.data); 
           console.log(response.data.data);
@@ -26,7 +27,7 @@ function Chatting() {
           console.error('Error fetching chat rooms:', error);
         });
     }
-  }, [isChatWindowOpen]);
+  }, [isOpen,isChatWindowOpen]);
 
   const handleChatRoomClick = (roomId,chatTitle) => {
     setSelectedChatRoomId(roomId);
@@ -59,15 +60,17 @@ function Chatting() {
             </div>
             
             <div>
-            {isChatWindowOpen ? (
-              <ChatWindow roomId={selectedChatRoomId} roomTitle={selectedChatRoomTitle} onBackButtonClick={handleBackButtonClick} />
-            ) : (
-              <div>
-                  {chatRoomsData.map((room, index) => (
-                    <ChatRoom key={index} room={room} onClick={handleChatRoomClick}/>
-                  ))}
-              </div>
-            )}
+            {chatRoomsData !== null && (
+                isChatWindowOpen ? (
+                  <ChatWindow roomId={selectedChatRoomId} roomTitle={selectedChatRoomTitle} onBackButtonClick={handleBackButtonClick} />
+                ) : (
+                  <div>
+                    {chatRoomsData.map((room, index) => (
+                      <ChatRoom key={index} room={room} onClick={handleChatRoomClick}/>
+                    ))}
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>

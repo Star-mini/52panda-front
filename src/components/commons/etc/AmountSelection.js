@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../../../static/styles/css/AmountSelection.module.css";
+import { client } from "../../util/client";
 
 function AmountSelection({ onBid, togglePopup, productData }) {
   const amount = productData.buyNowPrice; // 즉시 낙찰 금액
@@ -59,7 +60,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
     const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
   
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
+      const response = await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
         price: parseInt(price, 10),
         itemId: itemId,
         userId: userId,
