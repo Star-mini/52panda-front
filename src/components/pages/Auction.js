@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import FilterButton from '../commons/button/FilterButton';
@@ -22,18 +22,25 @@ function Auction() {
 
   
   const location = useLocation();
+  const isFirstCategoryUpdate = useRef(true);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get('category');
     if (categoryParam) {
       setSelectedCategory(categoryParam);
+    }else{
+      isFirstCategoryUpdate.current = false;
     }
   }, [location.search]);
   
   useEffect(() => {
-    setItems([]);
-    fetchData();
+    if (isFirstCategoryUpdate.current) {
+      isFirstCategoryUpdate.current = false;
+    } else {
+      setItems([]);
+      fetchData();
+    }
   }, [filters,selectedCategory]); 
 
 
@@ -74,6 +81,7 @@ function Auction() {
         params.tradingMethod =tradingMethodValue
       }
 
+      console.log("현카",selectedCategory);
       if(selectedCategory !== null ){
         params.category = selectedCategory
       }
