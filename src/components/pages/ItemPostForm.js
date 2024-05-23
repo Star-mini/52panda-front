@@ -7,6 +7,7 @@ import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 import { client } from '../util/client';
+import { useNavigate} from 'react-router-dom';
 
 function ItemPostForm() {
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
@@ -31,6 +32,9 @@ function ItemPostForm() {
   const [parcel, setParcelChecked] = useState(false);
   const [error, setError] = useState('');
 
+
+  const navigate = useNavigate();
+  
   const handleImageChange = (imageFiles) => {
     setItemImgs(imageFiles);
   };
@@ -61,8 +65,13 @@ function ItemPostForm() {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("저장이 완료됐습니다.😊");
-      console.log(response.data);
+      toast.success("저장이 완료됐습니다.😊", {
+        autoClose: 2000, 
+        onClose: () => {
+          console.log(response.data);
+          navigate('/auction');
+        }
+      });
     } catch (error) {
       toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
