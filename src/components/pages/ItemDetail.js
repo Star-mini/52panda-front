@@ -38,7 +38,7 @@ function ItemDetail() {
     <div>
       <ProductDetail productData={productData} />
       <AboutMore productData={productData} />
-      <Recommend/>
+      <Recommend itemId={productData.itemId} /> {/* itemId를 Recommend 컴포넌트로 전달 */}
     </div>
   );
 }
