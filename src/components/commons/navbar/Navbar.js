@@ -4,9 +4,18 @@ import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
 import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
+  const handleAboutClick = (event) => {
+    event.preventDefault();
+    localStorage.setItem('navigateToAbout', 'true');
+    navigate('/'); // navigate 함수로 라우팅
+  };
+
 
   const login = localStorage.getItem("login");
 
@@ -29,7 +38,7 @@ function Navbar() {
             <li
               className={`nav-item ms-4 ${styles.zeromargin} ${styles.leftandblock}`}
             >
-              <a className={styles.a} href="">
+              <a className={styles.a}  href="/" onClick={handleAboutClick}>
                 <p className={styles.paragraph}>About</p>
               </a>
             </li>

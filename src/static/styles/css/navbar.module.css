@@ -60,6 +60,7 @@
 .dropdown{
     left: -50%!important;
     position: relative;
+    appearance:none /* 화살표 없애기 */
 
 }
 
