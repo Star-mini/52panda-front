@@ -9,11 +9,11 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const [lastBidTime, setLastBidTime] = useState(null); // 마지막 입찰 시간 상태
   const startPrice = productData.startPrice; // 시작 입찰 금액
   const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
-  const increment = startPrice >= 10000 ? startPrice * 0.01 : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
+  const increment = startPrice >= 10000 ? Math.floor(startPrice * 0.01) : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
 
   const handleAddAmount = (multiplier) => {
     setBidValue((prevBidValue) => {
-      const newBidValue = parseInt(prevBidValue || "0") + (increment * multiplier);
+      const newBidValue = parseInt(prevBidValue || "0", 10) + (increment * multiplier);
       return newBidValue.toString();
     });
   };
