@@ -4,10 +4,23 @@ import styles from '../../../static/styles/css/PriceList.module.css';
 import rotate from '../../../static/styles/images/rotate.png';
 import { client } from '../../util/client';
 
-
 function PriceList({ items, productData, isPopupVisible }) {
   const [bids, setBids] = useState(items); // 서버에서 받은 입찰 정보를 저장할 상태
   const [currentPrice, setCurrentPrice] = useState('0원'); // 최고 가격 상태
+
+  // 이름 마스킹 함수 정의
+  const maskName = (name) => {
+    const isKorean = /[가-힣]/.test(name); // 이름에 한글이 포함되어 있는지 확인
+    if (isKorean) {
+      if (name.length > 1) {
+        return name[0] + '*' + name.slice(2); // 두 번째 글자를 *로 변환
+      } else {
+        return name[0] + '*'; // 이름이 한 글자일 경우 예외 처리
+      }
+    } else {
+      return '*' + name.slice(1); // 첫 번째 글자를 *로 변환
+    }
+  };
 
   // fetchBids 함수 정의
   const fetchBids = async () => {
@@ -23,7 +36,10 @@ function PriceList({ items, productData, isPopupVisible }) {
           } else {
             return a.name.localeCompare(b.name);
           }
-        });
+        }).map(item => ({
+          ...item,
+          name: maskName(item.name) // 이름 마스킹 적용
+        }));
         setBids(sortedItems); // 정렬된 입찰 정보를 상태에 저장
         if (sortedItems.length > 0) {
           setCurrentPrice(sortedItems[0].price.toLocaleString() + '원'); // 배열의 첫 번째 요소 가격을 최고 가격으로 설정
@@ -43,7 +59,10 @@ function PriceList({ items, productData, isPopupVisible }) {
   useEffect(() => {
     // 전달된 items를 bids 상태에 업데이트
     if (items.length > 0) {
-      const updatedBids = [items[0], ...bids];
+      const updatedBids = [items[0], ...bids].map(item => ({
+        ...item,
+        name: maskName(item.name) // 이름 마스킹 적용
+      }));
       setBids(updatedBids);
       setCurrentPrice(updatedBids[0].price.toLocaleString() + '원');
     }
