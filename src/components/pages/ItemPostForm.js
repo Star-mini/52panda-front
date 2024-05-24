@@ -108,7 +108,6 @@ function ItemPostForm() {
       });
     } catch (error) {
       toast.error("물품 등록에 실패했습니다.");
-      toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
     }
     setLoading(false);
@@ -146,7 +145,6 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
-      <ToastContainer />
       <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
