@@ -84,7 +84,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
 
   const handleSendMessage = () => {
     if (messageInput.trim() !== '') {
-      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:1}) })
+      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:localStorage.getItem("id")}) })
       setMessageInput('');
     }
   };
@@ -104,7 +104,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
       
       
       {chatMessages.map((message) => (
-          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === localStorage.getItem("id") ? styles.right : styles.left}`}>
+          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}>
             {message.content}
           </div>
         ))}

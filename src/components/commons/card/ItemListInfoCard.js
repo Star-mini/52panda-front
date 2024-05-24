@@ -8,6 +8,7 @@ const ItemListInfoCard = ({
   title,
   category,
   categoryDetail,
+  buyNowPrice,
   tradingMethod,
   startPrice,
   currentPrice,
@@ -20,14 +21,14 @@ const ItemListInfoCard = ({
     case 1:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
-          택배
+          직거래
         </Badge>
       );
       break;
     case 2:
       tradingMethodBadges = (
         <Badge bg="secondary" className="badge-space">
-          직거래
+          택배
         </Badge>
       );
       break;
@@ -72,18 +73,18 @@ const ItemListInfoCard = ({
                 <Card.Text className="text-center">
                   {isAuctionFinished ? (
                     <span className="current-price-font">
-                      낙찰 금액 {currentPrice}
+                      낙찰 금액 {currentPrice === 0 ? "-" : currentPrice}
                     </span>
                   ) : (
                     <div className="text-space">
                       <div className="card-space">
                         <span className="current-price-font">
-                          현재 금액 {currentPrice}
+                          현재 금액 {currentPrice === 0 ? "-" : currentPrice}
                         </span>
                       </div>
                       <div>
                         <span className="buy-now-price-font">
-                          즉시 구매가 {currentPrice}
+                          즉시 구매가 {buyNowPrice}
                         </span>
                       </div>
                     </div>
