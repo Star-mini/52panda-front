@@ -9,7 +9,6 @@ import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
 import { client } from "../../util/client";
 
-
 function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -101,6 +100,7 @@ function ProductDetail({ productData }) {
 
   const toggleHeart = () => {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
+    const likeUserId = localStorage.getItem("id");
 
     if (isHeartPink) {
       client
@@ -114,7 +114,7 @@ function ProductDetail({ productData }) {
         });
     } else {
       const data = {
-        likeUserId: 1,
+        likeUserId,
       };
 
       client
