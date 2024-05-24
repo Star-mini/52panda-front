@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
@@ -104,7 +103,6 @@ function ItemPostForm() {
       toast.success("저장이 완료됐습니다.😊", {
         autoClose: 2000, 
         onClose: () => {
-          console.log(response.data);
           navigate('/auction');
         }
       });

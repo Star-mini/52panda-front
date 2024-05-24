@@ -17,6 +17,12 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
     setMessageInput(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -78,7 +84,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
 
   const handleSendMessage = () => {
     if (messageInput.trim() !== '') {
-      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:1}) })
+      stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput ,chatUser:localStorage.getItem("id")}) })
       setMessageInput('');
     }
   };
@@ -98,7 +104,7 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
       
       
       {chatMessages.map((message) => (
-          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === 1 ? styles.right : styles.left}`}>
+          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}>
             {message.content}
           </div>
         ))}
@@ -107,7 +113,8 @@ function ChatWindow({ roomId, roomTitle,onBackButtonClick }) {
           className={styles.input}
           type="text" 
           value={messageInput} 
-          onChange={handleMessageInputChange} 
+          onChange={handleMessageInputChange}
+          onKeyDown={handleKeyPress} 
           placeholder="메시지를 입력하세요" />
         <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
       </div>
