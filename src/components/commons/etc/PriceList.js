@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../../../static/styles/css/PriceList.module.css';
 import rotate from '../../../static/styles/images/rotate.png';
+import { client } from '../../util/client';
+
 
 function PriceList({ items, productData, isPopupVisible }) {
   const [bids, setBids] = useState(items); // 서버에서 받은 입찰 정보를 저장할 상태
@@ -11,7 +13,7 @@ function PriceList({ items, productData, isPopupVisible }) {
   const fetchBids = async () => {
     console.log("API 요청 시작: 입찰 정보 불러오기"); // 로그 출력
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${productData.itemId}/bid`);
+      const response = await client.get(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${productData.itemId}/bid`);
       console.log("API 응답:", response); // API 응답 로그 출력
       if (response.data.success) {
         const sortedItems = response.data.data.info.sort((a, b) => {
