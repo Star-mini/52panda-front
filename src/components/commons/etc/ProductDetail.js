@@ -7,7 +7,8 @@ import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
-import axios from "axios";
+import { client } from "../../util/client";
+
 
 function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -102,7 +103,7 @@ function ProductDetail({ productData }) {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
 
     if (isHeartPink) {
-      axios
+      client
         .delete(url)
         .then((response) => {
           console.log("찜하기 취소 성공:", response.data);
@@ -116,7 +117,7 @@ function ProductDetail({ productData }) {
         likeUserId: 1,
       };
 
-      axios
+      client
         .post(url, data, {
           headers: {
             "Content-Type": "application/json",
