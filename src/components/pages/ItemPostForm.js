@@ -94,7 +94,7 @@ function ItemPostForm() {
       setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
   
       // 임베딩 저장 요청
-      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
+      await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
         headers: {
           "Content-Type": "application/json",
         },
