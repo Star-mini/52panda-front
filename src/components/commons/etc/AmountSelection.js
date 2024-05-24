@@ -57,7 +57,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const sendBidRequest = async (price, isImmediate) => {
     const itemId = productData.itemId;
     const userId = localStorage.getItem("id") || 3; // 로컬스토리지에서 가져오거나 기본값 3 사용
-    const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
+    const nickname = localStorage.getItem("username") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
   
     try {
       const response = await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
