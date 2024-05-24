@@ -18,7 +18,11 @@ const Recommend = ({ itemId }) => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction/Recommendation/Embedding`, {
           id: itemId
         });
-  
+
+        if (response.status === 500) {
+          throw new Error('Internal Server Error');
+        }
+
         if (response.data && response.data.status === 'success' && response.data.data) {
           const parsedData = JSON.parse(response.data.data);  // 문자열 JSON을 객체로 파싱
           if (parsedData.data && parsedData.data.data) {
@@ -31,21 +35,22 @@ const Recommend = ({ itemId }) => {
         }
       } catch (error) {
         setError(error.message);
+        setItems([]);  // 오류가 발생할 경우 items를 빈 배열로 설정
         console.error('Error fetching recommendations:', error);
       }
     };
-  
+
     if (itemId) {
       fetchRecommendations();
     }
   }, [itemId]);
 
-  if (!items.length && !error) {
-    return <div>Loading recommendations...</div>;
+  if (error) {
+    return null;  // 오류가 있을 경우 컴포넌트를 렌더링하지 않음
   }
 
-  if (error) {
-    return <div>{error}</div>;
+  if (!items.length) {
+    return <div>Loading recommendations...</div>;
   }
 
   const settings = {
