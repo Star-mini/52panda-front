@@ -23,6 +23,12 @@ function QnA({ productData }) {
   }, []);
 
   const handleAddClick = (questionId) => {
+    const login = localStorage.getItem("login");
+    if (!login) {
+      alert("로그인 후에 문의글을 작성할 수 있습니다. 😊");
+      return;
+    }
+
     if (!isAdding) {
       const newId = Date.now();
       const newComponent = {
