@@ -148,8 +148,8 @@ function ProductDetail({ productData }) {
   };
 
   const handleBidButtonClick = () => {
-    const userId = localStorage.getItem("login");
-    if (!userId) {
+    const login = localStorage.getItem("login");
+    if (!login) {
       alert("로그인후에 입찰하실수있어요.😊");
       return;
     }
