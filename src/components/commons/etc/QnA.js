@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "../../../static/styles/css/QnA.module.css";
 import writeIcon from "../../../static/styles/images/writhing.png";
 import Add from "./Add";
-import axios from "axios";
+import { client } from '../../util/client';
 
 function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
@@ -47,7 +47,7 @@ function QnA({ productData }) {
   const deleteQuestion = async (questionId) => {
     handleDelete(questionId); // API 요청 전에 UI를 먼저 업데이트
     try {
-      const response = await axios.delete(
+      const response = await client.delete(
         `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/qna/${questionId}/`
       );
       if (response.status !== 200) {
@@ -140,7 +140,7 @@ function QnA({ productData }) {
             <p className={styles.date}>
               문의일: {new Date(q.questionTime).toLocaleString()}
             </p>
-            {productData.sellerId === userId && (
+            {productData.sellerId == userId && (
               <button
                 className={styles.deleteButton}
                 onClick={() => deleteQuestion(q.questionId)}
@@ -149,7 +149,7 @@ function QnA({ productData }) {
               </button>
             )}
           </div>
-          {q.comments.length === 0 && productData.sellerId === userId && (
+          {q.comments.length === 0 && productData.sellerId == userId && (
             <div className={styles.answerButtonContainer}>
               <button
                 className={styles.writeButton}
