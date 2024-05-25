@@ -147,6 +147,15 @@ function ProductDetail({ productData }) {
     setIsBidComplete(isBidComplete);
   };
 
+  const handleBidButtonClick = () => {
+    const userId = localStorage.getItem("login");
+    if (!userId) {
+      alert("로그인후에 입찰하실수있어요.😊");
+      return;
+    }
+    togglePopup();
+  };
+
   if (!productData) {
     return <div>Loading...</div>;
   }
@@ -205,7 +214,7 @@ function ProductDetail({ productData }) {
       <div className={styles.buttonContainer}>
         <button
           className={styles.bidButton}
-          onClick={isBidComplete ? undefined : togglePopup}
+          onClick={isBidComplete ? undefined : handleBidButtonClick}
           style={isBidComplete ? { backgroundColor: "#CDCDCD" } : {}}
         >
           {isBidComplete ? "낙찰완료" : "입찰하기"}
