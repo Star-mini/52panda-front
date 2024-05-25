@@ -8,15 +8,19 @@ function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(1); // 테스트용 ID
+  const [userId, setUserId] = useState(null); // 초기값을 null로 설정
 
   useEffect(() => {
     if (productData && productData.questions) {
       setQuestions(productData.questions);
     }
-    // 실제 코드에서는 아래 주석을 사용하여 localStorage에서 id를 가져옵니다.
-    // setUserId(localStorage.getItem("id"));
   }, [productData]);
+
+  useEffect(() => {
+    // localStorage에서 userId를 가져와서 설정
+    const id = localStorage.getItem("id");
+    setUserId(id);
+  }, []);
 
   const handleAddClick = (questionId) => {
     if (!isAdding) {
@@ -57,7 +61,6 @@ function QnA({ productData }) {
     }
   };
 
-  
   const handleQuestionSubmit = (text, id, questionId) => {
     if (questionId !== null) {
       setQuestions((prevQuestions) =>
@@ -166,7 +169,7 @@ function QnA({ productData }) {
             </div>
           ))}
           {/* 질문이 답변 중이 아닐 때만 구분자를 추가합니다 */}
-            <div className={styles.divider}></div>
+          <div className={styles.divider}></div>
         </div>
       ))}
       {addComponents.map((component) => component.component)}
