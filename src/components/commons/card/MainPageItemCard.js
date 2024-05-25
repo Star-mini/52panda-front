@@ -56,7 +56,7 @@ function MainPageItemCard(props) {
       onMouseLeave={() => togglePriceVisibility(false)}
       onMouseOver={() => togglePriceVisibility(true)} // 이벤트를 div 전체에 적용하여 자연스러운 동작을 보장
     >
-      <a href="#">
+      <a href="">
         <div style={{ position: "relative" }}>
           <img
             style={imageContainer1}
