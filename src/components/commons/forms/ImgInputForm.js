@@ -6,44 +6,89 @@ import styles from '../../../static/styles/css/imgInputForm.module.css';
 const ImgInputForm = ({ onImageChange }) => {
   const [itemImgs, setItemImgs] = useState([]);
 
-  const onImgChange = (e) => {
+  const createImage = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new window.Image(); // 'window.'을 추가하여 내장 객체를 명시적으로 참조합니다.
+        img.onload = () => resolve(img);
+        img.onerror = (err) => reject(err);
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const getCroppedImage = (img) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const size = Math.min(img.width, img.height);
+    const x = (img.width - size) / 2;
+    const y = (img.height - size) / 2;
+
+    canvas.width = size;
+    canvas.height = size;
+    ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+
+    return new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        // 파일명에 고유 ID를 추가하여 중복을 방지합니다.
+        const uniqueId = new Date().getTime(); // 현재 시간을 이용하여 고유 ID를 생성
+        const originalFileName = img.src.split('/').pop();
+        const newFileName = `${uniqueId}-${originalFileName}`;
+
+        const croppedImg = new File([blob], newFileName, {
+          type: 'image/jpeg',
+          lastModified: Date.now(),
+        });
+        resolve(croppedImg);
+      }, 'image/jpeg');
+    });
+  };
+
+
+  const onImgChange = async (e) => {
     e.preventDefault();
     const files = e.target.files;
 
     if (files && files.length) {
-      const total = itemImgs.length + files.length;
-      if (total > 10) {
-        alert('최대 10개의 이미지만 업로드할 수 있습니다.');
+        const total = itemImgs.length + files.length;
+        if (total > 10) {
+            alert('최대 10개의 이미지만 업로드할 수 있습니다.');
+            e.target.value = '';
+            return;
+        }
+
+        const newImgs = [];
+        for (const file of files) {
+            const img = await createImage(file);
+            const croppedImg = await getCroppedImage(img);
+            const imgSrc = window.URL.createObjectURL(croppedImg);
+            newImgs.push({
+                id: itemImgs.length + newImgs.length + 1,
+                img: imgSrc,
+                file: croppedImg,
+            });
+        }
+
+        setItemImgs((prev) => {
+            const updatedImgs = [...prev, ...newImgs];
+            onImageChange(updatedImgs.map((item) => item.file)); // 상위 컴포넌트에 파일 객체 전달
+            return updatedImgs;
+        });
+
         e.target.value = '';
-        return;
-      }
-
-      const newImgs = Array.from(files).map((file, idx) => {
-        const img = window.URL.createObjectURL(file);
-        return {
-          id: itemImgs.length + idx + 1,
-          img,
-          file
-        };
-      });
-
-      setItemImgs((prev) => {
-        const updatedImgs = [...prev, ...newImgs];
-        onImageChange(updatedImgs.map(item => item.file));  //상위 컴포넌트에 파일 객체 전달
-        return updatedImgs;
-      });
-
-      e.target.value = '';
     }
-  };
+};
 
   const onImgDelete = (deleteImg) => {
-    const imgToRevoke = itemImgs.find(item => item.id === deleteImg).img;
+    const imgToRevoke = itemImgs.find((item) => item.id === deleteImg).img;
     window.URL.revokeObjectURL(imgToRevoke);
 
     setItemImgs((prev) => {
       const updatedImgs = prev.filter((item) => item.id !== deleteImg);
-      onImageChange(updatedImgs.map(item => item.file));
+      onImageChange(updatedImgs.map((item) => item.file));
       return updatedImgs;
     });
   };
@@ -55,10 +100,12 @@ const ImgInputForm = ({ onImageChange }) => {
         <span>{itemImgs.length} / 10</span>
       </Form.Label>
       <Form.Control
-        type="file" multiple
+        type="file"
+        multiple
         accept="image/png, image/jpeg, image/jpg"
         className={styles['hidden']}
-        onChange={onImgChange} />
+        onChange={onImgChange}
+      />
       {itemImgs.map((item) => (
         <div key={item.id} className={styles['upload-img-box']}>
           <Image src={item.img} className={styles['upload-img']} rounded />
