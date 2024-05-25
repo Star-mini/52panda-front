@@ -19,17 +19,23 @@ const ImgInputForm = ({ onImageChange }) => {
     });
   };
 
-  const getCroppedImage = (img) => {
+  const getPaddedImage = (img) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    const size = Math.min(img.width, img.height);
-    const x = (img.width - size) / 2;
-    const y = (img.height - size) / 2;
+    const size = Math.max(img.width, img.height);
 
     canvas.width = size;
     canvas.height = size;
-    ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+
+    // 흰색 배경으로 초기화
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, size, size);
+
+    const x = (size - img.width) / 2;
+    const y = (size - img.height) / 2;
+
+    ctx.drawImage(img, x, y, img.width, img.height);
 
     return new Promise((resolve) => {
       canvas.toBlob((blob) => {
@@ -38,49 +44,48 @@ const ImgInputForm = ({ onImageChange }) => {
         const originalFileName = img.src.split('/').pop();
         const newFileName = `${uniqueId}-${originalFileName}`;
 
-        const croppedImg = new File([blob], newFileName, {
+        const paddedImg = new File([blob], newFileName, {
           type: 'image/jpeg',
           lastModified: Date.now(),
         });
-        resolve(croppedImg);
+        resolve(paddedImg);
       }, 'image/jpeg');
     });
   };
-
 
   const onImgChange = async (e) => {
     e.preventDefault();
     const files = e.target.files;
 
     if (files && files.length) {
-        const total = itemImgs.length + files.length;
-        if (total > 10) {
-            alert('최대 10개의 이미지만 업로드할 수 있습니다.');
-            e.target.value = '';
-            return;
-        }
-
-        const newImgs = [];
-        for (const file of files) {
-            const img = await createImage(file);
-            const croppedImg = await getCroppedImage(img);
-            const imgSrc = window.URL.createObjectURL(croppedImg);
-            newImgs.push({
-                id: itemImgs.length + newImgs.length + 1,
-                img: imgSrc,
-                file: croppedImg,
-            });
-        }
-
-        setItemImgs((prev) => {
-            const updatedImgs = [...prev, ...newImgs];
-            onImageChange(updatedImgs.map((item) => item.file)); // 상위 컴포넌트에 파일 객체 전달
-            return updatedImgs;
-        });
-
+      const total = itemImgs.length + files.length;
+      if (total > 10) {
+        alert('최대 10개의 이미지만 업로드할 수 있습니다.');
         e.target.value = '';
+        return;
+      }
+
+      const newImgs = [];
+      for (const file of files) {
+        const img = await createImage(file);
+        const paddedImg = await getPaddedImage(img);
+        const imgSrc = window.URL.createObjectURL(paddedImg);
+        newImgs.push({
+          id: itemImgs.length + newImgs.length + 1,
+          img: imgSrc,
+          file: paddedImg,
+        });
+      }
+
+      setItemImgs((prev) => {
+        const updatedImgs = [...prev, ...newImgs];
+        onImageChange(updatedImgs.map((item) => item.file)); // 상위 컴포넌트에 파일 객체 전달
+        return updatedImgs;
+      });
+
+      e.target.value = '';
     }
-};
+  };
 
   const onImgDelete = (deleteImg) => {
     const imgToRevoke = itemImgs.find((item) => item.id === deleteImg).img;
