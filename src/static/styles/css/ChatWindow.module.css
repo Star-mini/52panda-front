@@ -8,9 +8,10 @@
   
   .chatBubble {
     border-radius: 5px;
-    padding: 8px 12px;
+    padding: 4px 8px;
     margin-bottom: 8px;
     max-width: 70%;
+    font-size: 0.9rem;
   }
   
   .right {
