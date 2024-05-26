@@ -19,3 +19,10 @@
     height: 60%; /* 높이 조정 */
     width: 60%; /* 너비 조정 */
   }
+
+  @media screen and (max-width: 675px) {
+    .box {
+      height: 60%; /* 높이 조정 */
+      width: 80%; /* 너비 조정 */
+    }
+  }
