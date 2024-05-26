@@ -55,9 +55,38 @@ function ItemPostForm() {
     setItemImgs(imageFiles);
   };
 
+  const validateInputs = (trading_method) => {
+    if (!title) return "상품명을 입력하세요.";
+    if (itemImgs.length === 0) return "하나 이상의 이미지를 업로드해야 합니다.";
+    if (!contents) return "상품 설명을 작성해야 합니다.";
+    if (!finishDate || !finishHour) return "경매 마감 시간을 정확히 입력해야 합니다.";
+    if (trading_method === "-1") return "거래 방법을 하나 이상 선택해야 합니다.";
+    if (!startPrice) return "입찰 시작가를 입력해야 합니다.";
+    if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
+      return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
+    }
+    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
+    return "";
+  };
+
+  const buildFormData = (trading_method) => {
+    const formData = new FormData();
+    itemImgs.forEach((image, index) => formData.append('images', image));
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('trading_method', trading_method);
+    formData.append('start_price', startPrice);
+    if (buyNowPrice > 0) {
+      formData.append('buy_now_price', buyNowPrice);
+    }
+    formData.append('contents', contents);
+    formData.append('finish_time', `${finishDate}T${finishHour.padStart(2, '0')}:00`);
+    return formData;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     let trading_method = "-1";
     if (direct && parcel) {
       trading_method = "3";
@@ -66,21 +95,20 @@ function ItemPostForm() {
     } else if (parcel) {
       trading_method = "2";
     }
-  
+
     const error = validateInputs(trading_method);
     if (error) {
       setError(error);
       return;
     }
-  
+
     setLoading(true);
     setError('');
 
     try {
-      // 아이템 등록 요청
       const formData = buildFormData(trading_method);
       toast.info("저장하는 중이에요.😊");
-  
+
       const itemResponse = await client.post(itemFormApi, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -107,50 +135,22 @@ function ItemPostForm() {
           "Content-Type": "application/json",
         },
       });
-  
+
       toast.success("저장이 완료됐습니다.😊", {
-        autoClose: 2000, 
+        autoClose: 2000,
         onClose: () => {
           navigate('/auction');
         }
       });
     } catch (error) {
       toast.error("물품 등록에 실패했습니다.");
-      toast.error("물품 등록에 실패했습니다.");
-      console.error("물품 등록에 실패했습니다.", error);
     }
     setLoading(false);
   };
 
-  const validateInputs = (trading_method) => {
-    if (!title) return "상품명을 입력하세요.";
-    if (itemImgs.length === 0) return "하나 이상의 이미지를 업로드해야 합니다.";
-    if (!contents) return "상품 설명을 작성해야 합니다.";
-    if (!finishDate || !finishHour) return "경매 마감 시간을 정확히 입력해야 합니다.";
-    if (trading_method === "-1") return "거래 방법을 하나 이상 선택해야 합니다.";
-    if (!startPrice) return "입찰 시작가를 입력해야 합니다.";
-    if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
-      return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
-    }
-    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
-    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
-    return "";
-  };
 
-  const buildFormData = (trading_method) => {
-    const formData = new FormData();
-    itemImgs.forEach((image, index) => formData.append('images', image));
-    formData.append('title', title);
-    formData.append('category', category);
-    formData.append('trading_method', trading_method);
-    formData.append('start_price', startPrice);
-    if (buyNowPrice > 0) {
-      formData.append('buy_now_price', buyNowPrice);
-    }
-    formData.append('contents', contents);
-    formData.append('finish_time', `${finishDate}T${finishHour.padStart(2, '0')}:00`);
-    return formData;
-  };
+
+
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
@@ -278,7 +278,7 @@ function ItemPostForm() {
               type="submit"
               disabled={loading} // 로딩 중일 때 버튼 비활성화
             >
-              {loading ? '등록 중...' : '등록하기'}
+              {loading ? "등록 중..." : "등록하기"}
             </Button>
           </Col>
         </Form.Group>
