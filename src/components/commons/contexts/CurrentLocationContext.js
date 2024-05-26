@@ -1,23 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
-const CurrentLocation = () => {
+export const CurrentLocationContext = createContext();
+
+export const CurrentLocationProvider = ({ children }) => {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [address, setAddress] = useState('');
+  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [locationError, setLocationError] = useState(false);
 
   useEffect(() => {
-    if (navigator.geolocation) {
+    const locationPermissionRequested = localStorage.getItem('locationPermissionRequested');
+
+    if (navigator.geolocation && !locationPermissionRequested) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            setLatitude(lat);
-            setLongitude(lng);
-            fetchAddress(position.coords.latitude, position.coords.longitude);
-            console.log(lat, lng, "test"); 
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          setLatitude(lat);
+          setLongitude(lng);
+          fetchAddress(position.coords.latitude, position.coords.longitude);
+          setPermissionDenied(false);
+          localStorage.setItem('locationPermissionRequested', 'true');
+          console.log(lat, lng, "test");
         },
         (error) => {
-            let errorMessage = '';
+          let errorMessage = '';
           switch (error.code) {
             case error.PERMISSION_DENIED:
               errorMessage = '사용자가 위치 정보 제공을 거부했습니다.';
@@ -32,11 +40,13 @@ const CurrentLocation = () => {
               errorMessage = '위치 정보를 가져오는 중 알 수 없는 오류가 발생했습니다.';
               break;
           }
+          setPermissionDenied(true);
           console.error("위치 정보를 가져오는 데 실패했습니다.", errorMessage);
         }
       );
     } else {
       console.error("브라우저가 Geolocation API를 지원하지 않습니다.");
+      setPermissionDenied(true);
     }
   }, []);
 
@@ -51,23 +61,29 @@ const CurrentLocation = () => {
         const addressComponents = data.results[0].address_components;
         let district = '';
         for (const component of addressComponents) {
-          if (component.types.includes('sublocality_level_1')) { 
+          if (component.types.includes('sublocality_level_1')) {
             district = component.long_name;
             break;
           }
         }
         setAddress(district);
-        localStorage.setItem("region",district);
-        console.log(district,"현재주소");
+        localStorage.setItem("region", district);
+        console.log(district, "현재주소");
       } else {
         console.error('Geocoding API 호출에 실패했습니다.', data.error_message);
+        setLocationError(true);
       }
     } catch (error) {
       console.error('Geocoding API 호출에 실패했습니다.', error);
+      setLocationError(true);
     }
   };
 
-  return;
+  return (
+    <CurrentLocationContext.Provider value={{ latitude, longitude, address, permissionDenied, locationError }}>
+      {children}
+    </CurrentLocationContext.Provider>
+  );
 };
 
-export default CurrentLocation;
+export default CurrentLocationProvider;
