@@ -1,4 +1,3 @@
-// ChatbotRoom.js
 import React from "react";
 import styles from "../../../static/styles/css/ChatRoom.module.css"; // 기존 ChatRoom 스타일을 재사용
 import ChatbotIcon from "../../../static/styles/images/chatbothalf.png"; // 챗봇 아이콘 이미지 import

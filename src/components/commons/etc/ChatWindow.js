@@ -4,11 +4,13 @@ import styles from '../../../static/styles/css/ChatWindow.module.css'; // CSS �
 import axios from 'axios'; // axios를 import하여 HTTP 요청을 처리
 import backImg from '../../../static/styles/images/chatback.png'; // 뒤로가기 아이콘 이미지 import
 import { client } from '../../util/client'; // client 객체를 import하여 HTTP 요청에 사용
+import { sendMessage, fetchItems } from '../api/openai'; // OpenAI API 호출 함수 및 fetchItems 함수 import
 
 function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
   const [chatMessages, setChatMessages] = useState([]); // 채팅 메시지를 저장하는 상태 변수
   const [stompClient, setStompClient] = useState(null); // STOMP 클라이언트를 저장하는 상태 변수
   const [messageInput, setMessageInput] = useState(''); // 메시지 입력 값을 저장하는 상태 변수
+  const [items, setItems] = useState([]); // 아이템 목록을 저장하는 상태 변수
 
   const chatContainerRef = useRef(null); // 채팅 메시지 컨테이너에 대한 참조 생성
 
@@ -38,6 +40,19 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
 
     if (roomId !== 'chatbot') {
       fetchData();
+    } else {
+      // 챗봇 방일 경우 아이템 목록을 불러옴
+      const fetchItemsData = async () => {
+        try {
+          const itemsData = await fetchItems();
+          setItems(itemsData);
+          // 환영 메시지 추가
+          setChatMessages([{ content: '안녕하세요.😊 원하시는게 무엇일까요?', chatUser: 0 }]);
+        } catch (error) {
+          console.error('Error fetching items:', error);
+        }
+      };
+      fetchItemsData();
     }
 
     const socket = new WebSocket(`${process.env.REACT_APP_CHAT_URL}`);
@@ -54,7 +69,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         stompClient.deactivate(); // 컴포넌트 언마운트 시 STOMP 클라이언트 비활성화
       }
     };
-  }, []);
+  }, [roomId]);
 
   // STOMP 클라이언트가 설정될 때 실행되는 useEffect
   useEffect(() => {
@@ -81,12 +96,23 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
   }, [chatMessages]);
 
   // 메시지 전송 버튼을 클릭했을 때 호출되는 함수
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (messageInput.trim() !== '') {
       if (roomId === 'chatbot') {
-        // 챗봇 응답 로직 추가
-        const chatbotResponse = { content: `오이바오: ${messageInput}`, chatUser: 0 };
-        setChatMessages((prevMessages) => [...prevMessages, { content: messageInput, chatUser: 1 }, chatbotResponse]);
+        // 고객 메시지 추가
+        const userMessage = { content: messageInput, chatUser: 1 };
+        setChatMessages((prevMessages) => [...prevMessages, userMessage]);
+        
+        try {
+          // 아이템 목록을 챗봇에게 함께 전달
+          const itemMessages = items.map(item => `Item ID: ${item.itemId}, Title: ${item.title}, URL: http://localhost:3000/detail?itemId=${item.itemId}`).join('\n');
+          const fullMessage = `너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야. 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼.\n\n아이템 목록:\n${itemMessages}\n\n고객 메시지: ${messageInput}`;
+          const chatbotResponse = await sendMessage(fullMessage);
+          const botMessage = { content: `오이바오: ${chatbotResponse}`, chatUser: 0 };
+          setChatMessages((prevMessages) => [...prevMessages, botMessage]);
+        } catch (error) {
+          console.error('Error sending message to OpenAI:', error);
+        }
       } else {
         stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput, chatUser: 1 }) });
       }
