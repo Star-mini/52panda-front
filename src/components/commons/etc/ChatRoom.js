@@ -9,6 +9,18 @@ const ChatRoom = ({ room, onClick }) => { // ChatRoom 컴포넌트 정의, room�
     onClick(room.roomId, room.chatTitle); // 클릭된 채팅방 ID와 제목을 onClick 함수에 전달
   };
 
+  // 시간을 포맷팅하는 함수
+  const formatDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    return date.toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className={styles.chatRoom} onClick={handleRoomClick}> {/* 채팅방을 클릭하면 handleRoomClick 호출 */}
       <img
@@ -18,7 +30,7 @@ const ChatRoom = ({ room, onClick }) => { // ChatRoom 컴포넌트 정의, room�
       />
       <div className={styles.chatInfo}>
         <div className={styles.nickname}>{room.username}</div> {/* 채팅방 사용자 이름 */}
-        <div className={styles.date}>{room.recentDateTime}</div> {/* 최근 채팅 날짜/시간 */}
+        <div className={styles.date}>{formatDateTime(room.recentDateTime)}</div> {/* 최근 채팅 날짜/시간 포맷팅 */}
         {room.recentContent !== null ? ( // 최근 채팅 내용이 있을 경우 표시
           <div className={styles.content}>{room.recentContent}</div>
         ) : (
