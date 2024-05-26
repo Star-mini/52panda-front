@@ -31,7 +31,6 @@ function ItemPostForm() {
   const [finishHour, setFinishHour] = useState('');
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
-  const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -61,9 +60,8 @@ function ItemPostForm() {
     }
   
     setLoading(true);
-    setError(''); // 오류 메시지 초기화
-    setEmbedding(null); // 임베딩 초기화
-  
+    setError('');
+
     try {
       // 아이템 등록 요청
       const formData = buildFormData(trading_method);
@@ -74,8 +72,7 @@ function ItemPostForm() {
           "Content-Type": "multipart/form-data",
         },
       });
-  
-      // OpenAI 임베딩 요청
+
       const embeddingResponse = await axios.post(
         embeddingApi,
         {
@@ -89,10 +86,8 @@ function ItemPostForm() {
           },
         }
       );
+
       const newEmbedding = embeddingResponse.data.data[0].embedding;
-      setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
-  
-      // 임베딩 저장 요청
       await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
         headers: {
           "Content-Type": "application/json",
