@@ -5,7 +5,7 @@ import ChatbotIcon from "../../../static/styles/images/chatbothalf.png"; // 챗�
 
 const ChatbotRoom = ({ onClick }) => {
   const handleRoomClick = () => {
-    onClick('chatbot', '챗봇'); // 챗봇 방 ID와 제목을 onClick 함수에 전달
+    onClick('chatbot', '오이바오'); // 챗봇 방 ID와 제목을 onClick 함수에 전달
   };
 
   return (
