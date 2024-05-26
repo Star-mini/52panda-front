@@ -1,15 +1,23 @@
-  import axios from 'axios';
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
+
+import { CurrentLocationContext } from '../commons/contexts/CurrentLocationContext';
+import LocationPermissionModal from '../commons/modal/LocationPermissionModal';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 import { client } from '../util/client';
-import { useNavigate} from 'react-router-dom';
+
 
 function ItemPostForm() {
+  const navigate = useNavigate();
+  const { latitude, longitude, permissionDenied, locationError } = useContext(CurrentLocationContext);
+
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
   const embeddingApi = 'https://api.openai.com/v1/embeddings';
 
@@ -21,6 +29,7 @@ function ItemPostForm() {
     '기타'
   ];
 
+  const [showModal, setShowModal] = useState(false);
   const [itemImgs, setItemImgs] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('전자기기');
@@ -34,9 +43,14 @@ function ItemPostForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (permissionDenied || locationError) {
+      setShowModal(true);
+    }
+  }, [permissionDenied, locationError]);
 
-  const navigate = useNavigate();
-  
+  const handleClose = () => setShowModal(false);
+
   const handleImageChange = (imageFiles) => {
     setItemImgs(imageFiles);
   };
@@ -140,6 +154,7 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
+      {showModal && <LocationPermissionModal show={showModal} handleClose={handleClose} />}
       <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
