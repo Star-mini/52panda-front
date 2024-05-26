@@ -137,16 +137,16 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
             {message.content}
           </div>
         ))}
-        <div className={styles.inputContainer}>
-          <input 
-            className={styles.input}
-            type="text"
-            value={messageInput}
-            onChange={handleMessageInputChange}
-            placeholder="메시지를 입력하세요"
-          />
-          <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
-        </div>
+      </div>
+      <div className={styles.inputContainer}>
+        <input 
+          className={styles.input}
+          type="text"
+          value={messageInput}
+          onChange={handleMessageInputChange}
+          placeholder="메시지를 입력하세요"
+        />
+        <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
       </div>
     </div>
   );

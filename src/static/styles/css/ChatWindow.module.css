@@ -1,62 +1,78 @@
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 400px; /* 적절한 너비로 설정 */
+  border: 1px solid #ddd; /* 모달 창 테두리 */
+  border-radius: 10px; /* 모달 창 테두리 둥글게 */
+  overflow: hidden; /* 내부 내용이 넘치지 않도록 */
+  position: relative;
+}
+
 .chatContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    max-height: 350px;
-    overflow-y: auto;
-  }
-  
-  .chatBubble {
-    border-radius: 5px;
-    padding: 4px 8px;
-    margin-bottom: 8px;
-    max-width: 70%;
-    font-size: 0.9rem;
-  }
-  
-  .right {
-    background-color: #92c98b;
-    align-self: flex-end;
-  }
-  
-  .left {
-    background-color: #cbe9c4; 
-    align-self: flex-start;
-  }
+  flex: 1; /* 가용 공간을 모두 차지 */
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
 
-  .inputContainer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
-    padding: 10px;
-  }
-  .input{
-    width : 80%;
-  }
+.chatBubble {
+  border-radius: 5px;
+  padding: 4px 8px;
+  margin-bottom: 8px;
+  max-width: 70%;
+  font-size: 0.9rem;
+}
 
-  .sendBtn{
-    border: none;
-    border-radius: 5px;
-    background-color: #8ee6a2;
-    color: white;
-    margin-left: 8px;
-  }
+.right {
+  background-color: #92c98b;
+  align-self: flex-end;
+}
 
-  .backImg{
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    margin-right: 20px;
-  }
+.left {
+  background-color: #cbe9c4;
+  align-self: flex-start;
+}
 
-  .chatTitle{
-    display: flex;
-    alignItems: center;
-  }
+.inputContainer {
+  display: flex;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ddd; /* 입력창 위에 선 추가 */
+}
 
-  .chatTitle h3 {
-    font-size: 1rem;
-  }
-  
+.input {
+  flex: 1; /* 가용 공간을 모두 차지 */
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.sendBtn {
+  border: none;
+  border-radius: 5px;
+  background-color: #8ee6a2;
+  color: white;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.backImg {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.chatTitle {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* 타이틀 아래에 선 추가 */
+}
+
+.chatTitle h3 {
+  font-size: 1rem;
+  margin: 0; /* 제목의 기본 마진 제거 */
+}
