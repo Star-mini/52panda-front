@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../static/styles/css/category-toggle.css";
 import CategoryButton from "../button/CategoryButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const categories = [
   "전자기기",
@@ -23,14 +23,17 @@ const categories = [
   "기타",
 ];
 
+
+
 function CategoryToggle() {
   const [showAll, setShowAll] = useState(false);
   const [categoriesPerRow, setCategoriesPerRow] = useState(9);
   const [firstRowCategories, setFirstRowCategories] = useState([]);
 
+  const navigate = useNavigate();
+  
   const handleCategoryClick = (category) => {
-    //category를 넘겨주기
-    window.location.href = `/auction?category=${category}`;
+    navigate(`/auction?category=${category}`);
   };
 
   useEffect(() => {

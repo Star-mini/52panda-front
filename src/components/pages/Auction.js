@@ -6,7 +6,7 @@ import CategoryToggle from '../commons/toggle/CategoryToggle';
 import '../../static/styles/css/auction.css'
 import WriteImage from '../../static/styles/images/write.png'
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { client } from '../util/client';
 
 function Auction() {
@@ -22,29 +22,29 @@ function Auction() {
 
   
   const location = useLocation();
-  const isFirstCategoryUpdate = useRef(true);
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const categoryParam = params.get('category');
-    if (categoryParam) {
-      setSelectedCategory(categoryParam);
-    }else{
-      isFirstCategoryUpdate.current = false;
-    }
-  }, [location.search]);
+  const navigate = useNavigate();
+  const params = new URLSearchParams(location.search);
   
   useEffect(() => {
-    if (isFirstCategoryUpdate.current) {
-      isFirstCategoryUpdate.current = false;
-    } else {
-      setItems([]);
-      fetchData();
+    const categoryParam = params.get('category');
+    
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
     }
-  }, [filters,selectedCategory]); 
+    setItems([]);
+    fetchData();
+  }, [filters,location.search]); 
 
 
   const handleCategoryChange = (category) => {
+    if (category === null) {
+      params.delete('category');
+    } else {
+      params.set('category', category); 
+    }
+    navigate(`?${params.toString()}`);
+
     setItems([]);
     setCurrentPage(0);
     setSelectedCategory(category);
@@ -61,33 +61,31 @@ function Auction() {
 
       let tradingMethodValue = null;
       if(filters.tradingMethod === "택배"){
-        tradingMethodValue = 1;
-      }else if(filters.tradingMethod === "직거래"){
         tradingMethodValue = 2;
-      }else if(filters.tradingMethod === "전체"){ 
-        tradingMethodValue = 3;
+      }else if(filters.tradingMethod === "직거래"){
+        tradingMethodValue = 1;
       }
 
-      const params = {
+      const requestParams = {
         status: 'progress',
         page: currentPage
       };
 
       if (regionValue !== null) {
-        params.region = regionValue;
+        requestParams.region = regionValue;
       }
 
       if(tradingMethodValue !== null){
-        params.tradingMethod =tradingMethodValue
+        requestParams.tradingMethod =tradingMethodValue
       }
 
-      console.log("현카",selectedCategory);
-      if(selectedCategory !== null ){
-        params.category = selectedCategory
+      
+      if( params.get('category') !== null ){
+        requestParams.category =  params.get('category')
       }
     
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction`, {
-        params: params
+        params: requestParams
       });
   
   
@@ -104,11 +102,11 @@ function Auction() {
             tradingMethod: item.tradingMethod,
             thumbnail: item.thumbnail,
             startPrice: item.startPrice,
-            currentPrice: item.currentPrice
+            currentPrice: item.currentPrice,
+            buyNowPrice:item.buyNowPrice
         };
         setItems(prevItems => [...prevItems, processedItem]);
 
-        console.log(items);
     });
 
       setCurrentPage(prevPage => prevPage + 1);
@@ -161,6 +159,7 @@ function Auction() {
                 startPrice={item.startPrice}
                 currentPrice={item.currentPrice}
                 itemId={item.itemId}
+                buyNowPrice={item.buyNowPrice}
               />
             </div>
           ))}

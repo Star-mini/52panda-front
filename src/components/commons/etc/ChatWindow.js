@@ -19,6 +19,12 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
     setMessageInput(e.target.value);
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
   // 컴포넌트가 마운트될 때 실행되는 useEffect
   useEffect(() => {
     const fetchData = async () => {
@@ -131,9 +137,11 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         <img className={styles.backImg} src={backImg} alt="뒤로가기" onClick={handleBackButtonClick} /> {/* 뒤로가기 버튼 */}
         <h3>{roomTitle}</h3>
       </div>
-      <div className={styles.chatContainer} ref={chatContainerRef}> {/* 채팅 메시지 컨테이너 */}
-        {chatMessages.map((message, index) => (
-          <div key={index} className={`${styles.chatBubble} ${message.chatUser === 1 ? styles.right : styles.left}`}>
+      <div  className={styles.chatContainer} ref={chatContainerRef}>
+      
+      
+      {chatMessages.map((message) => (
+          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}>
             {message.content}
           </div>
         ))}
@@ -141,11 +149,11 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
       <div className={styles.inputContainer}>
         <input 
           className={styles.input}
-          type="text"
-          value={messageInput}
+          type="text" 
+          value={messageInput} 
           onChange={handleMessageInputChange}
-          placeholder="메시지를 입력하세요"
-        />
+          onKeyDown={handleKeyPress} 
+          placeholder="메시지를 입력하세요" />
         <button onClick={handleSendMessage} className={styles.sendBtn}>전송</button>
       </div>
     </div>
