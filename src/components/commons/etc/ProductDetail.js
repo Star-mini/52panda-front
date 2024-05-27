@@ -19,6 +19,25 @@ function ProductDetail({ productData }) {
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리하기 위한 상태 추가
 
   useEffect(() => {
+    // 찜 상태를 확인하는 get 요청 추가
+    const checkIfLiked = async () => {
+      const url = `${process.env.REACT_APP_API_URL}/v1/auth/mypage/item-like?itemId=${productData.itemId}`;
+      try {
+        const response = await client.get(url);
+        if (response.data.success) {
+          setIsHeartPink(response.data.data);
+        }
+      } catch (error) {
+        console.error("찜 상태 확인 실패:", error);
+      }
+    };
+
+    if (productData) {
+      checkIfLiked();
+    }
+  }, [productData]);
+
+  useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
 
     if (productData.auctionComplete) {
