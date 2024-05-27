@@ -9,29 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import carouselControlPrev from "../../../static/styles/images/carouselControlPrev.png";
 import carouselControlNext from "../../../static/styles/images/carouselControlNext.png";
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 700,
-  slidesToShow: 4,
-  slidesToScroll: 4,
-  autoplay: false,
-  autoplaySpeed: 4000,
-  cssEase: 'ease-in-out',
-  nextArrow: <CustomNextArrow />,
-  prevArrow: <CustomPrevArrow />,
-  responsive: [
-    {
-      breakpoint: 500,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2
-      }
-    }
-  ]
-};
-
-function CustomNextArrow(props) {
+const CustomNextArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <img
@@ -42,9 +20,9 @@ function CustomNextArrow(props) {
       style={{ ...style, display: "block" }}
     />
   );
-}
+};
 
-function CustomPrevArrow(props) {
+const CustomPrevArrow = (props) => {
   const { className, style, onClick } = props;
   return (
     <img
@@ -55,9 +33,9 @@ function CustomPrevArrow(props) {
       style={{ ...style, display: "block" }}
     />
   );
-}
+};
 
-function MainPageItem({ heading }) {
+const MainPageItem = ({ heading }) => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
 
@@ -80,6 +58,31 @@ function MainPageItem({ heading }) {
     navigate(`/detail?itemId=${itemId}`);
   };
 
+  const slidesToShow = Math.min(items.length, 4);
+  const slidesToScroll = Math.min(items.length, 4);
+
+  const settings = {
+    dots: true,
+    infinite: items.length > 1,
+    speed: 700,
+    slidesToShow,
+    slidesToScroll,
+    autoplay: false,
+    autoplaySpeed: 4000,
+    cssEase: 'ease-in-out',
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: Math.min(items.length, 2),
+          slidesToScroll: Math.min(items.length, 2)
+        }
+      }
+    ]
+  };
+
   return (
     <div className={`container ${styles.itemlistmargin} ${styles.carouselContainer}`}>
       <h1>{heading}</h1>
@@ -98,6 +101,6 @@ function MainPageItem({ heading }) {
       </Slider>
     </div>
   );
-}
+};
 
 export default MainPageItem;

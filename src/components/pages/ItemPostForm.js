@@ -94,7 +94,7 @@ function ItemPostForm() {
       setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
   
       // 임베딩 저장 요청
-      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
+      await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -107,7 +107,6 @@ function ItemPostForm() {
         }
       });
     } catch (error) {
-      toast.error("물품 등록에 실패했습니다.");
       toast.error("물품 등록에 실패했습니다.");
       console.error("물품 등록에 실패했습니다.", error);
     }
@@ -146,7 +145,6 @@ function ItemPostForm() {
 
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
-      <ToastContainer />
       <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>

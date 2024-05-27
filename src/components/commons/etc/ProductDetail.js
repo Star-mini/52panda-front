@@ -7,7 +7,7 @@ import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
-import axios from "axios";
+import { client } from "../../util/client";
 
 function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -100,9 +100,10 @@ function ProductDetail({ productData }) {
 
   const toggleHeart = () => {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
+    const likeUserId = localStorage.getItem("id");
 
     if (isHeartPink) {
-      axios
+      client
         .delete(url)
         .then((response) => {
           console.log("찜하기 취소 성공:", response.data);
@@ -113,10 +114,10 @@ function ProductDetail({ productData }) {
         });
     } else {
       const data = {
-        likeUserId: 1,
+        likeUserId,
       };
 
-      axios
+      client
         .post(url, data, {
           headers: {
             "Content-Type": "application/json",
@@ -144,6 +145,15 @@ function ProductDetail({ productData }) {
     setPriceList(updatedPriceList);
     console.log("Updated PriceList: ", updatedPriceList);
     setIsBidComplete(isBidComplete);
+  };
+
+  const handleBidButtonClick = () => {
+    const login = localStorage.getItem("login");
+    if (!login) {
+      alert("로그인후에 입찰하실수있어요.😊");
+      return;
+    }
+    togglePopup();
   };
 
   if (!productData) {
@@ -204,7 +214,7 @@ function ProductDetail({ productData }) {
       <div className={styles.buttonContainer}>
         <button
           className={styles.bidButton}
-          onClick={isBidComplete ? undefined : togglePopup}
+          onClick={isBidComplete ? undefined : handleBidButtonClick}
           style={isBidComplete ? { backgroundColor: "#CDCDCD" } : {}}
         >
           {isBidComplete ? "낙찰완료" : "입찰하기"}

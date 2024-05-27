@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import styles from "../../../static/styles/css/Add.module.css";
+import { client } from '../../util/client';
+
 
 function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {
   // userId 매개변수 추가
@@ -28,7 +29,7 @@ function Add({ onSubmit, onCancel, isAnswering, questionId, itemId, userId }) {
       data = { questionContents: input, questionUserId: userId };
     }
 
-    axios
+    client
       .post(apiUrl, data)
       .then((response) => {
         console.log("데이터 전송 성공:", response.data);

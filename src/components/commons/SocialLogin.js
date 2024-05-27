@@ -1,11 +1,11 @@
 import React from 'react';
 import Google from '../../static/styles/images/login/google_icon.png';
 import Naver from '../../static/styles/images/login/naver_icon.png';
-import Kakao from '../../static/styles/images/login//kakao_icon.png';
+import Kakao from '../../static/styles/images/login/kakao_icon.png';
 import styles from "../../static/styles/css/SocialLogin.module.css"; // 모듈 CSS 임포트
 
 function SocialLogin() {
-  const handleSocialLogin =  (url) => {
+  const handleSocialLogin = (url) => {
     window.location.href = url;
   };
 

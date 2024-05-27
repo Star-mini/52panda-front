@@ -37,7 +37,7 @@
   transition: filter 10s ease; /* 색상 필터 변경에 대한 부드러운 트랜지션 */
   cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
   position: absolute;
-  top: 5%;
+  top: 10%;
   left: 80%;
   transform: translate(-50%, 0);
   margin-top: -10px;

@@ -18,11 +18,16 @@ const Recommend = ({ itemId }) => {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction/Recommendation/Embedding`, {
           id: itemId
         });
-  
+
+        if (response.status === 500) {
+          throw new Error('Internal Server Error');
+        }
+
         if (response.data && response.data.status === 'success' && response.data.data) {
-          const parsedData = JSON.parse(response.data.data);  // 문자열 JSON을 객체로 파싱
+          const parsedData = JSON.parse(response.data.data);
           if (parsedData.data && parsedData.data.data) {
-            setItems(parsedData.data.data);  // 올바른 데이터 경로로 상태 업데이트
+            setItems(parsedData.data.data);
+            console.log('Items after set:', parsedData.data.data);
           } else {
             throw new Error('No items available');
           }
@@ -31,47 +36,51 @@ const Recommend = ({ itemId }) => {
         }
       } catch (error) {
         setError(error.message);
+        setItems([]);
         console.error('Error fetching recommendations:', error);
       }
     };
-  
+
     if (itemId) {
       fetchRecommendations();
     }
   }, [itemId]);
 
-  if (!items.length && !error) {
+  if (error) {
+    return null;
+  }
+
+  if (!items.length) {
     return <div>Loading recommendations...</div>;
   }
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  const slidesToShow = Math.min(items.length, 4);
+  const slidesToScroll = Math.min(items.length, 4);
 
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: items.length > 1,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow,
+    slidesToScroll,
     prevArrow: <img src={prev} className={styles.aprevArrow} alt="Previous" />,
     nextArrow: <img src={next} className={styles.anextArrow} alt="Next" />,
     responsive: [
       {
         breakpoint: 1300,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
+          slidesToShow: Math.min(items.length, 3),
+          slidesToScroll: Math.min(items.length, 3),
+          infinite: items.length > 1,
           dots: true
         }
       },
       {
         breakpoint: 700,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
+          slidesToShow: Math.min(items.length, 2),
+          slidesToScroll: Math.min(items.length, 2),
+          infinite: items.length > 1,
           dots: true
         }
       },

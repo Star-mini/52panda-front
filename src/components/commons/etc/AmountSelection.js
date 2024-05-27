@@ -9,11 +9,11 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const [lastBidTime, setLastBidTime] = useState(null); // 마지막 입찰 시간 상태
   const startPrice = productData.startPrice; // 시작 입찰 금액
   const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
-  const increment = startPrice >= 10000 ? startPrice * 0.01 : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
+  const increment = startPrice >= 10000 ? Math.floor(startPrice * 0.01) : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
 
   const handleAddAmount = (multiplier) => {
     setBidValue((prevBidValue) => {
-      const newBidValue = parseInt(prevBidValue || "0") + (increment * multiplier);
+      const newBidValue = parseInt(prevBidValue || "0", 10) + (increment * multiplier);
       return newBidValue.toString();
     });
   };
@@ -57,7 +57,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const sendBidRequest = async (price, isImmediate) => {
     const itemId = productData.itemId;
     const userId = localStorage.getItem("id") || 3; // 로컬스토리지에서 가져오거나 기본값 3 사용
-    const nickname = localStorage.getItem("access") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
+    const nickname = localStorage.getItem("username") || "new"; // 로컬스토리지에서 가져오거나 기본값 new 사용
   
     try {
       const response = await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/item/${itemId}/bid`, {
