@@ -45,7 +45,15 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
     };
 
     if (roomId !== 'chatbot') {
-      fetchData();
+      fetchData();  
+      const socket = new WebSocket(`${process.env.REACT_APP_CHAT_URL}`);
+      const stomp = new Client({
+        webSocketFactory: () => socket,
+        debug: function () {
+          console.log.apply(null, arguments);
+        },
+      });
+      setStompClient(stomp);
     } else {
       // 챗봇 방일 경우 아이템 목록을 불러옴
       const fetchItemsData = async () => {
@@ -61,14 +69,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
       fetchItemsData();
     }
 
-    const socket = new WebSocket(`${process.env.REACT_APP_CHAT_URL}`);
-    const stomp = new Client({
-      webSocketFactory: () => socket,
-      debug: function () {
-        console.log.apply(null, arguments);
-      },
-    });
-    setStompClient(stomp);
+   
 
     return () => {
       if (stompClient !== null) {
@@ -111,7 +112,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         
         try {
           // 아이템 목록을 챗봇에게 함께 전달
-          const itemMessages = items.map(item => `Item ID: ${item.itemId}, Title: ${item.title}, URL: http://localhost:3000/detail?itemId=${item.itemId}`).join('\n');
+          const itemMessages = items.map(item => `Item ID: ${item.itemId}, Title: ${item.title}, URL: https://web.52pandas.com/detail?itemId=${item.itemId}`).join('\n');
           const fullMessage = `너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야.너의 컨셉은 아기 판다야., 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼.\n\n아이템 목록:\n${itemMessages}\n\n고객 메시지: ${messageInput}`;
           const chatbotResponse = await sendMessage(fullMessage);
           const botMessage = { content: `오이바오: ${chatbotResponse}`, chatUser: 0 };
@@ -120,7 +121,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
           console.error('Error sending message to OpenAI:', error);
         }
       } else {
-        stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput, chatUser: 1 }) });
+        stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput, chatUser: localStorage.getItem("id") }) });
       }
       setMessageInput(''); // 메시지 입력란 초기화
     }
