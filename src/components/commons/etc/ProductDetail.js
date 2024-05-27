@@ -225,7 +225,7 @@ function ProductDetail({ productData }) {
             </p>
           )}
           <p className={styles.instantPrice}>
-            즉시낙찰 금액 {productData.buyNowPrice}원
+            즉시낙찰 금액 {productData.buyNowPrice !== null ? `${productData.buyNowPrice}원` : '-'}
           </p>
         </div>
       </div>

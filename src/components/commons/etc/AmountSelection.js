@@ -33,7 +33,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       }
 
       if (numericBidValue >= amount) {
-        if (window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
+        if (amount !== null && window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
           await sendBidRequest(amount, true);
         }
       } else {
@@ -50,8 +50,12 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       return;
     }
 
-    await sendBidRequest(amount, true); // 즉시 입찰은 buyNowPrice로
-    setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
+    if (amount !== null) {
+      await sendBidRequest(amount, true); // 즉시 입찰은 buyNowPrice로
+      setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
+    } else {
+      alert("즉시 낙찰 금액이 설정되지 않았습니다.😊");
+    }
   };
 
   const sendBidRequest = async (price, isImmediate) => {
@@ -102,7 +106,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span className={styles.amount}>{amount.toLocaleString()}원</span>
+        <span className={styles.amount}>{amount !== null ? amount.toLocaleString() : '-'}원</span>
         <button className={styles.withdraw} onClick={handleInstantBid}>
           즉시 입찰
         </button>
@@ -125,7 +129,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       </div>
       <div className={styles.divider}></div>
       <div className={styles.maxAmount}>
-        <span>{amount.toLocaleString()}원까지 가능</span>
+        <span>{amount !== null ? amount.toLocaleString() : '-'}원까지 가능</span>
       </div>
       <div className={styles.buttons}>
         <button className={styles.button} onClick={() => handleAddAmount(1)}>
