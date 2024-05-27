@@ -1,7 +1,7 @@
 .chatWindow {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  max-height: 300px;
   max-width: 400px; /* 적절한 너비로 설정 */
   border: 1px solid #ddd; /* 모달 창 테두리 */
   border-radius: 10px; /* 모달 창 테두리 둥글게 */
@@ -12,6 +12,7 @@
 .chatContainer {
   flex: 1; /* 가용 공간을 모두 차지 */
   display: flex;
+  max-height: 300px;
   flex-direction: column;
   padding: 10px;
   overflow-y: auto;
@@ -36,16 +37,15 @@
 }
 
 .inputContainer {
-  display: flex;
-  padding: 10px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #fff;
+  padding: 10px;
 }
-
-.input {
-  flex: 1; /* 가용 공간을 모두 차지 */
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.input{
+  width : 80%;
 }
 
 .sendBtn {
