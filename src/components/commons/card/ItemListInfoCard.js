@@ -72,15 +72,9 @@ const ItemListInfoCard = ({
                 </Card.Text>
 
                 <Card.Text className="text-center">
-<<<<<<< Updated upstream
-                  {isAuctionFinished ? (
-                    <span className="current-price-font">
-                      낙찰 금액 {currentPrice === 0 ? "-" : currentPrice}
-=======
                   {isBidComplete ? (
                       <span className="current-price-font">
                       낙찰 금액 {currentPrice}
->>>>>>> Stashed changes
                     </span>
                   ) : (
                       <div className="text-space">
