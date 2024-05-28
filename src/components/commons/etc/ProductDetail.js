@@ -221,11 +221,16 @@ function ProductDetail({ productData }) {
             <p className={styles.currentPrice}>낙찰완료</p>
           ) : (
             <p className={styles.currentPrice}>
-              현재 금액 {productData.maxPrice}원
+              {productData.maxPrice === 0
+                ? "현재 가격 -원"
+                : `현재 금액 ${productData.maxPrice}원`}
             </p>
           )}
           <p className={styles.instantPrice}>
-            즉시낙찰 금액 {productData.buyNowPrice !== null ? `${productData.buyNowPrice}원` : '-'}
+            즉시낙찰 금액{" "}
+            {productData.buyNowPrice !== null
+              ? `${productData.buyNowPrice}원`
+              : "-"}
           </p>
         </div>
       </div>
