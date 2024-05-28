@@ -31,6 +31,7 @@
   flex-grow: 1;
   margin-left: 5rem;
   position: relative;
+  max-width: 500px;
 }
 
 .heart {
@@ -219,7 +220,7 @@
   }
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1025px) {
   #productImage {
     position: relative;
     top: 0px;
@@ -234,12 +235,18 @@
     width: 100%;
     margin: 0 auto;
   }
+  .productTitle {
+    font-size: 1.5rem; /* text-3xl */
+  }
 }
 
 @media (max-width: 615px) {
   .productImg {
     width: 20rem;
     height: auto;
+  }
+  .productTitle {
+    font-size: 1rem; /* text-3xl */
   }
 }
 
