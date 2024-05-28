@@ -38,10 +38,8 @@
   transition: filter 10s ease; /* 색상 필터 변경에 대한 부드러운 트랜지션 */
   cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
   position: absolute;
-  top: 10%;
-  left: 80%;
+  left: calc(95%); /* 기존 위치에서 10rem 추가 */
   transform: translate(-50%, 0);
-  margin-top: -10px;
   width: 40px;
   height: auto;
 }
@@ -59,9 +57,14 @@
   border-radius: 20px; /* 이미지 모서리를 둥글게 */
   object-fit: cover; /* 이미지 비율을 유지하면서 잘리게 설정 */
 }
-
+.categoryHeartContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
 .category {
   color: #4a5568; /* text-gray-700 */
+  margin-right: 10rem; /* 하트와의 간격을 설정 */
   margin-bottom: 1rem;
 }
 

@@ -204,36 +204,39 @@ function ProductDetail({ productData }) {
       </div>
 
       <div className={styles.productDetails}>
-        <h4 className={styles.productTitle}>{productData.title}</h4>
-        <img
-          src={isHeartPink ? PinkHeart : heartIcon}
-          className={styles.heart}
-          alt="Heart"
-          onClick={toggleHeart}
-        />
-        <p className={styles.category}>{productData.categoryName}</p>
-        {renderBidInfo()}
-        <div className={styles.biddingDetails}>
-          <p className={styles.startPrice}>
-            시작 금액 {productData.startPrice}원
-          </p>
-          {isBidComplete ? (
-            <p className={styles.currentPrice}>낙찰완료</p>
-          ) : (
-            <p className={styles.currentPrice}>
-              {productData.maxPrice === 0
-                ? "현재 가격 -원"
-                : `현재 금액 ${productData.maxPrice}원`}
-            </p>
-          )}
-          <p className={styles.instantPrice}>
-            즉시낙찰 금액{" "}
-            {productData.buyNowPrice !== null
-              ? `${productData.buyNowPrice}원`
-              : "-"}
-          </p>
-        </div>
-      </div>
+  <h4 className={styles.productTitle}>{productData.title}</h4>
+  <div className={styles.categoryHeartContainer}>
+    <p className={styles.category}>{productData.categoryName}</p>
+    <img
+      src={isHeartPink ? PinkHeart : heartIcon}
+      className={styles.heart}
+      alt="Heart"
+      onClick={toggleHeart}
+    />
+  </div>
+  {renderBidInfo()}
+  <div className={styles.biddingDetails}>
+    <p className={styles.startPrice}>
+      시작 금액 {productData.startPrice}원
+    </p>
+    {isBidComplete ? (
+      <p className={styles.currentPrice}>낙찰완료</p>
+    ) : (
+      <p className={styles.currentPrice}>
+        {productData.maxPrice === 0
+          ? "현재 가격 -원"
+          : `현재 금액 ${productData.maxPrice}원`}
+      </p>
+    )}
+    <p className={styles.instantPrice}>
+      즉시낙찰 금액{" "}
+      {productData.buyNowPrice !== null
+        ? `${productData.buyNowPrice}원`
+        : "-"}
+    </p>
+  </div>
+</div>
+
 
       <div className={styles.buttonContainer}>
         <button
