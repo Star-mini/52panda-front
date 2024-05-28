@@ -32,8 +32,8 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         return;
       }
 
-      if (numericBidValue >= amount) {
-        if (amount !== null && window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
+      if (numericBidValue >= amount && amount !== null) {
+        if (window.confirm(`입찰 금액이 ${amount.toLocaleString()}원의 즉시 낙찰 금액 이상입니다. 즉시 낙찰로 진행하시겠어요?😯`)) {
           await sendBidRequest(amount, true);
         }
       } else {
