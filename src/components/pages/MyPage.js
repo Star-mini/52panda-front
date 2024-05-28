@@ -85,6 +85,7 @@ function MyPage() {
                     <div className="row">
                         {items.map((item, index) => (
                             <div key={index} className="col-md-6 item-card">
+
                                 <ItemListInfoCard
                                     image={item.thumbnail}
                                     title={item.itemTitle}
@@ -93,6 +94,8 @@ function MyPage() {
                                     startPrice={item.startPrice}
                                     currentPrice={item.currentPrice}
                                     itemId={item.itemId}
+                                    isBidComplete={item.isBidComplete}
+
                                 />
                             </div>
                         ))}
