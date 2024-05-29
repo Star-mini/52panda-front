@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import CurrentLocationProvider from './components/commons/contexts/CurrentLocationContext';
+import { Route, Routes } from 'react-router-dom';
+import { CurrentLocationProvider } from './components/commons/contexts/CurrentLocationContext';
 import Auction from './components/pages/Auction';
 import ItemDetail from './components/pages/ItemDetail';
 import ItemPostForm from './components/pages/ItemPostForm';
@@ -17,13 +17,19 @@ import Chatting from './components/commons/etc/Chatting';
 
 function App() {
   return (
-    <CurrentLocationProvider>
+    < >
       <Navbar />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route
+          path="/"
+          element={<CurrentLocationProvider> <MainPage /> </CurrentLocationProvider>}
+        />
         <Route path="/auction" element={<Auction />} />
         <Route path="/detail" element={<ItemDetail />} />
-        <Route path="/auction/form" element={<ItemPostForm />} />
+        <Route
+          path="/auction/form"
+          element={<CurrentLocationProvider> <ItemPostForm /> </CurrentLocationProvider>}
+        />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login-success" element={<LoginSuccess />} />
@@ -31,7 +37,7 @@ function App() {
       </Routes>
       <Chatting />
       <Footer />
-    </ CurrentLocationProvider>
+    </>
   );
 }
 

@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, InputGroup, Button, ToggleButton } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 
 import { CurrentLocationContext } from '../commons/contexts/CurrentLocationContext';
+
 import LocationPermissionModal from '../commons/modal/LocationPermissionModal';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
@@ -99,6 +100,7 @@ function ItemPostForm() {
     const error = validateInputs(trading_method);
     if (error) {
       setError(error);
+      toast.error(error);
       return;
     }
 
@@ -283,8 +285,8 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
       </Form>
-      {error && <Alert variant="danger">{error}</Alert>}
     </Container>
+
   );
 }
 
