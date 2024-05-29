@@ -112,7 +112,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         
         try {
           // 아이템 목록을 챗봇에게 함께 전달
-          const itemMessages = items.map(item => `Item ID: ${item.itemId}, Title: ${item.title}, URL: https://web.52pandas.com/detail?itemId=${item.itemId}`).join('\n');
+          const itemMessages = items.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.title}</a>`).join('<br/>');
           const fullMessage = `너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야.너의 컨셉은 아기 판다야., 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼.\n\n아이템 목록:\n${itemMessages}\n\n고객 메시지: ${messageInput}`;
           const chatbotResponse = await sendMessage(fullMessage);
           const botMessage = { content: `오이바오: ${chatbotResponse}`, chatUser: 0 };
@@ -138,14 +138,15 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         <img className={styles.backImg} src={backImg} alt="뒤로가기" onClick={handleBackButtonClick} /> {/* 뒤로가기 버튼 */}
         <h3>{roomTitle}</h3>
       </div>
-      <div  className={styles.chatContainer} ref={chatContainerRef}>
+      <div className={styles.chatContainer} ref={chatContainerRef}>
       
-      
-      {chatMessages.map((message) => (
-          <div key={message.id} className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}>
-            {message.content}
-          </div>
-        ))}
+      {chatMessages.map((message, index) => (
+        <div 
+          key={index} 
+          className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}
+          dangerouslySetInnerHTML={{ __html: message.content }} // HTML을 안전하게 렌더링
+        />
+      ))}
       </div>
       <div className={styles.inputContainer}>
         <input 
