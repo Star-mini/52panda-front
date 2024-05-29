@@ -95,7 +95,7 @@ export const CurrentLocationProvider = ({ children }) => {
   };
 
   return (
-    <CurrentLocationContext.Provider value={{ latitude, longitude, address, permissionDenied, locationError }}>
+    <CurrentLocationContext.Provider value={{ address, permissionDenied, locationError }}>
       {children}
     </CurrentLocationContext.Provider>
   );

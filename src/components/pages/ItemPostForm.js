@@ -17,7 +17,7 @@ import { client } from '../util/client';
 
 function ItemPostForm() {
   const navigate = useNavigate();
-  const { latitude, longitude, permissionDenied, locationError } = useContext(CurrentLocationContext);
+  const { address, permissionDenied, locationError } = useContext(CurrentLocationContext);
 
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
   const embeddingApi = 'https://api.openai.com/v1/embeddings';
@@ -72,6 +72,7 @@ function ItemPostForm() {
 
   const buildFormData = (trading_method) => {
     const formData = new FormData();
+    formData.append('address', address);
     itemImgs.forEach((image, index) => formData.append('images', image));
     formData.append('title', title);
     formData.append('category', category);
