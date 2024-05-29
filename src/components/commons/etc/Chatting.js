@@ -70,10 +70,11 @@ function Chatting() {
                   <ChatWindow roomId={selectedChatRoomId} roomTitle={selectedChatRoomTitle} onBackButtonClick={handleBackButtonClick} /> // ChatWindow 컴포넌트 표시
                 ) : ( // 채팅창이 닫혀 있는 경우
                   <div>
+                    <ChatbotRoom onClick={handleChatRoomClick} /> {/* 챗봇 방 추가 */}
                     {chatRoomsData.map((room, index) => ( // 채팅방 목록을 반복하여 표시
                       <ChatRoom key={index} room={room} onClick={handleChatRoomClick} /> // ChatRoom 컴포넌트 표시
                     ))}
-                    <ChatbotRoom onClick={handleChatRoomClick} /> {/* 챗봇 방 추가 */}
+                    
                   </div>
                 )
               )}
