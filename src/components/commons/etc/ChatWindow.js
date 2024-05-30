@@ -69,8 +69,6 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
       fetchItemsData();
     }
 
-   
-
     return () => {
       if (stompClient !== null) {
         stompClient.deactivate(); // 컴포넌트 언마운트 시 STOMP 클라이언트 비활성화
@@ -104,10 +102,11 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
 
   // 메시지 전송 버튼을 클릭했을 때 호출되는 함수
   const handleSendMessage = async () => {
+    const userId = localStorage.getItem("id");
     if (messageInput.trim() !== '') {
       if (roomId === 'chatbot') {
         // 고객 메시지 추가
-        const userMessage = { content: messageInput, chatUser: 1 };
+        const userMessage = { content: messageInput, chatUser: userId };
         setChatMessages((prevMessages) => [...prevMessages, userMessage]);
         
         try {
@@ -115,13 +114,13 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
           const itemMessages = items.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.title}</a>`).join('<br/>');
           const fullMessage = `너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야.너의 컨셉은 아기 판다야., 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼.\n\n아이템 목록:\n${itemMessages}\n\n고객 메시지: ${messageInput}`;
           const chatbotResponse = await sendMessage(fullMessage);
-          const botMessage = { content: `오이바오: ${chatbotResponse}`, chatUser: 0 };
+          const botMessage = { content: `오이바오: ${chatbotResponse}`, chatUser: '0' }; // 챗봇 메시지는 chatUser가 '0'
           setChatMessages((prevMessages) => [...prevMessages, botMessage]);
         } catch (error) {
           console.error('Error sending message to OpenAI:', error);
         }
       } else {
-        stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput, chatUser: localStorage.getItem("id") }) });
+        stompClient.publish({ destination: `/message/${roomId}`, body: JSON.stringify({ content: messageInput, chatUser: userId }) });
       }
       setMessageInput(''); // 메시지 입력란 초기화
     }
@@ -139,14 +138,13 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         <h3>{roomTitle}</h3>
       </div>
       <div className={styles.chatContainer} ref={chatContainerRef}>
-      
-      {chatMessages.map((message, index) => (
-        <div 
-          key={index} 
-          className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}
-          dangerouslySetInnerHTML={{ __html: message.content }} // HTML을 안전하게 렌더링
-        />
-      ))}
+        {chatMessages.map((message, index) => (
+          <div 
+            key={index} 
+            className={`${styles.chatBubble} ${message.chatUser === localStorage.getItem("id") ? styles.right : styles.left}`}
+            dangerouslySetInnerHTML={{ __html: message.content }} // HTML을 안전하게 렌더링
+          />
+        ))}
       </div>
       <div className={styles.inputContainer}>
         <input 

@@ -15,7 +15,7 @@ const Recommend = ({ itemId }) => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction/Recommendation/Embedding`, {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction/Recommendation`, {
           id: itemId
         });
 
