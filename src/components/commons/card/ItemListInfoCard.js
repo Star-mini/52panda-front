@@ -85,7 +85,7 @@ const ItemListInfoCard = ({
                         </div>
                         <div>
                         <span className="buy-now-price-font">
-                          즉시 구매가 {buyNowPrice}
+                          즉시 구매가 {buyNowPrice === null ? "-" : buyNowPrice}
                         </span>
                         </div>
                       </div>
