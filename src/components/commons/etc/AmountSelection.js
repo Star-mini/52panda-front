@@ -27,7 +27,12 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
-      if (numericBidValue <= currentBidPrice) {
+      // maxPrice가 0이면 startPrice보다 높아야 입찰 가능
+      if (currentBidPrice === 0 && numericBidValue < startPrice) {
+        alert("입찰은 시작입찰가보다 높아야 입찰하실 수 있어요😊");
+        return;
+      }
+      if (currentBidPrice !== 0 && numericBidValue <= currentBidPrice) {
         alert("입찰은 현재입찰가보다 높아야 입찰하실 수 있어요😊");
         return;
       }
