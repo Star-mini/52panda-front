@@ -35,8 +35,8 @@ function ItemPostForm() {
   const [parcel, setParcelChecked] = useState(false);
   const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
   const [thEmbedding, setThEmbedding] = useState(null); // 썸네일 임베딩 상태 추가
-  const [categoryEmbedding, setCategoryEmbedding] = useState([1, 2, 3, 4]); // 카테고리 임베딩 추가
-  const [detailEmbedding, setDetailEmbedding] = useState([1, 2, 3, 4]); // 디테일 임베딩 추가
+  const [categoryEmbedding, setCategoryEmbedding] = useState(null); // 카테고리 임베딩 추가
+  const [detailEmbedding, setDetailEmbedding] = useState(null); // 디테일 임베딩 추가
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -79,6 +79,28 @@ function ItemPostForm() {
     });
   };
 
+  const getEmbedding = async (input) => {
+    try {
+      const response = await axios.post(
+        embeddingApi,
+        {
+          input: input,
+          model: 'text-embedding-ada-002',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+        }
+      );
+      return response.data.data[0].embedding;
+    } catch (error) {
+      console.error("Error fetching embedding:", error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -101,6 +123,8 @@ function ItemPostForm() {
     setError(''); // 오류 메시지 초기화
     setEmbedding(null); // 임베딩 초기화
     setThEmbedding(null); // 썸네일 임베딩 초기화
+    setCategoryEmbedding(null); // 카테고리 임베딩 초기화
+    setDetailEmbedding(null); // 디테일 임베딩 초기화
 
     try {
       // 아이템 등록 요청
@@ -117,45 +141,27 @@ function ItemPostForm() {
       const thumbnailDescription = await analyzeImage(itemImgs[0]);
 
       // OpenAI 임베딩 요청 (내용)
-      const embeddingResponse = await axios.post(
-        embeddingApi,
-        {
-          input: contents,
-          model: 'text-embedding-ada-002',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-          },
-        }
-      );
-      const newEmbedding = embeddingResponse.data.data[0].embedding;
+      const newEmbedding = await getEmbedding(contents);
       setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
 
       // OpenAI 임베딩 요청 (썸네일 설명)
-      const thEmbeddingResponse = await axios.post(
-        embeddingApi,
-        {
-          input: thumbnailDescription,
-          model: 'text-embedding-ada-002',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-          },
-        }
-      );
-      const newThEmbedding = thEmbeddingResponse.data.data[0].embedding;
+      const newThEmbedding = await getEmbedding(thumbnailDescription);
       setThEmbedding(newThEmbedding); // 새로운 썸네일 임베딩 상태 업데이트
 
-      // 임베딩 및 썸네일 임베딩 데이터
+      // OpenAI 임베딩 요청 (카테고리)
+      const newCategoryEmbedding = await getEmbedding(category);
+      setCategoryEmbedding(newCategoryEmbedding); // 새로운 카테고리 임베딩 상태 업데이트
+
+      // OpenAI 임베딩 요청 (디테일 설명)
+      const newDetailEmbedding = await getEmbedding(contents);
+      setDetailEmbedding(newDetailEmbedding); // 새로운 디테일 임베딩 상태 업데이트
+
+      // 임베딩 데이터
       const embeddingData = {
         embedding: newEmbedding,
         thEmbedding: newThEmbedding,
-        categoryEmbedding: [1, 2, 3, 4], // 카테고리 임베딩 데이터
-        detailEmbedding: [1, 2, 3, 4] // 디테일 임베딩 데이터
+        categoryEmbedding: newCategoryEmbedding, // 카테고리 임베딩 데이터
+        detailEmbedding: newDetailEmbedding // 디테일 임베딩 데이터
       };
 
       // 임베딩 저장 요청
