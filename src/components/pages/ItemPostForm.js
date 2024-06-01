@@ -35,6 +35,8 @@ function ItemPostForm() {
   const [parcel, setParcelChecked] = useState(false);
   const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
   const [thEmbedding, setThEmbedding] = useState(null); // 썸네일 임베딩 상태 추가
+  const [categoryEmbedding, setCategoryEmbedding] = useState([1, 2, 3, 4]); // 카테고리 임베딩 추가
+  const [detailEmbedding, setDetailEmbedding] = useState([1, 2, 3, 4]); // 디테일 임베딩 추가
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -151,7 +153,9 @@ function ItemPostForm() {
       // 임베딩 및 썸네일 임베딩 데이터
       const embeddingData = {
         embedding: newEmbedding,
-        thEmbedding: newThEmbedding // 썸네일 임베딩 데이터
+        thEmbedding: newThEmbedding,
+        categoryEmbedding: [1, 2, 3, 4], // 카테고리 임베딩 데이터
+        detailEmbedding: [1, 2, 3, 4] // 디테일 임베딩 데이터
       };
 
       // 임베딩 저장 요청
