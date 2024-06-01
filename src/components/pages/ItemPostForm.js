@@ -140,20 +140,25 @@ function ItemPostForm() {
       // 첫 번째 이미지 분석 요청
       const thumbnailDescription = await analyzeImage(itemImgs[0]);
 
-      // OpenAI 임베딩 요청 (내용)
-      const newEmbedding = await getEmbedding(contents);
+      // OpenAI 임베딩 요청들
+      const embeddingPromises = [
+        getEmbedding(contents),
+        getEmbedding(thumbnailDescription),
+        getEmbedding(category),
+        getEmbedding(contents)
+      ];
+
+      // 모든 임베딩 요청을 병렬로 처리
+      const results = await Promise.allSettled(embeddingPromises);
+
+      const newEmbedding = results[0].status === 'fulfilled' ? results[0].value : null;
+      const newThEmbedding = results[1].status === 'fulfilled' ? results[1].value : null;
+      const newCategoryEmbedding = results[2].status === 'fulfilled' ? results[2].value : null;
+      const newDetailEmbedding = results[3].status === 'fulfilled' ? results[3].value : null;
+
       setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
-
-      // OpenAI 임베딩 요청 (썸네일 설명)
-      const newThEmbedding = await getEmbedding(thumbnailDescription);
       setThEmbedding(newThEmbedding); // 새로운 썸네일 임베딩 상태 업데이트
-
-      // OpenAI 임베딩 요청 (카테고리)
-      const newCategoryEmbedding = await getEmbedding(category);
       setCategoryEmbedding(newCategoryEmbedding); // 새로운 카테고리 임베딩 상태 업데이트
-
-      // OpenAI 임베딩 요청 (디테일 설명)
-      const newDetailEmbedding = await getEmbedding(contents);
       setDetailEmbedding(newDetailEmbedding); // 새로운 디테일 임베딩 상태 업데이트
 
       // 임베딩 데이터
