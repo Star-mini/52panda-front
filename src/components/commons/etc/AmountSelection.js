@@ -20,10 +20,6 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
   const handleBid = async () => {
     const now = new Date().getTime();
-    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
-      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
-      return;
-    }
 
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
@@ -45,19 +41,11 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         await sendBidRequest(bidValue, false);
       }
     }
-    setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
   };
 
   const handleInstantBid = async () => {
-    const now = new Date().getTime();
-    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
-      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
-      return;
-    }
-
     if (amount !== null) {
       await sendBidRequest(amount, true); // 즉시 입찰은 buyNowPrice로
-      setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
     } else {
       alert("즉시 낙찰 금액이 설정되지 않았습니다.😊");
     }
@@ -75,13 +63,15 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         userId: userId,
         nickname: nickname,
       });
-  
+
       if (response.data.success) {
         alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
         onBid(nickname, price.toString(), isImmediate);
         if (isImmediate) {
           togglePopup(); // 즉시 낙찰 성공 시 팝업 닫기
         }
+        const now = new Date().getTime();
+        setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
       } else {
         handleErrorResponse(response.data.error);
       }
@@ -90,7 +80,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       alert("입찰 요청에 실패했습니다. 다시 시도해주세요.");
     }
   };
-  
+
   const handleErrorResponse = (error) => {
     switch (error.code) {
       case 40008:
@@ -107,7 +97,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         alert("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
