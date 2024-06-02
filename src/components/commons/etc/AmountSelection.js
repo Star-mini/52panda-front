@@ -11,9 +11,15 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
   const increment = startPrice >= 10000 ? Math.floor(startPrice * 0.01) : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
 
+  const MAX_INT_VALUE = 2147483647; // int 최대값
+
   const handleAddAmount = (multiplier) => {
     setBidValue((prevBidValue) => {
       const newBidValue = parseInt(prevBidValue || "0", 10) + (increment * multiplier);
+      if (newBidValue > MAX_INT_VALUE) {
+        alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+        return prevBidValue;
+      }
       return newBidValue.toString();
     });
   };
@@ -23,6 +29,12 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
+
+      if (numericBidValue > MAX_INT_VALUE) {
+        alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+        return;
+      }
+
       // maxPrice가 0이면 startPrice보다 높아야 입찰 가능
       if (currentBidPrice === 0 && numericBidValue < startPrice) {
         alert("입찰은 시작입찰가보다 높아야 입찰하실 수 있어요😊");
@@ -115,6 +127,10 @@ function AmountSelection({ onBid, togglePopup, productData }) {
           onChange={(e) => {
             const newValue = e.target.value;
             const filteredValue = newValue.replace(/[^0-9]/g, "");
+            if (parseInt(filteredValue, 10) > MAX_INT_VALUE) {
+              alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+              return;
+            }
             setBidValue(filteredValue);
           }}
         />
