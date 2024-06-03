@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import pandaLogo from "../../../static/styles/images/PandaLogo.png";
 import bell from "../../../static/styles/images/bell.png";
 import styles from "../../../static/styles/css/navbar.module.css";
@@ -6,9 +6,15 @@ import mypageButton from "../../../static/styles/images/mypage_panda.png";
 import dbg from "../../../static/styles/images/dbg.svg";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import NotificationToggle from "../toggle/NotificationToggle";
 
 function Navbar() {
   const navigate = useNavigate(); // useNavigate 훅 사용
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
 
   const handleAboutClick = (event) => {
     event.preventDefault();
@@ -70,9 +76,10 @@ function Navbar() {
               </form>
             </li>
             <li className="nav-item">
-              <button className={styles.button}>
+              <button className={styles.button} onClick={toggleNotifications}>
                 <img className={styles.img} width="40px" src={bell} alt="" />
               </button>
+              {showNotifications && <NotificationToggle />}
             </li>
             <li class="dropdown nav-item me-5">
               <a

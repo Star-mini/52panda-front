@@ -24,3 +24,8 @@
 .btn{
     background-color: #88a06b !important;
 }
+.empty-img{
+    width: 50%;
+    height: auto;
+    margin-bottom: 10rem;
+}
