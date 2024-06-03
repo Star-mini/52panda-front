@@ -141,7 +141,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
         {chatMessages.map((message, index) => (
           <div 
             key={index} 
-            className={`${styles.chatBubble} ${message.chatUser === localStorage.getItem("id") ? styles.right : styles.left}`}
+            className={`${styles.chatBubble} ${message.chatUser === parseInt(localStorage.getItem("id")) ? styles.right : styles.left}`}
             dangerouslySetInnerHTML={{ __html: message.content }} // HTML을 안전하게 렌더링
           />
         ))}
