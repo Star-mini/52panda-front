@@ -11,22 +11,30 @@ function AmountSelection({ onBid, togglePopup, productData }) {
   const currentBidPrice = productData.maxPrice; // 현재 입찰 금액
   const increment = startPrice >= 10000 ? Math.floor(startPrice * 0.01) : 100; // 입찰 올리기 기준 (100-9999원은 100원, 만원 이상은 1%)
 
+  const MAX_INT_VALUE = 2147483647; // int 최대값
+
   const handleAddAmount = (multiplier) => {
     setBidValue((prevBidValue) => {
       const newBidValue = parseInt(prevBidValue || "0", 10) + (increment * multiplier);
+      if (newBidValue > MAX_INT_VALUE) {
+        alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+        return prevBidValue;
+      }
       return newBidValue.toString();
     });
   };
 
   const handleBid = async () => {
     const now = new Date().getTime();
-    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
-      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
-      return;
-    }
 
     if (bidValue) {
       const numericBidValue = parseInt(bidValue, 10);
+
+      if (numericBidValue > MAX_INT_VALUE) {
+        alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+        return;
+      }
+
       // maxPrice가 0이면 startPrice보다 높아야 입찰 가능
       if (currentBidPrice === 0 && numericBidValue < startPrice) {
         alert("입찰은 시작입찰가보다 높아야 입찰하실 수 있어요😊");
@@ -45,19 +53,11 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         await sendBidRequest(bidValue, false);
       }
     }
-    setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
   };
 
   const handleInstantBid = async () => {
-    const now = new Date().getTime();
-    if (lastBidTime && now - lastBidTime < 10000) { // 10초 이내 재입찰 방지
-      alert("재입찰은 입찰 후에 10초가 지나야 가능해요.😊");
-      return;
-    }
-
     if (amount !== null) {
       await sendBidRequest(amount, true); // 즉시 입찰은 buyNowPrice로
-      setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
     } else {
       alert("즉시 낙찰 금액이 설정되지 않았습니다.😊");
     }
@@ -75,13 +75,15 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         userId: userId,
         nickname: nickname,
       });
-  
+
       if (response.data.success) {
         alert(isImmediate ? "즉시 낙찰에 성공했습니다. 축하합니다.😊" : "입찰에 성공했습니다.😊");
         onBid(nickname, price.toString(), isImmediate);
         if (isImmediate) {
           togglePopup(); // 즉시 낙찰 성공 시 팝업 닫기
         }
+        const now = new Date().getTime();
+        setLastBidTime(now); // 입찰 성공 시 마지막 입찰 시간 업데이트
       } else {
         handleErrorResponse(response.data.error);
       }
@@ -90,7 +92,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
       alert("입찰 요청에 실패했습니다. 다시 시도해주세요.");
     }
   };
-  
+
   const handleErrorResponse = (error) => {
     switch (error.code) {
       case 40008:
@@ -107,7 +109,7 @@ function AmountSelection({ onBid, togglePopup, productData }) {
         alert("알 수 없는 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -125,6 +127,10 @@ function AmountSelection({ onBid, togglePopup, productData }) {
           onChange={(e) => {
             const newValue = e.target.value;
             const filteredValue = newValue.replace(/[^0-9]/g, "");
+            if (parseInt(filteredValue, 10) > MAX_INT_VALUE) {
+              alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
+              return;
+            }
             setBidValue(filteredValue);
           }}
         />

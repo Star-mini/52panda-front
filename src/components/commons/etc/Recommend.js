@@ -94,6 +94,7 @@ const Recommend = ({ itemId }) => {
         {items.map((item, index) => (
           <RecommendItem
             key={index}
+            itemId={item.itemId} // itemId 전달
             imageUrl={item.thumbnail}
             title={item.itemTitle}
             price={item.maxPrice}

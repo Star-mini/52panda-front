@@ -1,18 +1,19 @@
-  import axios from 'axios';
+import axios from 'axios';
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 import { client } from '../util/client';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ItemPostForm() {
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
   const embeddingApi = 'https://api.openai.com/v1/embeddings';
+  const visionApiKey = process.env.REACT_APP_GOOGLE_VISION_API_KEY;
+  const visionApiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${visionApiKey}`;
 
   const categories = [
     '전자기기', '여성의류', '가구인테리어', '티켓_교환권',
@@ -33,54 +34,57 @@ function ItemPostForm() {
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
   const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
+  const [thEmbedding, setThEmbedding] = useState(null); // 썸네일 임베딩 상태 추가
+  const [categoryEmbedding, setCategoryEmbedding] = useState(null); // 카테고리 임베딩 추가
+  const [detailEmbedding, setDetailEmbedding] = useState(null); // 디테일 임베딩 추가
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-
   const navigate = useNavigate();
-  
+
   const handleImageChange = (imageFiles) => {
     setItemImgs(imageFiles);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    let trading_method = "-1";
-    if (direct && parcel) {
-      trading_method = "3";
-    } else if (direct) {
-      trading_method = "1";
-    } else if (parcel) {
-      trading_method = "2";
-    }
-  
-    const error = validateInputs(trading_method);
-    if (error) {
-      setError(error);
-      return;
-    }
-  
-    setLoading(true);
-    setError(''); // 오류 메시지 초기화
-    setEmbedding(null); // 임베딩 초기화
-  
+  const analyzeImage = async (imageFile) => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onloadend = async () => {
+        const base64Image = reader.result.split(',')[1];
+        const requestPayload = {
+          requests: [
+            {
+              image: {
+                content: base64Image,
+              },
+              features: [
+                { type: 'LABEL_DETECTION', maxResults: 10 },
+              ],
+            },
+          ],
+        };
+
+        try {
+          const response = await axios.post(visionApiUrl, requestPayload);
+          const labels = response.data.responses[0].labelAnnotations;
+          console.log("Google Vision API Labels:", labels); // 콘솔에 라벨 출력
+          const descriptionsList = labels.map(label => label.description);
+          resolve(descriptionsList.join(', ')); // OpenAI에 보낼 수 있는 형식으로 변환
+        } catch (error) {
+          console.error('Error analyzing image:', error);
+          reject(error);
+        }
+      };
+      reader.readAsDataURL(imageFile);
+    });
+  };
+
+  const getEmbedding = async (input) => {
     try {
-      // 아이템 등록 요청
-      const formData = buildFormData(trading_method);
-      toast.info("저장하는 중이에요.😊");
-  
-      const itemResponse = await client.post(itemFormApi, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
-      // OpenAI 임베딩 요청
-      const embeddingResponse = await axios.post(
+      const response = await axios.post(
         embeddingApi,
         {
-          input: contents,
+          input: input,
           model: 'text-embedding-ada-002',
         },
         {
@@ -90,16 +94,88 @@ function ItemPostForm() {
           },
         }
       );
-      const newEmbedding = embeddingResponse.data.data[0].embedding;
+      return response.data.data[0].embedding;
+    } catch (error) {
+      console.error("Error fetching embedding:", error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    let trading_method = "-1";
+    if (direct && parcel) {
+      trading_method = "3";
+    } else if (direct) {
+      trading_method = "1";
+    } else if (parcel) {
+      trading_method = "2";
+    }
+
+    const error = validateInputs(trading_method);
+    if (error) {
+      setError(error);
+      return;
+    }
+
+    setLoading(true);
+    setError(''); // 오류 메시지 초기화
+    setEmbedding(null); // 임베딩 초기화
+    setThEmbedding(null); // 썸네일 임베딩 초기화
+    setCategoryEmbedding(null); // 카테고리 임베딩 초기화
+    setDetailEmbedding(null); // 디테일 임베딩 초기화
+
+    try {
+      // 아이템 등록 요청
+      const formData = buildFormData(trading_method);
+      toast.info("저장하는 중이에요.😊");
+
+      const itemResponse = await client.post(itemFormApi, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      // 첫 번째 이미지 분석 요청
+      const thumbnailDescription = await analyzeImage(itemImgs[0]);
+
+      // OpenAI 임베딩 요청들
+      const embeddingPromises = [
+        getEmbedding(contents),
+        getEmbedding(thumbnailDescription),
+        getEmbedding(category),
+        getEmbedding(contents)
+      ];
+
+      // 모든 임베딩 요청을 병렬로 처리
+      const results = await Promise.allSettled(embeddingPromises);
+
+      const newEmbedding = results[0].status === 'fulfilled' ? results[0].value : null;
+      const newThEmbedding = results[1].status === 'fulfilled' ? results[1].value : null;
+      const newCategoryEmbedding = results[2].status === 'fulfilled' ? results[2].value : null;
+      const newDetailEmbedding = results[3].status === 'fulfilled' ? results[3].value : null;
+
       setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
-  
+      setThEmbedding(newThEmbedding); // 새로운 썸네일 임베딩 상태 업데이트
+      setCategoryEmbedding(newCategoryEmbedding); // 새로운 카테고리 임베딩 상태 업데이트
+      setDetailEmbedding(newDetailEmbedding); // 새로운 디테일 임베딩 상태 업데이트
+
+      // 임베딩 데이터
+      const embeddingData = {
+        embedding: newEmbedding,
+        thEmbedding: newThEmbedding,
+        categoryEmbedding: newCategoryEmbedding, // 카테고리 임베딩 데이터
+        detailEmbedding: newDetailEmbedding // 디테일 임베딩 데이터
+      };
+
       // 임베딩 저장 요청
-      await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
+      await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, embeddingData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-  
+
       toast.success("저장이 완료됐습니다.😊", {
         autoClose: 2000, 
         onClose: () => {
