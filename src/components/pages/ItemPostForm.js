@@ -1,16 +1,24 @@
-  import axios from 'axios';
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, InputGroup, Button, ToggleButton, Alert } from 'react-bootstrap/';
+import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Container, Row, Col, Form, InputGroup, Button, ToggleButton } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'react-toastify/dist/ReactToastify.css';
 import styles from '../../static/styles/css/itemPostForm.module.css';
+
+import { CurrentLocationContext } from '../commons/contexts/CurrentLocationContext';
+
+import LocationPermissionModal from '../commons/modal/LocationPermissionModal';
 import ImgInputForm from '../commons/forms/ImgInputForm';
 import FinishDateInputForm from '../commons/forms/FinishDateInputForm';
 import { client } from '../util/client';
-import { useNavigate} from 'react-router-dom';
+
 
 function ItemPostForm() {
+  const navigate = useNavigate();
+  const { address, permissionDenied, locationError } = useContext(CurrentLocationContext);
+
   const itemFormApi = `${process.env.REACT_APP_API_URL}/v1/auth/auction/form/`;
   const embeddingApi = 'https://api.openai.com/v1/embeddings';
 
@@ -22,6 +30,7 @@ function ItemPostForm() {
     '기타'
   ];
 
+  const [showModal, setShowModal] = useState(false);
   const [itemImgs, setItemImgs] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('전자기기');
@@ -32,86 +41,19 @@ function ItemPostForm() {
   const [finishHour, setFinishHour] = useState('');
   const [direct, setDirectChecked] = useState(false);
   const [parcel, setParcelChecked] = useState(false);
-  const [embedding, setEmbedding] = useState(null); // 임베딩 상태 추가
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (permissionDenied || locationError) {
+      setShowModal(true);
+    }
+  }, [permissionDenied, locationError]);
 
-  const navigate = useNavigate();
-  
+  const handleClose = () => setShowModal(false);
+
   const handleImageChange = (imageFiles) => {
     setItemImgs(imageFiles);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    let trading_method = "-1";
-    if (direct && parcel) {
-      trading_method = "3";
-    } else if (direct) {
-      trading_method = "1";
-    } else if (parcel) {
-      trading_method = "2";
-    }
-  
-    const error = validateInputs(trading_method);
-    if (error) {
-      setError(error);
-      return;
-    }
-  
-    setLoading(true);
-    setError(''); // 오류 메시지 초기화
-    setEmbedding(null); // 임베딩 초기화
-  
-    try {
-      // 아이템 등록 요청
-      const formData = buildFormData(trading_method);
-      toast.info("저장하는 중이에요.😊");
-  
-      const itemResponse = await client.post(itemFormApi, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
-      // OpenAI 임베딩 요청
-      const embeddingResponse = await axios.post(
-        embeddingApi,
-        {
-          input: contents,
-          model: 'text-embedding-ada-002',
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
-          },
-        }
-      );
-      const newEmbedding = embeddingResponse.data.data[0].embedding;
-      setEmbedding(newEmbedding); // 새로운 임베딩 상태 업데이트
-  
-      // 임베딩 저장 요청
-      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
-      toast.success("저장이 완료됐습니다.😊", {
-        autoClose: 2000, 
-        onClose: () => {
-          navigate('/auction');
-        }
-      });
-    } catch (error) {
-      toast.error("물품 등록에 실패했습니다.");
-      toast.error("물품 등록에 실패했습니다.");
-      console.error("물품 등록에 실패했습니다.", error);
-    }
-    setLoading(false);
   };
 
   const validateInputs = (trading_method) => {
@@ -125,12 +67,12 @@ function ItemPostForm() {
       return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
     }
     if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
-    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
     return "";
   };
 
   const buildFormData = (trading_method) => {
     const formData = new FormData();
+    formData.append('address', address);
     itemImgs.forEach((image, index) => formData.append('images', image));
     formData.append('title', title);
     formData.append('category', category);
@@ -144,9 +86,78 @@ function ItemPostForm() {
     return formData;
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    let trading_method = "-1";
+    if (direct && parcel) {
+      trading_method = "3";
+    } else if (direct) {
+      trading_method = "1";
+    } else if (parcel) {
+      trading_method = "2";
+    }
+
+    const error = validateInputs(trading_method);
+    if (error) {
+      setError(error);
+      toast.error(error);
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const formData = buildFormData(trading_method);
+      toast.info("저장하는 중이에요.😊");
+
+      const itemResponse = await client.post(itemFormApi, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const embeddingResponse = await axios.post(
+        embeddingApi,
+        {
+          input: contents,
+          model: 'text-embedding-ada-002',
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+        }
+      );
+
+      const newEmbedding = embeddingResponse.data.data[0].embedding;
+      await axios.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, newEmbedding, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      toast.success("저장이 완료됐습니다.😊", {
+        autoClose: 2000,
+        onClose: () => {
+          navigate('/auction');
+        }
+      });
+    } catch (error) {
+      toast.error("물품 등록에 실패했습니다.");
+    }
+    setLoading(false);
+  };
+
+
+
+
+
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
-      <ToastContainer />
+      {showModal && <LocationPermissionModal show={showModal} handleClose={handleClose} />}
       <ToastContainer />
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
@@ -270,13 +281,13 @@ function ItemPostForm() {
               type="submit"
               disabled={loading} // 로딩 중일 때 버튼 비활성화
             >
-              {loading ? '등록 중...' : '등록하기'}
+              {loading ? "등록 중..." : "등록하기"}
             </Button>
           </Col>
         </Form.Group>
       </Form>
-      {error && <Alert variant="danger">{error}</Alert>}
     </Container>
+
   );
 }
 
