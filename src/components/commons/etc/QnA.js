@@ -2,23 +2,33 @@ import React, { useState, useEffect } from "react";
 import styles from "../../../static/styles/css/QnA.module.css";
 import writeIcon from "../../../static/styles/images/writhing.png";
 import Add from "./Add";
-import axios from "axios";
+import { client } from '../../util/client';
 
 function QnA({ productData }) {
   const [addComponents, setAddComponents] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
-  const [userId, setUserId] = useState(1); // 테스트용 ID
+  const [userId, setUserId] = useState(null); // 초기값을 null로 설정
 
   useEffect(() => {
     if (productData && productData.questions) {
       setQuestions(productData.questions);
     }
-    // 실제 코드에서는 아래 주석을 사용하여 localStorage에서 id를 가져옵니다.
-    // setUserId(localStorage.getItem("id"));
   }, [productData]);
 
+  useEffect(() => {
+    // localStorage에서 userId를 가져와서 설정
+    const id = localStorage.getItem("id");
+    setUserId(id);
+  }, []);
+
   const handleAddClick = (questionId) => {
+    const login = localStorage.getItem("login");
+    if (!login) {
+      alert("로그인 후에 문의글을 작성할 수 있습니다. 😊");
+      return;
+    }
+
     if (!isAdding) {
       const newId = Date.now();
       const newComponent = {
@@ -43,7 +53,7 @@ function QnA({ productData }) {
   const deleteQuestion = async (questionId) => {
     handleDelete(questionId); // API 요청 전에 UI를 먼저 업데이트
     try {
-      const response = await axios.delete(
+      const response = await client.delete(
         `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/qna/${questionId}/`
       );
       if (response.status !== 200) {
@@ -57,7 +67,6 @@ function QnA({ productData }) {
     }
   };
 
-  
   const handleQuestionSubmit = (text, id, questionId) => {
     if (questionId !== null) {
       setQuestions((prevQuestions) =>
@@ -137,7 +146,7 @@ function QnA({ productData }) {
             <p className={styles.date}>
               문의일: {new Date(q.questionTime).toLocaleString()}
             </p>
-            {productData.sellerId === userId && (
+            {productData.sellerId == userId && (
               <button
                 className={styles.deleteButton}
                 onClick={() => deleteQuestion(q.questionId)}
@@ -146,7 +155,7 @@ function QnA({ productData }) {
               </button>
             )}
           </div>
-          {q.comments.length === 0 && productData.sellerId === userId && (
+          {q.comments.length === 0 && productData.sellerId == userId && (
             <div className={styles.answerButtonContainer}>
               <button
                 className={styles.writeButton}
@@ -166,7 +175,7 @@ function QnA({ productData }) {
             </div>
           ))}
           {/* 질문이 답변 중이 아닐 때만 구분자를 추가합니다 */}
-            <div className={styles.divider}></div>
+          <div className={styles.divider}></div>
         </div>
       ))}
       {addComponents.map((component) => component.component)}

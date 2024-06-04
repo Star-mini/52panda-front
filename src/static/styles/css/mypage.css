@@ -35,3 +35,9 @@
     background-color: hsl(86, 29%, 77%); 
 
   }
+
+  .empty-img{
+    width: 50%;
+    height: auto;
+    margin-bottom: 10rem;
+}

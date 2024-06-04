@@ -4,6 +4,7 @@ import ItemListInfoCard from "../commons/card/ItemListInfoCard";
 import "../../static/styles/css/mypage.css";
 import { client } from "../util/client";
 import { useLocation } from 'react-router-dom';
+import EmptyImage from '../../static/styles/images/is_empty.png';
 
 function MyPage() {
     const [items, setItems] = useState([]);
@@ -81,21 +82,29 @@ function MyPage() {
                     next={() => fetchData(currentPage)}
                     hasMore={hasMore}
                     scrollThreshold={0.9}
+                    style={{ overflowX: 'hidden' }}
                 >
                     <div className="row">
-                        {items.map((item, index) => (
+                    {loading || items.length > 0 ? (
+                        items.map((item, index) => (
                             <div key={index} className="col-md-6 item-card">
-                                <ItemListInfoCard
-                                    image={item.thumbnail}
-                                    title={item.itemTitle}
-                                    category={item.category}
-                                    tradingMethod={item.tradingMethod}
-                                    startPrice={item.startPrice}
-                                    currentPrice={item.currentPrice}
-                                    itemId={item.itemId}
-                                />
+                            <ItemListInfoCard
+                                image={item.thumbnail}
+                                title={item.itemTitle}
+                                category={item.category}
+                                tradingMethod={item.tradingMethod}
+                                startPrice={item.startPrice}
+                                currentPrice={item.currentPrice}
+                                itemId={item.itemId}
+                                isBidComplete={item.isBidComplete}
+                            />
                             </div>
-                        ))}
+                        ))
+                        ) : (
+                        <div className="col-12 text-center" >
+                            <img src={EmptyImage} className='empty-img' />
+                        </div>
+                        )}
                     </div>
                 </InfiniteScroll>
             </div>

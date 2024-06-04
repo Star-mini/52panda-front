@@ -7,7 +7,7 @@ import AmountSelection from "./AmountSelection";
 import heartIcon from "../../../static/styles/images/heart.png";
 import closeIcon from "../../../static/styles/images/close.png";
 import PinkHeart from "../../../static/styles/images/PinkHeart.png";
-import axios from "axios";
+import { client } from "../../util/client";
 
 function ProductDetail({ productData }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -17,6 +17,25 @@ function ProductDetail({ productData }) {
   const [isBidComplete, setIsBidComplete] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리하기 위한 상태 추가
+
+  useEffect(() => {
+    // 찜 상태를 확인하는 get 요청 추가
+    const checkIfLiked = async () => {
+      const url = `${process.env.REACT_APP_API_URL}/v1/auth/mypage/item-like?itemId=${productData.itemId}`;
+      try {
+        const response = await client.get(url);
+        if (response.data.success) {
+          setIsHeartPink(response.data.data);
+        }
+      } catch (error) {
+        console.error("찜 상태 확인 실패:", error);
+      }
+    };
+
+    if (productData) {
+      checkIfLiked();
+    }
+  }, [productData]);
 
   useEffect(() => {
     if (!productData || !productData.bidFinishTime) return;
@@ -100,9 +119,10 @@ function ProductDetail({ productData }) {
 
   const toggleHeart = () => {
     const url = `${process.env.REACT_APP_API_URL}/v1/auth/auction/${productData.itemId}/like/`;
+    const likeUserId = localStorage.getItem("id");
 
     if (isHeartPink) {
-      axios
+      client
         .delete(url)
         .then((response) => {
           console.log("찜하기 취소 성공:", response.data);
@@ -113,10 +133,10 @@ function ProductDetail({ productData }) {
         });
     } else {
       const data = {
-        likeUserId: 1,
+        likeUserId,
       };
 
-      axios
+      client
         .post(url, data, {
           headers: {
             "Content-Type": "application/json",
@@ -144,6 +164,15 @@ function ProductDetail({ productData }) {
     setPriceList(updatedPriceList);
     console.log("Updated PriceList: ", updatedPriceList);
     setIsBidComplete(isBidComplete);
+  };
+
+  const handleBidButtonClick = () => {
+    const login = localStorage.getItem("login");
+    if (!login) {
+      alert("로그인후에 입찰하실수있어요.😊");
+      return;
+    }
+    togglePopup();
   };
 
   if (!productData) {
@@ -175,36 +204,44 @@ function ProductDetail({ productData }) {
       </div>
 
       <div className={styles.productDetails}>
-        <h4 className={styles.productTitle}>{productData.title}</h4>
-        <img
-          src={isHeartPink ? PinkHeart : heartIcon}
-          className={styles.heart}
-          alt="Heart"
-          onClick={toggleHeart}
-        />
-        <p className={styles.category}>{productData.categoryName}</p>
-        {renderBidInfo()}
-        <div className={styles.biddingDetails}>
-          <p className={styles.startPrice}>
-            시작 금액 {productData.startPrice}원
-          </p>
-          {isBidComplete ? (
-            <p className={styles.currentPrice}>낙찰완료</p>
-          ) : (
-            <p className={styles.currentPrice}>
-              현재 금액 {productData.maxPrice}원
-            </p>
-          )}
-          <p className={styles.instantPrice}>
-            즉시낙찰 금액 {productData.buyNowPrice}원
-          </p>
-        </div>
-      </div>
+  <h4 className={styles.productTitle}>{productData.title}</h4>
+  <div className={styles.categoryHeartContainer}>
+    <p className={styles.category}>{productData.categoryName}</p>
+    <img
+      src={isHeartPink ? PinkHeart : heartIcon}
+      className={styles.heart}
+      alt="Heart"
+      onClick={toggleHeart}
+    />
+  </div>
+  {renderBidInfo()}
+  <div className={styles.biddingDetails}>
+    <p className={styles.startPrice}>
+      시작 금액 {productData.startPrice}원
+    </p>
+    {isBidComplete ? (
+      <p className={styles.currentPrice}>낙찰완료</p>
+    ) : (
+      <p className={styles.currentPrice}>
+        {productData.maxPrice === 0
+          ? "현재 가격 -원"
+          : `현재 금액 ${productData.maxPrice}원`}
+      </p>
+    )}
+    <p className={styles.instantPrice}>
+      즉시낙찰 금액{" "}
+      {productData.buyNowPrice !== null
+        ? `${productData.buyNowPrice}원`
+        : "-"}
+    </p>
+  </div>
+</div>
+
 
       <div className={styles.buttonContainer}>
         <button
           className={styles.bidButton}
-          onClick={isBidComplete ? undefined : togglePopup}
+          onClick={isBidComplete ? undefined : handleBidButtonClick}
           style={isBidComplete ? { backgroundColor: "#CDCDCD" } : {}}
         >
           {isBidComplete ? "낙찰완료" : "입찰하기"}

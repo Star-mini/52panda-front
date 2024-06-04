@@ -7,12 +7,14 @@
 .header {
   padding: 1rem;
   background-color: #d1e4b8;
-  display: 7rem;
+  display: flex; /* 수정: display 속성을 flex로 설정 */
+  flex-direction: column; /* 추가: 요소를 수직으로 정렬 */
   align-items: center;
   justify-content: center;
   border-radius: 0.8rem; /* rounded-t-lg */
   margin-bottom: 2.5rem;
 }
+
 
 .currentPriceTitle {
   margin-right: 2rem;

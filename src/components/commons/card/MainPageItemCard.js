@@ -41,7 +41,7 @@ function MainPageItemCard(props) {
     display: "block",
     zIndex: 3, // 높은 z-index 설정
   };
-  
+
   const priceContainer2 = {
     opacity: priceVisible ? 1 : 0, // 서서히 나타나는 효과를 위해 opacity 추가
     transition: "opacity 1s ease", // opacity 변경에 대한 트랜지션 추가
@@ -56,7 +56,7 @@ function MainPageItemCard(props) {
       onMouseLeave={() => togglePriceVisibility(false)}
       onMouseOver={() => togglePriceVisibility(true)} // 이벤트를 div 전체에 적용하여 자연스러운 동작을 보장
     >
-      <a href="#">
+      <a href="">
         <div style={{ position: "relative" }}>
           <img
             style={imageContainer1}
@@ -79,15 +79,15 @@ function MainPageItemCard(props) {
           <div className={styles.priceCSS2} style={priceContainer2}>
             즉시입찰금액
             <br />
-            {props.nowprice}
+            {props.nowprice !== null ? props.nowprice : "-"}
           </div>
         </div>
       </a>
 
       <div className="card-body">
-        <h5 
-          className={`card-title ${styles.fontSize}`} 
-          style={{ marginTop: "0.7rem" }}  // margin-top 1rem 추가
+        <h5
+          className={`card-title ${styles.fontSize}`}
+          style={{ marginTop: "0.7rem" }} // margin-top 1rem 추가
         >
           {props.category}
         </h5>

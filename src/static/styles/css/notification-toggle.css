@@ -1,0 +1,42 @@
+/* notification-toggle.css */
+
+.notification-toggle {
+    position: absolute;
+    top: 80%; 
+    right: 10%; 
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 9999; 
+
+    width: 300px;
+    height: auto;
+  }
+  
+  .notification-toggle-header {
+    margin-bottom: 20px;
+  }
+  
+  .notification-toggle-header h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .notification-toggle-body ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notification-toggle-body ul li {
+    margin-bottom: 20px;
+    border-radius: 10px; 
+    background-color: #e3f7e0;
+    padding: 10px;
+  }
+
+  .empty-notification-message {
+    text-align: center;
+  }
