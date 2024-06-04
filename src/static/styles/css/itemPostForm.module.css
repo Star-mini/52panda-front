@@ -72,6 +72,14 @@ hr {
   color: white;
 }
 
+.submit-button:active,
+.cancel-button:active {
+  background-color: #6f8257 !important;
+  border: 2px solid #6f8257 !important;
+  color: white !important;
+}
+
+
 .textarea-no-resize {
   resize: none;
 }

@@ -1,26 +1,33 @@
-.auction-filter{
+.auction-filter {
     margin-top: 2rem;
     display: flex;
     justify-content: space-between;
 }
 
-.btn-image{
-    width: 20px;
-    height: 20px;
+.btn-image {
+    width: 16px;
+    height: 16px;
     margin-left: 0.5rem;
 }
 
-.div-margin{
-    margin-top:5rem;
+.div-margin {
+    margin-top: 5rem;
 }
 
 .item-card {
-    margin-bottom: 4rem; 
-  }
+    margin-bottom: 4rem;
+}
 
 .container-zoom {
     zoom: 90%;
 }
-.btn{
-    background-color: #88a06b !important;
+
+.btn-write,
+.btn-write:hover {
+    background-color: #88a06b;
+    color: white !important;
+}
+
+.btn-write:active {
+    background-color: #74885b !important;
 }

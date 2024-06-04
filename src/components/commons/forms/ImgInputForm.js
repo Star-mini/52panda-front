@@ -3,7 +3,7 @@ import { Form, Image } from 'react-bootstrap';
 import { CameraFillIcon, XCicleFillIcon } from '../../../static/styles/javascript/icons';
 import styles from '../../../static/styles/css/imgInputForm.module.css';
 
-const ImgInputForm = ({ onImageChange }) => {
+const ImgInputForm = ({ controlId, onImageChange }) => {
   const [itemImgs, setItemImgs] = useState([]);
 
   const onImgChange = (e) => {
