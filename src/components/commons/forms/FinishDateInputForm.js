@@ -21,7 +21,9 @@ const FinishDateInputForm = ({ finishDate, setFinishDate, finishHour, setFinishH
 
   return (
     <Form.Group as={Row} className="mb-5" controlId="auction-finish-time">
-      <Form.Label column xs={12} sm={2}><nobr>경매 완료 시간</nobr></Form.Label>
+      <Form.Label column xxs={12} sm={3} md={2} className="text-nowrap">
+        <span className="text-danger">*&nbsp;</span>
+        경매 완료 시간</Form.Label>
       <Col xs={5} sm={4} md={3}>
         <Form.Control
           type="date"
@@ -35,7 +37,6 @@ const FinishDateInputForm = ({ finishDate, setFinishDate, finishHour, setFinishH
         <Form.Select
           value={finishHour}
           onChange={(e) => setFinishHour(e.target.value)}
-          required
         >
           {generateHourOptions()}
         </Form.Select>

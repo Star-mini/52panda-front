@@ -150,11 +150,6 @@ function ItemPostForm() {
     }
     setLoading(false);
   };
-
-
-
-
-
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
       {showModal && <LocationPermissionModal show={showModal} handleClose={handleClose} />}
@@ -177,8 +172,14 @@ function ItemPostForm() {
           <div className={styles['text-count']}>{title.length}/40</div>
         </Form.Group>
         <hr />
+
+
+
         <Form.Group as={Row} className="mb-4" controlId="item-category">
-          <Form.Label column xs={5} sm={2}>카테고리</Form.Label>
+          <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
+            <span className="text-danger">*&nbsp;</span>
+            카테고리
+          </Form.Label>
           <Col xs={8} sm={4}>
             <Form.Select value={category} onChange={(e) => setCategory(e.target.value)}>
               {categories.map((item, index) => (
@@ -188,9 +189,16 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
         <hr />
+
+
+
         <Form.Group as={Row} className="mb-4" controlId="first-price">
-          <Form.Label column xs={3} sm={2}>입찰 시작가</Form.Label>
-          <Col xs={5} sm={4}>
+          <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
+            <span className="text-danger">*&nbsp;</span>
+            입찰 시작가
+          </Form.Label>
+
+          <Col xs={6} sm={4}>
             <InputGroup className="mb-3">
               <InputGroup.Text>₩</InputGroup.Text>
               <Form.Control
@@ -203,9 +211,15 @@ function ItemPostForm() {
             </InputGroup>
           </Col>
         </Form.Group>
+
+
+
         <Form.Group as={Row} className="mb-4" controlId="buynow-price">
-          <Form.Label column xs={3} sm={2}>즉시 입찰가</Form.Label>
-          <Col xs={5} sm={4}>
+          <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
+            &nbsp;&nbsp;&nbsp;즉시 입찰가
+          </Form.Label>
+
+          <Col xs={6} sm={4}>
             <InputGroup className="mb-3">
               <InputGroup.Text>₩</InputGroup.Text>
               <Form.Control
@@ -218,6 +232,9 @@ function ItemPostForm() {
             </InputGroup>
           </Col>
         </Form.Group>
+
+
+
         <hr />
         <FinishDateInputForm
           finishDate={finishDate}
@@ -226,8 +243,16 @@ function ItemPostForm() {
           setFinishHour={setFinishHour}
         />
         <br />
+
+
+
         <Form.Group as={Row} className="mb-4">
-          <Form.Label column sm={2}>거래 방법</Form.Label>
+          <Form.Label column md={2} className="text-nowrap">
+            <span className="text-danger">*&nbsp;</span>
+            거래 방법
+          </Form.Label>
+
+
           <Col sm={5} className={styles['btn-inline-group']}>
             <ToggleButton
               type="checkbox"
@@ -253,8 +278,16 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
         <hr />
+
+
+
+
         <Form.Group as={Row} className="mb-4" controlId="item_detail">
-          <Form.Label column sm={2}>상세설명</Form.Label>
+          <Form.Label column md={2}>
+            <span className="text-danger">*&nbsp;</span>
+            상세설명
+          </Form.Label>
+
           <Col>
             <Form.Control
               as="textarea"
@@ -266,6 +299,9 @@ function ItemPostForm() {
             />
           </Col>
         </Form.Group>
+
+
+
         <Form.Group as={Row} className="mb-4">
           <Col className={`me-3 ${styles['btn-inline-group']} ${styles['justif-content-end']}`}>
             <Button
