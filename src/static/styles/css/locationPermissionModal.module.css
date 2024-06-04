@@ -1,0 +1,17 @@
+.location-modal-header {
+  background-color: #88a06b;
+  height: 2rem;
+}
+
+.location-modal-close-btn {
+  background-color: #88a06b !important;
+  border: 2px solid #88a06b !important;
+  color: black;
+}
+
+
+.location-modal-close-btn:hover {
+  background-color: #6f8257 !important;
+  border: 2px solid #6f8257 !important;
+  color: white;
+}
