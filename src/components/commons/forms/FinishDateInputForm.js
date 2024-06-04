@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Row, Col } from 'react-bootstrap/';
 
-const FinishDateInputForm = ({ finishDate, setFinishDate, finishHour, setFinishHour }) => {
+const FinishDateInputForm = ({ controlId, finishDate, setFinishDate, finishHour, setFinishHour }) => {
   const [minDate, setMinDate] = useState('');
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const FinishDateInputForm = ({ finishDate, setFinishDate, finishHour, setFinishH
   };
 
   return (
-    <Form.Group as={Row} className="mb-5" controlId="auction-finish-time">
+    <Form.Group as={Row} className="mb-5" controlId={controlId}>
       <Form.Label column xxs={12} sm={3} md={2} className="text-nowrap">
         <span className="text-danger">*&nbsp;</span>
         경매 완료 시간</Form.Label>
@@ -30,7 +30,6 @@ const FinishDateInputForm = ({ finishDate, setFinishDate, finishHour, setFinishH
           value={finishDate}
           onChange={(e) => setFinishDate(e.target.value)}
           min={minDate}
-          required
         />
       </Col>
       <Col xs={4} sm={3} md={2}>

@@ -56,17 +56,22 @@ function ItemPostForm() {
     setItemImgs(imageFiles);
   };
 
+  const showErrorAndScroll = (message, elementId) => {
+    document.getElementById(elementId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return message;
+  };
+
   const validateInputs = (trading_method) => {
-    if (!title) return "상품명을 입력하세요.";
-    if (itemImgs.length === 0) return "하나 이상의 이미지를 업로드해야 합니다.";
-    if (!contents) return "상품 설명을 작성해야 합니다.";
-    if (!finishDate || !finishHour) return "경매 마감 시간을 정확히 입력해야 합니다.";
-    if (trading_method === "-1") return "거래 방법을 하나 이상 선택해야 합니다.";
-    if (!startPrice) return "입찰 시작가를 입력해야 합니다.";
+    if (!title) return showErrorAndScroll("상품명을 입력하세요.", 'item-title');
+    if (itemImgs.length === 0) return showErrorAndScroll("하나 이상의 이미지를 업로드해야 합니다.", 'item-title');
+    if (!contents) return showErrorAndScroll("상품 설명을 작성해야 합니다.", 'item-detail');
+    if (!finishDate || !finishHour) return showErrorAndScroll("경매 마감 시간을 정확히 입력해야 합니다.", 'auction-finish-time');
+    if (trading_method === "-1") return showErrorAndScroll("거래 방법을 하나 이상 선택해야 합니다.", 'trading-method');
+    if (!startPrice) return showErrorAndScroll("입찰 시작가를 입력해야 합니다.", 'first-price');
     if (buyNowPrice > 0 && buyNowPrice <= startPrice) {
-      return "즉시 입찰가는 시작 입찰가보다 높아야 합니다.";
+      return showErrorAndScroll("즉시 입찰가는 시작 입찰가보다 높아야 합니다.", 'buynow-price');
     }
-    if (!buyNowPrice) return "즉시 입찰가를 입력해야 합니다.";
+    if (!buyNowPrice) return showErrorAndScroll("즉시 입찰가를 입력해야 합니다.", 'buynow-price');
     return "";
   };
 
@@ -150,6 +155,8 @@ function ItemPostForm() {
     }
     setLoading(false);
   };
+
+
   return (
     <Container fluid="md px-4" id={styles['input-page-body']}>
       {showModal && <LocationPermissionModal show={showModal} handleClose={handleClose} />}
@@ -157,7 +164,7 @@ function ItemPostForm() {
       <h2 className={`mt-3 mb-5 ${styles['form-title']}`}>상품 등록</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
-          <ImgInputForm onImageChange={handleImageChange} />
+          <ImgInputForm controlId="img-upload-form" onImageChange={handleImageChange} />
         </Row>
         <br />
         <Form.Group as={Row} className="mb-4 px-2" controlId="item-title">
@@ -172,9 +179,6 @@ function ItemPostForm() {
           <div className={styles['text-count']}>{title.length}/40</div>
         </Form.Group>
         <hr />
-
-
-
         <Form.Group as={Row} className="mb-4" controlId="item-category">
           <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
             <span className="text-danger">*&nbsp;</span>
@@ -189,15 +193,11 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
         <hr />
-
-
-
         <Form.Group as={Row} className="mb-4" controlId="first-price">
           <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
             <span className="text-danger">*&nbsp;</span>
             입찰 시작가
           </Form.Label>
-
           <Col xs={6} sm={4}>
             <InputGroup className="mb-3">
               <InputGroup.Text>₩</InputGroup.Text>
@@ -211,16 +211,12 @@ function ItemPostForm() {
             </InputGroup>
           </Col>
         </Form.Group>
-
-
-
         <Form.Group as={Row} className="mb-4" controlId="buynow-price">
           <Form.Label column xs={12} sm={3} md={2} className="text-nowrap">
             &nbsp;&nbsp;&nbsp;즉시 입찰가
           </Form.Label>
-
           <Col xs={6} sm={4}>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-1">
               <InputGroup.Text>₩</InputGroup.Text>
               <Form.Control
                 type="number"
@@ -231,28 +227,28 @@ function ItemPostForm() {
               />
             </InputGroup>
           </Col>
+          <Row className='justify-content-start'>
+            <Col sm={{ span: 9, offset: 3 }} md={{ span: 10, offset: 2 }}>
+              <Form.Text id="buynow-price-text" className='mb-3' muted>
+                즉시 입찰가는 공란이거나, 시작 입찰가보다 큰 금액이어야 합니다.
+              </Form.Text>
+            </Col>
+          </Row>
         </Form.Group>
-
-
-
         <hr />
         <FinishDateInputForm
+          controlId="auction-finish-time"
           finishDate={finishDate}
           setFinishDate={setFinishDate}
           finishHour={finishHour}
           setFinishHour={setFinishHour}
         />
         <br />
-
-
-
-        <Form.Group as={Row} className="mb-4">
+        <Form.Group as={Row} className="mb-4" controlId="trading-method">
           <Form.Label column md={2} className="text-nowrap">
             <span className="text-danger">*&nbsp;</span>
             거래 방법
           </Form.Label>
-
-
           <Col sm={5} className={styles['btn-inline-group']}>
             <ToggleButton
               type="checkbox"
@@ -278,16 +274,11 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
         <hr />
-
-
-
-
-        <Form.Group as={Row} className="mb-4" controlId="item_detail">
+        <Form.Group as={Row} className="mb-4" controlId="item-detail">
           <Form.Label column md={2}>
             <span className="text-danger">*&nbsp;</span>
             상세설명
           </Form.Label>
-
           <Col>
             <Form.Control
               as="textarea"
@@ -299,9 +290,6 @@ function ItemPostForm() {
             />
           </Col>
         </Form.Group>
-
-
-
         <Form.Group as={Row} className="mb-4">
           <Col className={`me-3 ${styles['btn-inline-group']} ${styles['justif-content-end']}`}>
             <Button
@@ -322,8 +310,7 @@ function ItemPostForm() {
           </Col>
         </Form.Group>
       </Form>
-    </Container>
-
+    </Container >
   );
 }
 
