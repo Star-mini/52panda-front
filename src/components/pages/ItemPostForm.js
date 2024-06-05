@@ -211,12 +211,16 @@ function ItemPostForm() {
         detailEmbedding: newDetailEmbedding // 디테일 임베딩 데이터
       };
 
-      // 임베딩 저장 요청
-      await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, embeddingData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      try {
+        // 임베딩 저장 요청
+        await client.post(`${process.env.REACT_APP_API_URL}/v1/auth/auction/embedding`, embeddingData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (embeddingError) {
+        console.error("임베딩 저장에 실패했습니다.", embeddingError);
+      }
 
       toast.success("저장이 완료됐습니다.😊", {
         autoClose: 2000, 
