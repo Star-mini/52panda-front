@@ -3,7 +3,7 @@ import { Client } from '@stomp/stompjs';
 import styles from '../../../static/styles/css/ChatWindow.module.css';
 import backImg from '../../../static/styles/images/chatback.png';
 import { client } from '../../util/client';
-import { fetchItems } from './Api'; // fetchItems 함수 import
+import { fetchItems, fetchLikedItems } from './Api'; // fetchLikedItems 함수 import
 import sanitizeHtml from 'sanitize-html'; // sanitize-html 라이브러리를 import
 
 import {
@@ -113,7 +113,7 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
           const genAI = new GoogleGenerativeAI(apiKey);
           const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
-            systemInstruction: "너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야. 너의 컨셉은 아기 판다야. 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼.",
+            systemInstruction: "너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야. 너의 컨셉은 아기 판다야. 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘.존댓말로해주고,가능한 가시적으로 잘보이게 출력해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼. 그리고 고객이 찜한 목록을 달라하면 *찜* 이렇게만 나한테 보내줘. 내가 그럼 찜한목록을 너한테보내줄게.",
           });
 
           const generationConfig = {
@@ -139,8 +139,18 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
           const result = await chatSession.sendMessage(fullMessage);
           const response = await result.response.text();
 
-          const botMessage = { content: `오이바오: ${response}`, chatUser: '0' };
-          setChatMessages((prevMessages) => [...prevMessages, botMessage]);
+          if (response.includes('*찜*')) {
+            // 제미나이 응답에 *찜*이 포함된 경우 찜 목록을 가져와 다시 보냄
+            const likedItems = await fetchLikedItems();
+            const likedItemsMessage = likedItems.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.itemTitle}</a>`).join('<br/>');
+            const fullResponseMessage = `${response.replace('*찜*', '')}\n\n찜한 목록:\n${likedItemsMessage}`;
+
+            const botMessage = { content: `오이바오: ${fullResponseMessage}`, chatUser: '0' };
+            setChatMessages((prevMessages) => [...prevMessages, botMessage]);
+          } else {
+            const botMessage = { content: `오이바오: ${response}`, chatUser: '0' };
+            setChatMessages((prevMessages) => [...prevMessages, botMessage]);
+          }
         } catch (error) {
           console.error('Error sending message to Gemini:', error);
         }
