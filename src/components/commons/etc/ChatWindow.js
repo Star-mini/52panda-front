@@ -3,7 +3,7 @@ import { Client } from '@stomp/stompjs';
 import styles from '../../../static/styles/css/ChatWindow.module.css';
 import backImg from '../../../static/styles/images/chatback.png';
 import { client } from '../../util/client';
-import { fetchItems, fetchLikedItems } from './Api'; // fetchLikedItems 함수 import
+import { fetchItems, fetchLikedItems, fetchBidItems } from './Api'; // fetchBidItems 함수 import
 import sanitizeHtml from 'sanitize-html'; // sanitize-html 라이브러리를 import
 
 import {
@@ -106,16 +106,16 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
       if (roomId === 'chatbot') {
         const userMessage = { content: messageInput, chatUser: userId };
         setChatMessages((prevMessages) => [...prevMessages, userMessage]);
-
+  
         try {
           // Google Generative AI 사용 설정
           const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
           const genAI = new GoogleGenerativeAI(apiKey);
           const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
-            systemInstruction: "너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야. 너의 컨셉은 아기 판다야. 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘.존댓말로해주고,가능한 가시적으로 잘보이게 출력해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼. 그리고 고객이 찜한 목록을 달라하면 *찜* 이렇게만 나한테 보내줘. 내가 그럼 찜한목록을 너한테보내줄게.",
+            systemInstruction: "너는 이커머스 사이트에서 귀여운 챗봇 역할을 할거야. 너의 컨셉은 아기 판다야. 150자 이내로 최대한 간단하게 대답해줘. 귀엽고 친절하게 대응해줘.존댓말로해주고,가능한 가시적으로 잘보이게 출력해줘. 그리고 우리 사이트에 있는 현재 물품의 내용은 다음과 같아. 고객이 원하는 내용을 상담해주면 돼. 그리고 고객이 찜한 목록을 달라하면 *찜* 이렇게만 나한테 보내줘. 내가 그럼 찜한목록을 너한테보내줄게. 만약 입찰 목록을 원한다면 *입찰* 이렇게 보내줘.",
           });
-
+  
           const generationConfig = {
             temperature: 1,
             topP: 0.95,
@@ -123,28 +123,34 @@ function ChatWindow({ roomId, roomTitle, onBackButtonClick }) {
             maxOutputTokens: 1000000,
             responseMimeType: "text/plain",
           };
-
+  
           const itemMessages = items.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.title}</a>`).join('<br/>');          
           const fullMessage = `아이템 목록:\n${itemMessages}\n\n고객 메시지: ${messageInput}\n\n링크는 하이퍼링크로 전달해줘.`;
           
           const chatHistory = [
             { role: "user", parts: [{ text: fullMessage }]}
           ];
-
+  
           const chatSession = model.startChat({
             generationConfig,
             history: chatHistory,
           });
-
+  
           const result = await chatSession.sendMessage(fullMessage);
           const response = await result.response.text();
-
+  
           if (response.includes('*찜*')) {
-            // 제미나이 응답에 *찜*이 포함된 경우 찜 목록을 가져와 다시 보냄
             const likedItems = await fetchLikedItems();
             const likedItemsMessage = likedItems.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.itemTitle}</a>`).join('<br/>');
             const fullResponseMessage = `${response.replace('*찜*', '')}\n\n찜한 목록:\n${likedItemsMessage}`;
-
+  
+            const botMessage = { content: `오이바오: ${fullResponseMessage}`, chatUser: '0' };
+            setChatMessages((prevMessages) => [...prevMessages, botMessage]);
+          } else if (response.includes('*입찰*')) {
+            const bidItems = await fetchBidItems();
+            const bidItemsMessage = bidItems.map(item => `<a href="https://web.52pandas.com/detail?itemId=${item.itemId}">${item.itemTitle}</a>`).join('<br/>');
+            const fullResponseMessage = `${response.replace('*입찰*', '')}\n\n입찰한 목록:\n${bidItemsMessage}`;
+  
             const botMessage = { content: `오이바오: ${fullResponseMessage}`, chatUser: '0' };
             setChatMessages((prevMessages) => [...prevMessages, botMessage]);
           } else {

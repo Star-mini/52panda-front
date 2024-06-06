@@ -32,3 +32,9 @@ export const fetchLikedItems = async () => {
   const response = await client.get(`${process.env.REACT_APP_API_URL}/v1/auth/mypage/like`);
   return response.data;
 };
+
+// 입찰 목록을 가져오는 함수
+export const fetchBidItems = async () => {
+  const response = await client.get(`${process.env.REACT_APP_API_URL}/v1/auth/mypage/bid`);
+  return response.data;
+};
