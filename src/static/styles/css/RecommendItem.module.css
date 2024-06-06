@@ -4,6 +4,7 @@
     border-radius: 10px;
     overflow: hidden;
     margin-right: 1rem;
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
   }
   
   .recommendItem__image {
