@@ -7,7 +7,7 @@ import '../../static/styles/css/auction.css'
 import WriteImage from '../../static/styles/images/write.png'
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { client } from '../util/client';
+import EmptyImage from '../../static/styles/images/is_empty.png';
 
 function Auction() {
   const [items, setItems] = useState([]);
@@ -148,7 +148,8 @@ function Auction() {
           style={{ overflowX: 'hidden' }}
         >
           <div className="row" >
-            {items.map((item, index) => (
+          {loading || items.length > 0  ? (
+            items.map((item, index) => (
               <div key={index} className="col-md-6 item-card">
                 <ItemListInfoCard
                   image={item.thumbnail}
@@ -162,8 +163,13 @@ function Auction() {
                   buyNowPrice={item.buyNowPrice}
                 />
               </div>
-            ))}
-          </div>
+            ))
+          ) : (
+            <div className="col-12 text-center">
+              <img src={EmptyImage} className='empty-img'/>
+            </div>
+          )}
+        </div>
         </InfiniteScroll>
       </div>
     </div>
