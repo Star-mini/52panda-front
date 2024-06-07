@@ -57,11 +57,13 @@
   border-radius: 20px; /* 이미지 모서리를 둥글게 */
   object-fit: cover; /* 이미지 비율을 유지하면서 잘리게 설정 */
 }
+
 .categoryHeartContainer {
   display: flex;
   align-items: center;
   position: relative;
 }
+
 .category {
   color: #4a5568; /* text-gray-700 */
   margin-right: 10rem; /* 하트와의 간격을 설정 */
@@ -224,6 +226,9 @@
 }
 
 @media (max-width: 1025px) {
+  .container {
+    margin: auto; /* 중앙 정렬을 위해 추가 */
+  }
   #productImage {
     position: relative;
     top: 0px;
@@ -253,7 +258,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
   .timeRemaining {
     font-size: 1.2rem;
   }

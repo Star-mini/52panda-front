@@ -15,7 +15,8 @@ function AmountSelection({ onBid, togglePopup, productData }) {
 
   const handleAddAmount = (multiplier) => {
     setBidValue((prevBidValue) => {
-      const newBidValue = parseInt(prevBidValue || "0", 10) + (increment * multiplier);
+      const baseValue = parseInt(prevBidValue || currentBidPrice || startPrice, 10); // 기본값 설정
+      const newBidValue = baseValue + (increment * multiplier);
       if (newBidValue > MAX_INT_VALUE) {
         alert(`입찰 금액은 ${MAX_INT_VALUE.toLocaleString()}원을 넘을 수 없습니다.😊`);
         return prevBidValue;
