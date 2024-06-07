@@ -22,28 +22,27 @@ const ImgInputForm = ({ controlId, onImageChange }) => {
   const getPaddedImage = (img) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-
+  
     const size = Math.max(img.width, img.height);
-
+  
     canvas.width = size;
     canvas.height = size;
-
+  
     // 흰색 배경으로 초기화
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, size, size);
-
+  
     const x = (size - img.width) / 2;
     const y = (size - img.height) / 2;
-
+  
     ctx.drawImage(img, x, y, img.width, img.height);
-
+  
     return new Promise((resolve) => {
       canvas.toBlob((blob) => {
-        // 파일명에 고유 ID를 추가하여 중복을 방지합니다.
-        const uniqueId = new Date().getTime(); // 현재 시간을 이용하여 고유 ID를 생성
-        const originalFileName = img.src.split('/').pop();
-        const newFileName = `${uniqueId}-${originalFileName}`;
-
+        // 고유 ID만을 사용하여 간단한 파일 이름을 생성
+        const uniqueId = new Date().getTime();
+        const newFileName = `image_${uniqueId}.jpg`;
+  
         const paddedImg = new File([blob], newFileName, {
           type: 'image/jpeg',
           lastModified: Date.now(),
