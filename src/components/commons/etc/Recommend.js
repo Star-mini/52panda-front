@@ -46,12 +46,8 @@ const Recommend = ({ itemId }) => {
     }
   }, [itemId]);
 
-  if (error) {
-    return null;
-  }
-
-  if (!items.length) {
-    return <div>Loading recommendations...</div>;
+  if (error || !items.length) {
+    return null; // Error 발생 시나 items가 없을 때 아무것도 렌더링하지 않음
   }
 
   const slidesToShow = Math.min(items.length, 4);
