@@ -1,5 +1,5 @@
 # 1. Node.js 기반 이미지 사용
-FROM node:16 AS builder
+FROM node:18 AS builder
 
 # 2. 작업 디렉토리 설정
 WORKDIR /app
