@@ -11,6 +11,12 @@ import NotificationToggle from "../toggle/NotificationToggle";
 function Navbar() {
   const navigate = useNavigate(); // useNavigate 훅 사용
   const [showNotifications, setShowNotifications] = useState(false);
+  const [keyword, setKeyword] = useState('');
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/auction?keyword=${encodeURIComponent(keyword)}`);
+  };
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
@@ -65,12 +71,14 @@ function Navbar() {
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <form className="input-group">
+              <form className="input-group" onSubmit={handleSearchSubmit}>
                 <input
                   className={`${styles.input} form-control`}
-                  placeholder=""
+                  placeholder="원하는 물품을 검색해보세요"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
                 />
-                <button className={styles.button}>
+                <button className={styles.button} type="submit">
                   <img className={styles.dbg} src={dbg}></img>
                 </button>
               </form>

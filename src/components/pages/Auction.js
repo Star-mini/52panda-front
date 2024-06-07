@@ -15,6 +15,7 @@ function Auction() {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [keyword,setKeyword] = useState(null);
   const [filters, setFilters] = useState({
     region: "지역",
     tradingMethod: "거래 방법"
@@ -28,10 +29,16 @@ function Auction() {
 
   useEffect(() => {
     const categoryParam = params.get('category');
+    const keywordParam = params.get('keyword');
 
     if (categoryParam) {
       setSelectedCategory(categoryParam);
     }
+
+    if (keyword) {
+      setKeyword(keywordParam);
+    }
+
     setItems([]);
     fetchData();
   }, [filters, location.search]);
@@ -82,6 +89,10 @@ function Auction() {
 
       if (params.get('category') !== null) {
         requestParams.category = params.get('category')
+      }
+
+      if(params.get('keyword') !== null){
+        requestParams.keyword = params.get('keyword');
       }
 
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/v1/no-auth/auction`, {
