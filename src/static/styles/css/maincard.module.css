@@ -92,3 +92,10 @@
     padding: 0%;
 
 }
+
+@media screen and (max-width: 400px)
+ {
+    .fontSize{
+        font-size:9px!important;
+    }
+}
