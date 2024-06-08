@@ -189,6 +189,32 @@
     .padding{
         padding-left:15%;
     }
+    .dbg{
+        width: 15px;
+        height: 15px;
+    }
+}
+@media screen and (max-width: 400px) {
+    .padding{
+        padding-right: 5%;
+        padding-left:10%;
+    }
+    .logoImg{
+        max-width:30px;
+        height:auto;
+    }
+    .img{
+        max-width:20px!important;
+        height: auto;
+    }
+    .button{
+        padding-right: 0px;
+        padding-left:0px;
+    }
+    .dbg{
+        width: 10px;
+        height: 10px;
+    }
     
 }
 
