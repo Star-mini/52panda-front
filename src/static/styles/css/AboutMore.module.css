@@ -89,7 +89,7 @@
   margin: 3rem;
   border-radius: 20px;
 }
-.registrationDate{
+.registrationDate {
   font-size: 0.8rem;
 }
 @media (max-width: 640px) {
@@ -105,11 +105,17 @@
   .contentBox {
     padding: 0.5rem 1rem;
   }
-  
-.title {
+
+  .title {
     margin-top: 0.3rem;
   }
   .imageMargin {
     height: 10rem;
+  }
+  .username {
+    font-size: 1.2rem;
+  }
+  .imageDescription {
+    font-size: 1.2rem;
   }
 }

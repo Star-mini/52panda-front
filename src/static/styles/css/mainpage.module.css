@@ -33,3 +33,10 @@
 .fadeIn {
   animation: fade 0.5s ease;
 }
+
+@media screen and (max-width: 600px) {
+  .headPicture {
+    margin-bottom: 0rem; /* 아래쪽에 1rem 간격 추가 */
+    width: 100%;
+  }
+}

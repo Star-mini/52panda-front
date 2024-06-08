@@ -51,8 +51,7 @@ function MainPageItemCard(props) {
 
   return (
     <div
-      className={`${styles.mycard} card ms-2 me-2`}
-      style={{ borderRadius: "20px" }}
+      className={`${styles.mycard} card ms-2 me-2 ${styles.cardMarginTop}`}
       onMouseLeave={() => togglePriceVisibility(false)}
       onMouseOver={() => togglePriceVisibility(true)} // 이벤트를 div 전체에 적용하여 자연스러운 동작을 보장
     >
@@ -85,10 +84,7 @@ function MainPageItemCard(props) {
       </a>
 
       <div className="card-body">
-        <h5
-          className={`card-title ${styles.fontSize}`}
-          style={{ marginTop: "0.7rem" }} // margin-top 1rem 추가
-        >
+        <h5 className={`card-title ${styles.fontSize}`}>
           {props.category}
         </h5>
         <p className={`card-text ${styles.fontSize}`}>{props.name}</p>

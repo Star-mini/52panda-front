@@ -1,94 +1,107 @@
-.img{
+/* maincard.module.css */
+
+.img {
     width: 100%;
-}
-
-
-.my_border{
-    border:none;
-    display:inline-block;
-    margin:1%;
-}
-
-
-.priceCSS1{
-    position:absolute;
-    left:15%;
-    top:1vw;
+  }
+  
+  .my_border {
+    border: none;
+    display: inline-block;
+    margin: 1%;
+  }
+  
+  .priceCSS1 {
+    position: absolute;
+    left: 15%;
+    top: 1vw;
     font-size: 2vw;
-    color:white;
-   
-}
-.priceCSS2{
+    color: white;
+  }
+  
+  .priceCSS2 {
     position: absolute;
     left: 15%;
     top: 8vw;
-    font-size:2vw;
-    color:white;
-}
-@media screen and (max-width:780px){
-    .fontSize{
-        font-size:12px!important;
-    }
-    .mycard{
-        max-width: 300px;
-        flex:0 0 40%;
-     }
-}
-.blackimg{
-    width: 100%;
-}
-
-@media screen and (max-width: 580px)
- {
-    .mycard{
-        flex:1 1 40%!important;
-        flex-wrap: wrap;
-    }
-    .priceCSS1{
-        top:1vw;
-        font-size: 4vw!important;
-       
-    }
-    .priceCSS2{
-        top: 15vw;
-        font-size:4vw!important;
-    }
+    font-size: 2vw;
+    color: white;
+  }
   
-}
-@media screen and (max-width: 450px)
- {
-    .mycard{
-       max-width: 300px;
-       flex:0 0 40%;
+  @media screen and (max-width: 780px) {
+    .fontSize {
+      font-size: 12px !important;
     }
-    .priceCSS1{
-        top:10vw;
-        font-size: 10vw!important;
-       
+    .mycard {
+      max-width: 300px;
+      flex: 0 0 40%;
     }
-    .priceCSS2{
-        top: 20vw;
-        font-size:10vw!important;
+  }
+  
+  .blackimg {
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 580px) {
+    .mycard {
+      flex: 1 1 40% !important;
+      flex-wrap: wrap;
     }
-}
-
-.cards{
-    display:flex;
+    .priceCSS1 {
+      top: 1vw;
+      font-size: 4vw !important;
+    }
+    .priceCSS2 {
+      top: 15vw;
+      font-size: 4vw !important;
+    }
+  }
+  
+  @media screen and (max-width: 450px) {
+    .mycard {
+      max-width: 300px;
+      flex: 0 0 40%;
+    }
+    .priceCSS1 {
+      top: 10vw;
+      font-size: 10vw !important;
+    }
+    .priceCSS2 {
+      top: 20vw;
+      font-size: 10vw !important;
+    }
+  }
+  
+  .cards {
+    display: flex;
     align-items: center;
     margin-top: 0%;
-    justify-content:space-between;
-
+    justify-content: space-between;
     /* text-align: center; */
-
-}
-
-.decokill{
+  }
+  
+  .decokill {
     text-decoration: none;
     color: black;
-}
-
-.menu{
+  }
+  
+  .menu {
     border: none;
     padding: 0%;
-
-}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .fontSize {
+      font-size: 9px !important;
+    }
+  }
+  
+  /* 추가된 CSS */
+  .cardMarginTop {
+    margin-top: 0.7rem;
+  }
+  
+  @media screen and (max-width: 400px) {
+    .cardMarginTop {
+      margin-top: 0 !important;
+    }
+  }
+  

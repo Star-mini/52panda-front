@@ -209,6 +209,31 @@
   }
 }
 
+@media (max-width: 1025px) {
+  .container {
+    margin: auto; /* 중앙 정렬을 위해 추가 */
+  }
+  #productImage {
+    position: relative;
+    top: 0px;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .container {
+    margin-bottom: 60%;
+  }
+  .carousel {
+    width: 100%;
+    margin: 0 auto;
+  }
+  .productDetails {
+    margin: 0 auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
+    display: block; /* display를 block으로 설정하여 내용물의 레이아웃 유지 */
+    text-align: center; /* 텍스트를 중앙 정렬 */
+  }
+}
+
 @media (max-width: 830px) {
   .popup {
     padding: 20px;
@@ -218,33 +243,16 @@
   }
 }
 
+@media (max-width: 815px) {
+  .productTitle {
+    font-size: 1.5rem; /* text-3xl */
+  }
+}
+
 @media (max-width: 630px) {
   .popup {
     width: 100%;
     overflow: auto;
-  }
-}
-
-@media (max-width: 1025px) {
-  .container {
-    margin: auto; /* 중앙 정렬을 위해 추가 */
-  }
-  #productImage {
-    position: relative;
-    top: 0px;
-  }
-  .container {
-    margin-bottom: 60%;
-  }
-}
-
-@media (max-width: 815px) {
-  .carousel {
-    width: 100%;
-    margin: 0 auto;
-  }
-  .productTitle {
-    font-size: 1.5rem; /* text-3xl */
   }
 }
 
@@ -280,4 +288,35 @@
   .bidButton {
     margin-top: 0rem;
   }
+}
+@media screen and (max-width: 400px) {
+  .productImg {
+    width: 18rem;
+    height: auto;
+  }
+  .productTitle {
+    font-size: 1rem; /* text-3xl */
+  }
+  .timeRemaining {
+    font-size: 1rem;
+  }
+  .startPrice {
+    font-size: 0.8rem;
+  }
+  .currentPrice {
+    font-size: 1.2rem;
+  }
+  .instantPrice {
+    font-size: 1rem;
+  }
+  .productDetails {
+    margin-left: 0rem;
+  }
+  .heart {
+    left: 95%;
+  }
+  .bidButton {
+    margin-top: 1rem;
+  }
+  
 }

@@ -41,21 +41,24 @@ function CategoryToggle() {
       const windowWidth = window.innerWidth;
       let newCategoriesPerRow;
     
-      if (windowWidth > 2000) {
+      if (windowWidth > 2280) {
         // 2000픽셀 초과인 경우
         newCategoriesPerRow = 17;
-      } else if (windowWidth > 1600) {
-        // 1500픽셀 초과 2000픽셀 이하인 경우
+      } else if (windowWidth > 1630) {
+        // 1600픽셀 초과 2000픽셀 이하인 경우
         newCategoriesPerRow = 12; // 예시로 변경, 적절한 값 설정 필요
       } else if (windowWidth > 1300) {
-        // 1100픽셀 초과 1500픽셀 이하인 경우
+        // 1300픽셀 초과 1600픽셀 이하인 경우
         newCategoriesPerRow = 9;
       } else if (windowWidth > 1000) {
-        // 1000픽셀 초과 1100픽셀 이하인 경우
+        // 1000픽셀 초과 1300픽셀 이하인 경우
         newCategoriesPerRow = 6;
-      } else {
-        // 1000픽셀 이하인 경우
+      } else if (windowWidth > 700) {
+        // 800픽셀 초과 1000픽셀 이하인 경우
         newCategoriesPerRow = 4;
+      } else {
+        // 800픽셀 이하인 경우
+        newCategoriesPerRow = 3;
       }
     
       setCategoriesPerRow(newCategoriesPerRow);
