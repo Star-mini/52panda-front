@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Navbar from "../commons/navbar/Navbar";
-import head from "../../static/styles/images/head.png";
+import head from "../../static/styles/images/head5.png";
 import MainPageCard from "../commons/card/MainPageCard";
-import head2 from "../../static/styles/images/head2.png";
 import styles from "../../static/styles/css/mainpage.module.css";
 import MainPageItem from "../commons/etc/MainPageItem";
 import CategoryToggle from "../commons/toggle/CategoryMainToggle";
