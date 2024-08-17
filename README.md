@@ -11,7 +11,8 @@
 <br/>
       
 ## :family_man_man_boy_boy: 팀원 소개
-![image](https://github.com/user-attachments/assets/9a3e8ea3-434c-47cb-9011-3017979930e4)
+![image](https://github.com/user-attachments/assets/dad883e7-5cf9-436e-a93e-df0fd7a7c8c1)
+
 
 
 
